@@ -1,0 +1,144 @@
+<!DOCTYPE>
+<html>
+<head>
+	<link href='http://fonts.googleapis.com/css?family=Cantata+One&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	
+
+	<title></title>
+	
+	
+	<link type="text/css" media="screen" href="style.css" rel="stylesheet">
+    	<link type="text/css" media="screen and (min-device-width: 1024px)" href="fancy.css" rel="stylesheet"/>
+	<link type="text/css" media="screen" href="code.css" rel="stylesheet"/>
+	
+
+	
+
+<link rel="Alternate" media="Print" href="2011-02-08-git-mirror-workflow.print.html" />
+<script src="jquery-1.9.1.js">
+</script>
+
+
+</head>
+<body>
+
+	
+	<div id="title_box">
+	<h1 class="page_title">cat /dev/<span class="red">raf</span>/web&gt;</h1>
+	</div>
+
+	
+	
+	
+
+
+
+<div id="content">
+<h1>Git Workflow: obsessing over data</h1><p class=" article_preamble">Don't panic, this is not yet another Internet post on how should you use git, well
+it actually is, but only slightly. So on Monday I was stressing with some co-workers
+that they should commit often, in small incremental changes (etc, etc, common sense and
+puppies). But at the same time I was also annoying someone to commit and push a 
+considerable changeset, for fear of disk corruption, which happened before.</p>
+<p>At this point, everyone was scratching their heads and asking: should I push often
+for fear of data loss, even if I piss everyone off? Or should I keep my local branches
+to myself and wait until a proper rebase of history. Fortunately for us these are not
+mutually exclusive, disk is cheap, and there should be no problem for you to keep backups of
+your local branches.</p>
+<p>Which leads me to the purpose of this post, that is, to show off my git push workflow!</p>
+<h2>Local, Origin and Backup</h2>
+<p>Typically my repositories live in three locations:</p>
+<ol>
+<li>My local machine where I work, i.e. my laptop where I build and run code</li>
+<li>The remote central server (origin) where the code is hosted for the world to see (gitorious, github, etc)</li>
+<li>My remote backup server at home, that exists to ensure that even if my laptop is hit by lightning
+   all my brilliant code is safe.</li>
+</ol>
+<p>Typically we don't like the world the see our incomplete code, we want people to see it when its
+brilliant or at least when it builds and runs. The workflow is simple, I keep incomplete code in both my laptop and
+backup server, and complete features in all three machines.</p>
+<h2>The Workflow</h2>
+<p>A few words of warning, I'll often talk about rebase here, this is mostly because I use branches, a lot. For every little feature/fix I
+do, I create a topic branch. If you don't branch a lot, then you should probably replace rebase with merge bellow.</p>
+<h3>Setting up my backup server</h3>
+<p>First let me create a remote for the backup server:</p>
+<div class="codehilite"><pre>$ ssh raf@backup.home.pt git init --bare /home/raf/git-repos/website.git
+$ git remote add --mirror backup-home ssh://raf@backup.home.pt/home/raf/git-repos/website.git
+</pre></div>
+
+
+<p>The <em>--mirror</em> is the key here. It means when we push to the server, we send in all references.</p>
+<h3>Before leaving work...</h3>
+<p>... commit one last time, and push to your backup server.</p>
+<div class="codehilite"><pre>$ git push backup-home
+Counting objects: 49, done.
+Delta compression using up to 2 threads.
+Compressing objects: 100% (44/44), done.
+Writing objects: 100% (49/49), 10.00 KiB, done.
+Total 49 (delta 12), reused 26 (delta 2)
+To ssh://raf@backup.home.pt/home/raf/git-repos/website.git
+ * [new branch]      master -&gt; master
+ * [new branch]      origin/HEAD -&gt; origin/HEAD
+ * [new branch]      origin/master -&gt; origin/master
+</pre></div>
+
+
+<p>There you go, all your source code is now safely tucked away for the night.
+If you check the message, you'll see it copied all references, even the origin server,
+it is basically a backup of our repository.</p>
+<h3>When your changes are ready</h3>
+<p>You may want to rebase, to rewrite history, if you want to squash a commit that does not build, or simply to
+have one commit per feature. Now you can push to the production AND the backup servers.</p>
+<h3>Making it all automatic</h3>
+<p>If you lack the discipline to run <em>git push backup-home</em> every day you can also automate this process. The following
+script triggers a backup whenever you commit a change.</p>
+<div class="codehilite"><pre>cd /path/to/repo
+echo &#39;git push&#39; &gt; .git/hooks/post-commit
+chmod 755 .git/hooks/post-commit
+</pre></div>
+
+
+<div id="social">
+	<h2>Liked this? Share it.</h2>
+	<div class="links">
+	<a class="delicious" title="Share on tumblr" href="http://del.icio.us/post?url=">Delicious</a>
+	<a class="stumbleupon" href="http://www.stumbleupon.com/submit?u=">StumbleUpon</a>
+	<a class="twitter" href="http://twitter.com/home/?status=">Twitter</a>
+	<a class="reddit" href="http://www.reddit.com/submit?url=">Reddit</a>
+	<a class="tumblr" href="http://www.tumblr.com/share">Tumblr</a>
+	</div>
+</div>
+<script>
+var url = window.location.href;
+
+var anchor;
+anchor = $('#social a.delicious');
+anchor.attr('href', anchor.attr('href') + url);
+anchor = $('#social a.stumbleupon');
+anchor.attr('href', anchor.attr('href') + url);
+anchor = $('#social a.twitter');
+anchor.attr('href', anchor.attr('href') + url);
+anchor = $('#social a.reddit');
+anchor.attr('href', anchor.attr('href') + url);
+// No need for tumblr
+
+$('#social').show();
+</script>
+
+<h2>Download this</h2>
+<p>To save this as a clean single HTML file you can save, press <a href="2011-02-08-git-mirror-workflow.print.html">here</a>
+This is ideal for long term storage or reading on your ebook reader.</p>
+
+
+</div>
+
+
+<div class="disclaimer">
+Copyright @ Rui Abreu Ferreira 2014, the opinions expressed here are those of the authors and
+do not reflect the position of anyone else ... really ...
+</div>
+
+</body>
+</html>
+
+

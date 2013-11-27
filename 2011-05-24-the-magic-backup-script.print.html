@@ -1,0 +1,427 @@
+<!DOCTYPE>
+<html>
+<head>
+	<link href='http://fonts.googleapis.com/css?family=Cantata+One&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	
+
+	<title></title>
+	
+	
+        <style type="text/css" media="screen">
+        
+body {
+	font-family: Helvetica, DejaVu Sans, sans-serif; 
+	font-size: 10pt; 
+	color: #000;
+	margin:	auto;
+	margin-top:		0;
+	line-height		: 1.25em;
+}
+
+#content img {
+	max-width: 100%;
+	clear: both;
+}
+
+h1, h2, h3 {
+	font-family: serif; 
+	font-weight: normal;
+	color: #333;
+	margin-bottom: 0.2em;
+}
+
+h1 {
+	font-size: 2.0em;
+	margin-bottom: 0.5em;
+	margin-top: 0.5em;
+	line-height: 1em;
+	line-height: 1.2em;
+}
+
+h2 {
+	font-size: 1.5em;
+	color:		#999;
+	font-weight:	bold;
+	text-transform: uppercase;
+	clear:	both;
+}
+
+h2.article_title a {
+	color: black;
+}
+
+h1.page_title {
+	margin-top: 0;
+	margin-bottom: 0;
+	font-family: 'Consolas', 'Menlo', 'Deja Vu Sans Mono','Bitstream Vera Sans Mono', monospace!important;
+	font-size: 2em;
+	
+}
+
+h3 {
+	font-weight: bold;
+	margin-bottom: 0.1em;
+}
+
+p {
+	margin: 10px 0 10px 0;
+}
+
+p, ul, ol {
+	line-height		: 1.5em;
+	font-size:		1.5em;
+}
+
+ul, ol {
+	padding-left:		2ex;
+	margin-top:		0;
+}
+
+pre {
+	font-family: 'Consolas', 'Menlo', 'Deja Vu Sans Mono','Bitstream Vera Sans Mono', monospace!important;
+}
+
+a {
+	text-decoration		: none;
+	text-transform		: uppercase;
+	color			: #226CFF;
+}
+
+#menu {
+	margin-top: 1ex;
+	clear:		both;
+	display:	block;
+}
+
+#menu a.sel {
+	text-decoration: underline;
+}
+
+#menu:after {
+	content:	'.';
+	visibility:	hidden;
+	clear:		both;
+	display:	block;
+}
+
+.internal {
+	display:	inline;
+	padding:	3px;
+	
+}
+
+.external {
+	vertical-align: top;
+	text-align:	left;
+	padding:	3px 3px 3px 0;
+}
+
+.red {
+	color: #EA4B2A;
+}
+
+.blue {
+	color			: #226CFF;
+}
+
+#menu .external a {
+	color:		#333;
+	text-transform:	none;
+	border-bottom: 2px solid #226CFF;
+}
+
+#social  {
+	padding:	3px;
+	display: none;
+}
+
+#social .links {
+	column-count: 2;
+	-moz-column-count: 2;
+	margin-left:	10px;
+}
+
+#social .title {
+	color:	#666;
+}
+
+#social a {
+	padding-right:	1ex;
+}
+
+
+#social a {
+	display: block;
+	font-size: 1.5em;
+	padding: 5px;
+	color:	#666;
+}
+
+#social a:hover {
+	color:	black;
+}
+
+#social h2 {
+	margin : 10px 0;
+}
+
+
+.disclaimer {
+	margin: 2ex 3px 3px 0;
+	color:	#ccc;
+}
+
+.codehilite > pre {
+	border-left: 4px solid #666;
+	padding: 2px 2px 2px 5px;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+}
+
+#social a.twitter:hover {
+	color: #00bef6;
+}
+#social a.reddit:hover {
+	color: #D41D00;
+}
+#social a.tumblr:hover {
+	color: #2D4861;
+}
+#social a.stumbleupon:hover {
+	color: #EA4B2A;
+}
+#social a.delicious:hover {
+	color: #3274d1;
+}
+
+        </style>
+
+        <style type="text/css" media="screen">
+        .hll { background-color: #ffffcc }
+.c { color: #228B22 } /* Comment */
+.err { color: #a61717; background-color: #e3d2d2 } /* Error */
+.k { color: #8B008B; font-weight: bold } /* Keyword */
+.cm { color: #228B22 } /* Comment.Multiline */
+.cp { color: #1e889b } /* Comment.Preproc */
+.c1 { color: #228B22 } /* Comment.Single */
+.cs { color: #8B008B; font-weight: bold } /* Comment.Special */
+.gd { color: #aa0000 } /* Generic.Deleted */
+.ge { font-style: italic } /* Generic.Emph */
+.gr { color: #aa0000 } /* Generic.Error */
+.gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.gi { color: #00aa00 } /* Generic.Inserted */
+.go { color: #888888 } /* Generic.Output */
+.gp { color: #555555 } /* Generic.Prompt */
+.gs { font-weight: bold } /* Generic.Strong */
+.gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.gt { color: #aa0000 } /* Generic.Traceback */
+.kc { color: #8B008B; font-weight: bold } /* Keyword.Constant */
+.kd { color: #8B008B; font-weight: bold } /* Keyword.Declaration */
+.kn { color: #8B008B; font-weight: bold } /* Keyword.Namespace */
+.kp { color: #8B008B; font-weight: bold } /* Keyword.Pseudo */
+.kr { color: #8B008B; font-weight: bold } /* Keyword.Reserved */
+.kt { color: #a7a7a7; font-weight: bold } /* Keyword.Type */
+.m { color: #B452CD } /* Literal.Number */
+.s { color: #CD5555 } /* Literal.String */
+.na { color: #658b00 } /* Name.Attribute */
+.nb { color: #658b00 } /* Name.Builtin */
+.nc { color: #008b45; font-weight: bold } /* Name.Class */
+.no { color: #00688B } /* Name.Constant */
+.nd { color: #707a7c } /* Name.Decorator */
+.ne { color: #008b45; font-weight: bold } /* Name.Exception */
+.nf { color: #008b45 } /* Name.Function */
+.nn { color: #008b45; text-decoration: underline } /* Name.Namespace */
+.nt { color: #8B008B; font-weight: bold } /* Name.Tag */
+.nv { color: #00688B } /* Name.Variable */
+.ow { color: #8B008B } /* Operator.Word */
+.w { color: #bbbbbb } /* Text.Whitespace */
+.mf { color: #B452CD } /* Literal.Number.Float */
+.mh { color: #B452CD } /* Literal.Number.Hex */
+.mi { color: #B452CD } /* Literal.Number.Integer */
+.mo { color: #B452CD } /* Literal.Number.Oct */
+.sb { color: #CD5555 } /* Literal.String.Backtick */
+.sc { color: #CD5555 } /* Literal.String.Char */
+.sd { color: #CD5555 } /* Literal.String.Doc */
+.s2 { color: #CD5555 } /* Literal.String.Double */
+.se { color: #CD5555 } /* Literal.String.Escape */
+.sh { color: #1c7e71; font-style: italic } /* Literal.String.Heredoc */
+.si { color: #CD5555 } /* Literal.String.Interpol */
+.sx { color: #cb6c20 } /* Literal.String.Other */
+.sr { color: #1c7e71 } /* Literal.String.Regex */
+.s1 { color: #CD5555 } /* Literal.String.Single */
+.ss { color: #CD5555 } /* Literal.String.Symbol */
+.bp { color: #658b00 } /* Name.Builtin.Pseudo */
+.vc { color: #00688B } /* Name.Variable.Class */
+.vg { color: #00688B } /* Name.Variable.Global */
+.vi { color: #00688B } /* Name.Variable.Instance */
+.il { color: #B452CD } /* Literal.Number.Integer.Long */
+
+        </style>
+	
+
+	
+
+
+</head>
+<body>
+
+	
+
+
+
+<div id="content">
+<h1>The Magic backup script</h1><p class=" article_preamble">After looking high and low for a decent backup application I ended up 
+giving up, and making my own bash script using rsync. I'm highly dependant
+on client initiated remote backups, and it seems there are not many solutions
+like that out there.</p>
+<p>Eventually I got tired of looking around and decided to cook a bash script,
+based on some similar discussions I saw online. It seems a lot of people have
+reached the same conclusion and created some various kinds of scripts.</p>
+<p>But first, let me document what I would like a backup solution to provide.</p>
+<h2>Requirements</h2>
+<p>So here are my picky requirements for a half decent backup solution for my Linux laptop:</p>
+<ol>
+<li>Doesn't take absurd amount of space. If my home folder is 1GB and I make 3 backups, the total ammount of changes shouldn't total 1*3=3GB unless I've completely replaced all the files.</li>
+<li>No special restore tools are required. Restoring a given backup should be a trivial task, such as accessing a folder and copying everything back.</li>
+<li>Fast. Both doing backups as well as restoring them.</li>
+<li>Support for client initiated backups. My laptop roams around a lot, so the backups must be initiated by the client.</li>
+<li>Remote storage. I do a LOT of remote backups, duplicates, triplicates, whenever I get the chance.</li>
+</ol>
+<h2>What are the alternatives</h2>
+<p>Here are the alternatives I checked before taking the lone-wolf path. The numbers in parenthesis are the requirements they did not fulfill:</p>
+<ul>
+<li>TimeVault(5) - In terms of design and features this is actually one of the front runners, but it only supports backup to disks, no remote shares.</li>
+<li>BackupPC(4) - Great professional level backup solution, but the backups must be started by a central server that pulls from all machines.</li>
+<li>Amanda(4) - Same as BackupPC. Also its a little to complex to configure.</li>
+<li>Bacula(4) - Same as the BackupPC</li>
+<li>Duplicity(3,2) - Most likely one of the most space-efficient solutions with support for lots of remote protocols, not to mention encrypted backups. But it stores the snapshots as a differential tar.gz. </li>
+<li>FlyBack(2) - Uses Git for storage.</li>
+<li>Keep - Interesting, but apparently it is no longer maintained.</li>
+</ul>
+<p>From all of the above, TimeVault was the closest to being what I wanted, but got left behind because I really need remote backups. Duplicity also looks like great but it does not fit my purposes.</p>
+<h2>Enter the magic script</h2>
+<p>So basically I wanted a backup utility to backup some of my folders into remote servers (mostly ssh).
+Rsync seemed like the ideal tool for the job, it can use ssh as transport and it can setup hardlinks
+to save space between backups.</p>
+<p>Backups are stored, one per folder called backup-DATE. There is also a symbolic link folder called <em>current</em> that points to the last backup.</p>
+<div class="codehilite"><pre><span class="err">$</span> <span class="n">ls</span> <span class="n">backups</span><span class="o">/</span>
+<span class="n">backup</span><span class="o">-</span><span class="mi">2011</span><span class="o">-</span><span class="mo">05</span><span class="o">-</span><span class="mi">16</span><span class="n">T10</span><span class="o">:</span><span class="mi">25</span><span class="o">:</span><span class="mi">40</span>  <span class="n">backup</span><span class="o">-</span><span class="mi">2011</span><span class="o">-</span><span class="mo">05</span><span class="o">-</span><span class="mi">16</span><span class="n">T10</span><span class="o">:</span><span class="mi">44</span><span class="o">:</span><span class="mi">57</span>  <span class="n">backup</span><span class="o">-</span><span class="mi">2011</span><span class="o">-</span><span class="mo">05</span><span class="o">-</span><span class="mi">24</span><span class="n">T16</span><span class="o">:</span><span class="mi">10</span><span class="o">:</span><span class="mo">02</span>
+<span class="n">backup</span><span class="o">-</span><span class="mi">2011</span><span class="o">-</span><span class="mo">05</span><span class="o">-</span><span class="mi">16</span><span class="n">T10</span><span class="o">:</span><span class="mi">34</span><span class="o">:</span><span class="mi">09</span>  <span class="n">backup</span><span class="o">-</span><span class="mi">2011</span><span class="o">-</span><span class="mo">05</span><span class="o">-</span><span class="mi">17</span><span class="n">T09</span><span class="o">:</span><span class="mo">02</span><span class="o">:</span><span class="mi">43</span>  <span class="n">current</span>
+</pre></div>
+
+
+<p>Rsync saves space by hard-linking files between these folders, if there were no changes between them.
+Restoring a particular backup is as simple as copying one of these directories. If you are interested
+in knowing more about the rsync details check the <em>Rsync time machine</em> link I left in the references.</p>
+<p>The solution is split in two scripts: one that handles backups the other stores configuration 
+settings (check bellow). You can create as many settings scripts as you want, as long as you keep
+them on the same folder as backup.sh.</p>
+<h2>backup-to-home.sh</h2>
+<p>Here is an example script to backup my home folder to homeserver.com:backups</p>
+<div class="codehilite"><pre><span class="c">#!/bin/bash</span>
+<span class="nv">SOURCE</span><span class="o">=</span><span class="nv">$HOME</span>
+<span class="nv">SSH_HOST</span><span class="o">=</span><span class="s2">&quot;raf@homeserver.com&quot;</span>
+<span class="nv">SSH_PATH</span><span class="o">=</span><span class="s2">&quot;backups/&quot;</span>
+. backup.sh
+</pre></div>
+
+
+<h2>backup.sh</h2>
+<p>I keep a copy of this in a gitorious project, check the link at the end for the latest version.</p>
+<div class="codehilite"><pre><span class="c"># An rsync/ssh backup script</span>
+<span class="c"># based on http://blog.interlinked.org/tutorials/rsync_time_machine.html </span>
+<span class="c">#</span>
+<span class="c"># Some important variables that MUST be defined:</span>
+<span class="c"># - SOURCE  The folder to be backed up</span>
+<span class="c"># - SSH_HOST    The ssh host (i.e. user@host)</span>
+<span class="c"># - SSH_PATH    The backups root path at the server</span>
+<span class="c">#</span>
+<span class="c"># The following are not mandatory</span>
+<span class="c"># - EXCLUDEFILE A file with a list of ignore patterns($HOME/.rsync/exclude)</span>
+
+<span class="k">if</span> <span class="o">[</span> -z <span class="s2">&quot;$SOURCE&quot;</span> <span class="o">]</span>; <span class="k">then</span>
+<span class="k">    </span><span class="nb">echo</span> <span class="s2">&quot;SOURCE is not defined&quot;</span>
+    <span class="nb">exit</span>
+<span class="k">fi</span>
+
+<span class="k">if</span> <span class="o">[</span> -z <span class="s2">&quot;$SSH_HOST&quot;</span> <span class="o">]</span>; <span class="k">then</span>
+<span class="k">    </span><span class="nb">echo</span> <span class="s2">&quot;SSH_HOST is not defined&quot;</span>
+    <span class="nb">exit</span>
+<span class="k">fi</span>
+
+<span class="k">if</span> <span class="o">[</span> -z <span class="s2">&quot;$SSH_PATH&quot;</span> <span class="o">]</span>; <span class="k">then</span>
+<span class="k">    </span><span class="nb">echo</span> <span class="s2">&quot;SSH_PATH is not defined&quot;</span>
+    <span class="nb">exit</span>
+<span class="k">fi</span>
+
+<span class="nv">DATE</span><span class="o">=</span><span class="sb">`</span>date <span class="s2">&quot;+%Y-%m-%dT%H:%M:%S&quot;</span><span class="sb">`</span>
+<span class="nv">TARGET</span><span class="o">=</span><span class="s2">&quot;$SSH_HOST:$SSH_PATH/incomplete-$DATE&quot;</span>
+
+<span class="nv">EXCLUDEFILE</span><span class="o">=</span><span class="s2">&quot;$HOME/.rsync/exclude&quot;</span>
+
+<span class="nv">RSYNC</span><span class="o">=</span>/usr/bin/rsync
+<span class="nv">RSYNC_ARGS</span><span class="o">=</span><span class="s2">&quot;-azP \</span>
+<span class="s2">    --delete \</span>
+<span class="s2">    --delete-excluded \</span>
+<span class="s2">    --exclude-from=$EXCLUDEFILE \</span>
+<span class="s2">    --link-dest=../current \</span>
+<span class="s2">    $SOURCE $TARGET&quot;</span>
+
+<span class="c"># Check rsync</span>
+<span class="k">if</span> <span class="o">[</span> ! -x <span class="nv">$RSYNC</span> <span class="o">]</span>; <span class="k">then</span>
+<span class="k">    </span><span class="nb">echo</span> <span class="s2">&quot;Cannot find rsync: $RSYNC&quot;</span>
+    <span class="nb">exit</span>
+<span class="k">fi</span>
+
+<span class="c"># Check source dir</span>
+<span class="k">if</span> <span class="o">[</span> ! -d <span class="nv">$SOURCE</span> <span class="o">]</span>; <span class="k">then</span>
+<span class="k">    </span><span class="nb">echo</span> <span class="s2">&quot;Source must be a directory&quot;</span>
+    <span class="nb">exit</span>
+<span class="k">fi</span>
+
+<span class="c"># Check exclude file</span>
+<span class="k">if</span> <span class="o">[</span> ! -f <span class="nv">$EXCLUDEFILE</span> <span class="o">]</span>; <span class="k">then</span>
+<span class="k">    </span><span class="nb">echo</span> <span class="s2">&quot;Exclude file not found: $EXCLUDEFILE&quot;</span>
+    <span class="nb">exit</span>
+<span class="k">fi</span>
+
+<span class="nv">CMD</span><span class="o">=</span><span class="s2">&quot;$RSYNC $RSYNC_ARGS&quot;</span>
+
+<span class="c"># Wait for keypress</span>
+<span class="nb">echo</span> <span class="s2">&quot;Preparing to snapshot&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;    Command: $CMD&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;&lt;Press any key to continue&gt;&quot;</span>
+<span class="nb">read</span>
+
+<span class="nv">$CMD</span> <span class="se">\</span>
+<span class="o">&amp;&amp;</span> ssh <span class="nv">$SSH_HOST</span> <span class="se">\</span>
+<span class="s2">&quot;mv $SSH_PATH/incomplete-$DATE $SSH_PATH/backup-$DATE \</span>
+<span class="s2">&amp;&amp; rm -f $SSH_PATH/current \</span>
+<span class="s2">&amp;&amp; ln -s backup-$DATE $SSH_PATH/current&quot;</span>
+</pre></div>
+
+
+<h2>References</h2>
+<ul>
+<li><a href="https://wiki.ubuntu.com/TimeVault">TimeVault</a></li>
+<li><a href="http://www.amanda.org/">Amanda</a></li>
+<li><a href="http://blog.interlinked.org/tutorials/rsync_time_machine.html">Rsync time machine</a></li>
+<li><a href="http://duplicity.nongnu.org/">Duplicity</a></li>
+<li><a href="https://gitorious.org/magick-backup-script/magick-backup-script">Gitorious project</a></li>
+</ul>
+
+
+
+</div>
+
+
+<div class="disclaimer">
+Copyright @ Rui Abreu Ferreira 2014, the opinions expressed here are those of the authors and
+do not reflect the position of anyone else ... really ...
+</div>
+
+</body>
+</html>
+
+

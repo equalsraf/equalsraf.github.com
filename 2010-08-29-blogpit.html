@@ -1,0 +1,190 @@
+<!DOCTYPE>
+<html>
+<head>
+	<link href='http://fonts.googleapis.com/css?family=Cantata+One&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	
+
+	<title></title>
+	
+	
+	<link type="text/css" media="screen" href="style.css" rel="stylesheet">
+    	<link type="text/css" media="screen and (min-device-width: 1024px)" href="fancy.css" rel="stylesheet"/>
+	<link type="text/css" media="screen" href="code.css" rel="stylesheet"/>
+	
+
+	
+
+<link rel="Alternate" media="Print" href="2010-08-29-blogpit.print.html" />
+<script src="jquery-1.9.1.js">
+</script>
+
+
+</head>
+<body>
+
+	
+	<div id="title_box">
+	<h1 class="page_title">cat /dev/<span class="red">raf</span>/web&gt;</h1>
+	</div>
+
+	
+	
+	
+
+
+
+<div id="content">
+<h1>blogpit - the git powered non deterministic blog</h1><p class=" article_preamble">It seems all Django developers feel the urge to code their own blog
+system based on Django. Being no exception I too decided to travel
+the all too travelled road: making a blog engine using Django. My 
+requirements for this awesome blog engine are the following:</p>
+<ul>
+<li>No databases, no Mysql or Postgres, just a folder with my files and
+  a bunch of text in them.</li>
+<li>No admin interface, or specialised forms for that matter. I hate publishing on web forms, 
+  I prefer gvim over a regular text file.</li>
+<li>Fast and simple deployment(TM). In case of failure just easy_install
+  components and give it a folder.</li>
+<li>There are no administrative tasks on the web side, I only work on the git
+  repository nothing else.</li>
+</ul>
+<p>This basically discards a lot of the good (but complex) parts of Django such as models and 
+admin interface. It also simplifies things because I get to deploy it in 30 
+seconds if my server dies as long as I keep the git repo.</p>
+<p>There are number of solutions out there that already do this, most notably
+those based on git (Toto for example).</p>
+<h2>Why Git</h2>
+<p>Git is a version control system...and I already use it for most of my 
+versioned storage needs (code, papers, etc), so it makes sensee to use it here too.
+Other version control solutions would be just as good (see mercurial), but this is the tool
+I already use and I see no reason to change.</p>
+<h2>Why not use toto...?</h2>
+<p>...or any other git powered blog engine.</p>
+<ol>
+<li>It MUST be python, because python is awesome</li>
+<li>Since its python it might as well be Django</li>
+<li>It MUST handle comment storage</li>
+</ol>
+<p>The last point seems to be the scarcest among existing solutions.</p>
+<h2>Why non deterministic?</h2>
+<p>Posts are files on disk, and there is no 100% reliable way to order
+these files, by date for example. We could attempt to rely on the date
+on the filesystem, but this would most likely fail miserably if we move
+the files across machines/filesystems.</p>
+<p>So I rely on file name ordering for this, for example, in this case
+2010-08-29-blogpit.  Its not exactly foolproof, and sometimes it produces
+different/unexpected results, but I'll haply ignore it and call it a feature.</p>
+<h2>How slow is it?</h2>
+<p>Its hardly brilliant! Being that gitshelve is pure python (calling git commands over a pipe), 
+it can't be lightning fast. Just to be on the safe side I do run a memcached instance to catch 
+most of the heat, and cache the git objects to avoid hitting Git unless the repository HEAD 
+changes.</p>
+<p>Hopefully when I have some free time I'll take a look at libgit2 and implement a C
+based version of gitshelve.</p>
+<h2>How does it work?</h2>
+<p>Two simple rules
+1. Folders on the git repository are sections
+1. Files are either articles formatted as markdown text, or raw content(jpeg, binary)</p>
+<p>Right now only a two level hierarchy is supported ( section/article ). All files and folders
+live within a neat bare git repository. Access to the repository is done using gitshelve, </p>
+<p>I choose markdown for the formatting because I like the overall format, and I can conceal
+metadata within the markdown file. I use the metadata to specify additional behaviour:</p>
+<div class="codehilite"><pre>title: A blog article
+author: Rui Abreu Ferreira
+icon: http://flickr.com/funny_icon.jpg
+nocomments:
+
+This is an article with a title, icon and disabled comments
+</pre></div>
+
+
+<h2>What about comments?</h2>
+<p>Comments are the equivalent of prepending a bunch of text into the article file,
+and making a commit, that is:</p>
+<div class="codehilite"><pre><span class="n">echo</span> <span class="s">&quot;this is a comment!&quot;</span> <span class="o">&gt;&gt;</span> <span class="n">news</span><span class="o">/</span><span class="mi">2010</span><span class="o">-</span><span class="mi">08</span><span class="o">-</span><span class="mi">29</span><span class="o">-</span><span class="n">blogpit</span>
+<span class="n">git</span> <span class="n">commit</span> <span class="o">-</span><span class="n">a</span> <span class="o">-</span><span class="n">m</span> <span class="s">&quot;A comment&quot;</span>
+</pre></div>
+
+
+<p>So there is no management of comments, by user or date, if I want to remove a comment
+I just cherry-pick out its commit ( 1 comment == 1 commit ).</p>
+<h2>30 second install guide</h2>
+<div class="codehilite"><pre><span class="err">$</span> <span class="n">git</span> <span class="n">clone</span> <span class="o">--</span><span class="n">bare</span> <span class="n">ssh</span><span class="o">:</span><span class="c1">//my-git-host.com/mynotes.git mynotes.git</span>
+<span class="err">$</span> <span class="n">easy_install</span> <span class="n">pip</span>
+<span class="err">$</span> <span class="n">pip</span> <span class="n">install</span> <span class="n">git</span><span class="o">+</span><span class="n">http</span><span class="o">:</span><span class="c1">//git.gitorious.org/django-blogpit/django-blogpit.git</span>
+<span class="err">$</span> <span class="n">django</span><span class="o">-</span><span class="n">startproject</span> <span class="n">myblog</span>
+</pre></div>
+
+
+<p>Set django_blogpit in INSTALLED_APPS and point BLOGPIT_REPO to your git repository, 
+in settings.py:</p>
+<div class="codehilite"><pre><span class="n">INSTALLED_APPS</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="err">&#39;</span><span class="n">django</span><span class="p">.</span><span class="n">contrib</span><span class="p">.</span><span class="n">markup</span><span class="err">&#39;</span><span class="p">,</span>
+        <span class="err">&#39;</span><span class="n">django_blogpit</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">BLOGPIT_REPO</span><span class="o">=</span><span class="err">&#39;</span><span class="o">/</span><span class="n">srv</span><span class="o">/</span><span class="n">git</span><span class="o">/</span><span class="n">mynotes</span><span class="p">.</span><span class="n">git</span><span class="err">&#39;</span>
+</pre></div>
+
+
+<p>In urls.py:</p>
+<div class="codehilite"><pre><span class="p">(</span><span class="n">r</span><span class="err">&#39;&#39;</span><span class="p">,</span> <span class="n">include</span><span class="p">(</span><span class="err">&#39;</span><span class="n">django_blogpit</span><span class="p">.</span><span class="n">urls</span><span class="err">&#39;</span><span class="p">)),</span>
+</pre></div>
+
+
+<h2>References</h2>
+<ul>
+<li><a href="http://gitorious.org/django-blogpit">django-blogpit on Gitorious</a></li>
+<li><a href="http://github.com/cloudhead/toto">Toto</a></li>
+<li><a href="http://www.newartisans.com/2008/05/using-git-as-a-versioned-data-store-in-python.html">Gitshelve</a></li>
+<li><a href="http://github.com/tanoku/libgit2-gsoc2010">libgit2</a></li>
+<li><a href="https://git.wiki.kernel.org/index.php/InterfacesFrontendsAndTools#Wikis.2C_blogs.2C_etc">Other Git based web pages</a></li>
+<li><a href="http://daringfireball.net/projects/markdown/syntax">Markdown Reference</a></li>
+</ul>
+
+
+<div id="social">
+	<h2>Liked this? Share it.</h2>
+	<div class="links">
+	<a class="delicious" title="Share on tumblr" href="http://del.icio.us/post?url=">Delicious</a>
+	<a class="stumbleupon" href="http://www.stumbleupon.com/submit?u=">StumbleUpon</a>
+	<a class="twitter" href="http://twitter.com/home/?status=">Twitter</a>
+	<a class="reddit" href="http://www.reddit.com/submit?url=">Reddit</a>
+	<a class="tumblr" href="http://www.tumblr.com/share">Tumblr</a>
+	</div>
+</div>
+<script>
+var url = window.location.href;
+
+var anchor;
+anchor = $('#social a.delicious');
+anchor.attr('href', anchor.attr('href') + url);
+anchor = $('#social a.stumbleupon');
+anchor.attr('href', anchor.attr('href') + url);
+anchor = $('#social a.twitter');
+anchor.attr('href', anchor.attr('href') + url);
+anchor = $('#social a.reddit');
+anchor.attr('href', anchor.attr('href') + url);
+// No need for tumblr
+
+$('#social').show();
+</script>
+
+<h2>Download this</h2>
+<p>To save this as a clean single HTML file you can save, press <a href="2010-08-29-blogpit.print.html">here</a>
+This is ideal for long term storage or reading on your ebook reader.</p>
+
+
+</div>
+
+
+<div class="disclaimer">
+Copyright @ Rui Abreu Ferreira 2014, the opinions expressed here are those of the authors and
+do not reflect the position of anyone else ... really ...
+</div>
+
+</body>
+</html>
+
+

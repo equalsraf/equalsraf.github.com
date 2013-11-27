@@ -1,0 +1,222 @@
+<!DOCTYPE>
+<html>
+<head>
+	<link href='http://fonts.googleapis.com/css?family=Cantata+One&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	
+
+	<title></title>
+	
+	
+	<link type="text/css" media="screen" href="style.css" rel="stylesheet">
+    	<link type="text/css" media="screen and (min-device-width: 1024px)" href="fancy.css" rel="stylesheet"/>
+	<link type="text/css" media="screen" href="code.css" rel="stylesheet"/>
+	
+
+	
+
+<link rel="Alternate" media="Print" href="2011-05-24-the-magic-backup-script.print.html" />
+<script src="jquery-1.9.1.js">
+</script>
+
+
+</head>
+<body>
+
+	
+	<div id="title_box">
+	<h1 class="page_title">cat /dev/<span class="red">raf</span>/web&gt;</h1>
+	</div>
+
+	
+	
+	
+
+
+
+<div id="content">
+<h1>The Magic backup script</h1><p class=" article_preamble">After looking high and low for a decent backup application I ended up 
+giving up, and making my own bash script using rsync. I'm highly dependant
+on client initiated remote backups, and it seems there are not many solutions
+like that out there.</p>
+<p>Eventually I got tired of looking around and decided to cook a bash script,
+based on some similar discussions I saw online. It seems a lot of people have
+reached the same conclusion and created some various kinds of scripts.</p>
+<p>But first, let me document what I would like a backup solution to provide.</p>
+<h2>Requirements</h2>
+<p>So here are my picky requirements for a half decent backup solution for my Linux laptop:</p>
+<ol>
+<li>Doesn't take absurd amount of space. If my home folder is 1GB and I make 3 backups, the total ammount of changes shouldn't total 1*3=3GB unless I've completely replaced all the files.</li>
+<li>No special restore tools are required. Restoring a given backup should be a trivial task, such as accessing a folder and copying everything back.</li>
+<li>Fast. Both doing backups as well as restoring them.</li>
+<li>Support for client initiated backups. My laptop roams around a lot, so the backups must be initiated by the client.</li>
+<li>Remote storage. I do a LOT of remote backups, duplicates, triplicates, whenever I get the chance.</li>
+</ol>
+<h2>What are the alternatives</h2>
+<p>Here are the alternatives I checked before taking the lone-wolf path. The numbers in parenthesis are the requirements they did not fulfill:</p>
+<ul>
+<li>TimeVault(5) - In terms of design and features this is actually one of the front runners, but it only supports backup to disks, no remote shares.</li>
+<li>BackupPC(4) - Great professional level backup solution, but the backups must be started by a central server that pulls from all machines.</li>
+<li>Amanda(4) - Same as BackupPC. Also its a little to complex to configure.</li>
+<li>Bacula(4) - Same as the BackupPC</li>
+<li>Duplicity(3,2) - Most likely one of the most space-efficient solutions with support for lots of remote protocols, not to mention encrypted backups. But it stores the snapshots as a differential tar.gz. </li>
+<li>FlyBack(2) - Uses Git for storage.</li>
+<li>Keep - Interesting, but apparently it is no longer maintained.</li>
+</ul>
+<p>From all of the above, TimeVault was the closest to being what I wanted, but got left behind because I really need remote backups. Duplicity also looks like great but it does not fit my purposes.</p>
+<h2>Enter the magic script</h2>
+<p>So basically I wanted a backup utility to backup some of my folders into remote servers (mostly ssh).
+Rsync seemed like the ideal tool for the job, it can use ssh as transport and it can setup hardlinks
+to save space between backups.</p>
+<p>Backups are stored, one per folder called backup-DATE. There is also a symbolic link folder called <em>current</em> that points to the last backup.</p>
+<div class="codehilite"><pre><span class="err">$</span> <span class="n">ls</span> <span class="n">backups</span><span class="o">/</span>
+<span class="n">backup</span><span class="o">-</span><span class="mi">2011</span><span class="o">-</span><span class="mo">05</span><span class="o">-</span><span class="mi">16</span><span class="n">T10</span><span class="o">:</span><span class="mi">25</span><span class="o">:</span><span class="mi">40</span>  <span class="n">backup</span><span class="o">-</span><span class="mi">2011</span><span class="o">-</span><span class="mo">05</span><span class="o">-</span><span class="mi">16</span><span class="n">T10</span><span class="o">:</span><span class="mi">44</span><span class="o">:</span><span class="mi">57</span>  <span class="n">backup</span><span class="o">-</span><span class="mi">2011</span><span class="o">-</span><span class="mo">05</span><span class="o">-</span><span class="mi">24</span><span class="n">T16</span><span class="o">:</span><span class="mi">10</span><span class="o">:</span><span class="mo">02</span>
+<span class="n">backup</span><span class="o">-</span><span class="mi">2011</span><span class="o">-</span><span class="mo">05</span><span class="o">-</span><span class="mi">16</span><span class="n">T10</span><span class="o">:</span><span class="mi">34</span><span class="o">:</span><span class="mi">09</span>  <span class="n">backup</span><span class="o">-</span><span class="mi">2011</span><span class="o">-</span><span class="mo">05</span><span class="o">-</span><span class="mi">17</span><span class="n">T09</span><span class="o">:</span><span class="mo">02</span><span class="o">:</span><span class="mi">43</span>  <span class="n">current</span>
+</pre></div>
+
+
+<p>Rsync saves space by hard-linking files between these folders, if there were no changes between them.
+Restoring a particular backup is as simple as copying one of these directories. If you are interested
+in knowing more about the rsync details check the <em>Rsync time machine</em> link I left in the references.</p>
+<p>The solution is split in two scripts: one that handles backups the other stores configuration 
+settings (check bellow). You can create as many settings scripts as you want, as long as you keep
+them on the same folder as backup.sh.</p>
+<h2>backup-to-home.sh</h2>
+<p>Here is an example script to backup my home folder to homeserver.com:backups</p>
+<div class="codehilite"><pre><span class="c">#!/bin/bash</span>
+<span class="nv">SOURCE</span><span class="o">=</span><span class="nv">$HOME</span>
+<span class="nv">SSH_HOST</span><span class="o">=</span><span class="s2">&quot;raf@homeserver.com&quot;</span>
+<span class="nv">SSH_PATH</span><span class="o">=</span><span class="s2">&quot;backups/&quot;</span>
+. backup.sh
+</pre></div>
+
+
+<h2>backup.sh</h2>
+<p>I keep a copy of this in a gitorious project, check the link at the end for the latest version.</p>
+<div class="codehilite"><pre><span class="c"># An rsync/ssh backup script</span>
+<span class="c"># based on http://blog.interlinked.org/tutorials/rsync_time_machine.html </span>
+<span class="c">#</span>
+<span class="c"># Some important variables that MUST be defined:</span>
+<span class="c"># - SOURCE  The folder to be backed up</span>
+<span class="c"># - SSH_HOST    The ssh host (i.e. user@host)</span>
+<span class="c"># - SSH_PATH    The backups root path at the server</span>
+<span class="c">#</span>
+<span class="c"># The following are not mandatory</span>
+<span class="c"># - EXCLUDEFILE A file with a list of ignore patterns($HOME/.rsync/exclude)</span>
+
+<span class="k">if</span> <span class="o">[</span> -z <span class="s2">&quot;$SOURCE&quot;</span> <span class="o">]</span>; <span class="k">then</span>
+<span class="k">    </span><span class="nb">echo</span> <span class="s2">&quot;SOURCE is not defined&quot;</span>
+    <span class="nb">exit</span>
+<span class="k">fi</span>
+
+<span class="k">if</span> <span class="o">[</span> -z <span class="s2">&quot;$SSH_HOST&quot;</span> <span class="o">]</span>; <span class="k">then</span>
+<span class="k">    </span><span class="nb">echo</span> <span class="s2">&quot;SSH_HOST is not defined&quot;</span>
+    <span class="nb">exit</span>
+<span class="k">fi</span>
+
+<span class="k">if</span> <span class="o">[</span> -z <span class="s2">&quot;$SSH_PATH&quot;</span> <span class="o">]</span>; <span class="k">then</span>
+<span class="k">    </span><span class="nb">echo</span> <span class="s2">&quot;SSH_PATH is not defined&quot;</span>
+    <span class="nb">exit</span>
+<span class="k">fi</span>
+
+<span class="nv">DATE</span><span class="o">=</span><span class="sb">`</span>date <span class="s2">&quot;+%Y-%m-%dT%H:%M:%S&quot;</span><span class="sb">`</span>
+<span class="nv">TARGET</span><span class="o">=</span><span class="s2">&quot;$SSH_HOST:$SSH_PATH/incomplete-$DATE&quot;</span>
+
+<span class="nv">EXCLUDEFILE</span><span class="o">=</span><span class="s2">&quot;$HOME/.rsync/exclude&quot;</span>
+
+<span class="nv">RSYNC</span><span class="o">=</span>/usr/bin/rsync
+<span class="nv">RSYNC_ARGS</span><span class="o">=</span><span class="s2">&quot;-azP \</span>
+<span class="s2">    --delete \</span>
+<span class="s2">    --delete-excluded \</span>
+<span class="s2">    --exclude-from=$EXCLUDEFILE \</span>
+<span class="s2">    --link-dest=../current \</span>
+<span class="s2">    $SOURCE $TARGET&quot;</span>
+
+<span class="c"># Check rsync</span>
+<span class="k">if</span> <span class="o">[</span> ! -x <span class="nv">$RSYNC</span> <span class="o">]</span>; <span class="k">then</span>
+<span class="k">    </span><span class="nb">echo</span> <span class="s2">&quot;Cannot find rsync: $RSYNC&quot;</span>
+    <span class="nb">exit</span>
+<span class="k">fi</span>
+
+<span class="c"># Check source dir</span>
+<span class="k">if</span> <span class="o">[</span> ! -d <span class="nv">$SOURCE</span> <span class="o">]</span>; <span class="k">then</span>
+<span class="k">    </span><span class="nb">echo</span> <span class="s2">&quot;Source must be a directory&quot;</span>
+    <span class="nb">exit</span>
+<span class="k">fi</span>
+
+<span class="c"># Check exclude file</span>
+<span class="k">if</span> <span class="o">[</span> ! -f <span class="nv">$EXCLUDEFILE</span> <span class="o">]</span>; <span class="k">then</span>
+<span class="k">    </span><span class="nb">echo</span> <span class="s2">&quot;Exclude file not found: $EXCLUDEFILE&quot;</span>
+    <span class="nb">exit</span>
+<span class="k">fi</span>
+
+<span class="nv">CMD</span><span class="o">=</span><span class="s2">&quot;$RSYNC $RSYNC_ARGS&quot;</span>
+
+<span class="c"># Wait for keypress</span>
+<span class="nb">echo</span> <span class="s2">&quot;Preparing to snapshot&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;    Command: $CMD&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;&lt;Press any key to continue&gt;&quot;</span>
+<span class="nb">read</span>
+
+<span class="nv">$CMD</span> <span class="se">\</span>
+<span class="o">&amp;&amp;</span> ssh <span class="nv">$SSH_HOST</span> <span class="se">\</span>
+<span class="s2">&quot;mv $SSH_PATH/incomplete-$DATE $SSH_PATH/backup-$DATE \</span>
+<span class="s2">&amp;&amp; rm -f $SSH_PATH/current \</span>
+<span class="s2">&amp;&amp; ln -s backup-$DATE $SSH_PATH/current&quot;</span>
+</pre></div>
+
+
+<h2>References</h2>
+<ul>
+<li><a href="https://wiki.ubuntu.com/TimeVault">TimeVault</a></li>
+<li><a href="http://www.amanda.org/">Amanda</a></li>
+<li><a href="http://blog.interlinked.org/tutorials/rsync_time_machine.html">Rsync time machine</a></li>
+<li><a href="http://duplicity.nongnu.org/">Duplicity</a></li>
+<li><a href="https://gitorious.org/magick-backup-script/magick-backup-script">Gitorious project</a></li>
+</ul>
+
+
+<div id="social">
+	<h2>Liked this? Share it.</h2>
+	<div class="links">
+	<a class="delicious" title="Share on tumblr" href="http://del.icio.us/post?url=">Delicious</a>
+	<a class="stumbleupon" href="http://www.stumbleupon.com/submit?u=">StumbleUpon</a>
+	<a class="twitter" href="http://twitter.com/home/?status=">Twitter</a>
+	<a class="reddit" href="http://www.reddit.com/submit?url=">Reddit</a>
+	<a class="tumblr" href="http://www.tumblr.com/share">Tumblr</a>
+	</div>
+</div>
+<script>
+var url = window.location.href;
+
+var anchor;
+anchor = $('#social a.delicious');
+anchor.attr('href', anchor.attr('href') + url);
+anchor = $('#social a.stumbleupon');
+anchor.attr('href', anchor.attr('href') + url);
+anchor = $('#social a.twitter');
+anchor.attr('href', anchor.attr('href') + url);
+anchor = $('#social a.reddit');
+anchor.attr('href', anchor.attr('href') + url);
+// No need for tumblr
+
+$('#social').show();
+</script>
+
+<h2>Download this</h2>
+<p>To save this as a clean single HTML file you can save, press <a href="2011-05-24-the-magic-backup-script.print.html">here</a>
+This is ideal for long term storage or reading on your ebook reader.</p>
+
+
+</div>
+
+
+<div class="disclaimer">
+Copyright @ Rui Abreu Ferreira 2014, the opinions expressed here are those of the authors and
+do not reflect the position of anyone else ... really ...
+</div>
+
+</body>
+</html>
+
+

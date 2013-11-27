@@ -1,0 +1,196 @@
+<!DOCTYPE>
+<html>
+<head>
+	<link href='http://fonts.googleapis.com/css?family=Cantata+One&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	
+
+	<title></title>
+	
+	
+	<link type="text/css" media="screen" href="style.css" rel="stylesheet">
+    	<link type="text/css" media="screen and (min-device-width: 1024px)" href="fancy.css" rel="stylesheet"/>
+	<link type="text/css" media="screen" href="code.css" rel="stylesheet"/>
+	
+
+	
+
+<link rel="Alternate" media="Print" href="2013-06-02-booting-raspberry-pi-in-readonly.print.html" />
+<script src="jquery-1.9.1.js">
+</script>
+
+
+</head>
+<body>
+
+	
+	<div id="title_box">
+	<h1 class="page_title">cat /dev/<span class="red">raf</span>/web&gt;</h1>
+	</div>
+
+	
+	
+	
+
+
+
+<div id="content">
+<h1>Booting Raspberry Pi Root in read-only</h1><p class=" article_preamble">So last week a lot of people around here were looking into how to boot a raspberry pi with
+the SD card partition in read only mode - this came after a couple of annoying
+data losses.</p>
+<p>A lot of us are using the R-Pi as cheap automation system - 
+as terminal(tty) server, 3D print server, server monitoring, and more ideas are
+constantly on the way in.  Personally I use it as a media center attached to my
+TV.</p>
+<p>The main problem with this kind of use are that the devices are constantly on, and might have
+to suffer trough power failures - <em>For my part I'm ready to admit that I've
+pulled the plug a couple times</em>.</p>
+<p>So I wanted to have a way to keep the root partition as read only, thus avoiding corruption
+on the SD Card. I can always plug in some USB storage if I need it, and in some cases there
+really is no need for persistent storage of any kind.</p>
+<p>The following are a set of steps to accomplish this on Arch Linux (2013-05-14.img), if you use
+Raspbian instead check the references at the end for a working solution.</p>
+<h3>1. Mount the root partition as read-only (ro) on boot</h3>
+<p>In raspberry pi the root partition flags can be set as kernel parameters in
+/boot/cmdline.txt. You should add an <strong>ro</strong> flag right after the <strong>root=</strong> parameter.</p>
+<div class="codehilite"><pre><span class="n">selinux</span><span class="o">=</span><span class="mi">0</span> <span class="n">plymouth</span><span class="p">.</span><span class="n">enable</span><span class="o">=</span><span class="mi">0</span> <span class="n">smsc95xx</span><span class="p">.</span><span class="n">turbo_mode</span><span class="o">=</span><span class="n">N</span> <span class="n">dwc_otg</span><span class="p">.</span><span class="n">lpm_enable</span><span class="o">=</span><span class="mi">0</span> <span class="n">console</span><span class="o">=</span><span class="n">ttyAMA0</span><span class="p">,</span><span class="mi">115200</span> <span class="n">kgdboc</span><span class="o">=</span><span class="n">ttyAMA0</span><span class="p">,</span><span class="mi">115200</span> <span class="n">console</span><span class="o">=</span><span class="n">tty1</span> <span class="n">root</span><span class="o">=/</span><span class="n">dev</span><span class="o">/</span><span class="n">mmcblk0p2</span> <span class="n">ro</span> <span class="n">rootfstype</span><span class="o">=</span><span class="n">ext4</span> <span class="n">elevator</span><span class="o">=</span><span class="n">noop</span> <span class="n">rootwait</span>
+</pre></div>
+
+
+<h3>2. Find a new location for resolv.conf</h3>
+<p>The /etc/resolv.conf file stores the list of DNS nameservers your machine
+uses, if it is not writable it will be empty and applications won't be able
+to resolve names.</p>
+<p>I've moved mine into /tmp/ (which is a tmpfs partition by default):</p>
+<div class="codehilite"><pre><span class="c"># rm /etc/resolv.conf</span>
+<span class="c"># ln -s /tmp/resolv.conf /etc/resolv.conf</span>
+</pre></div>
+
+
+<h3>3. Mount /var/{tmp, log} as tmpfs</h3>
+<p>The /var/tmp directory is used to store temporary files, and the /var/log for system logfiles.</p>
+<p>You can mount these two as tmpfs by adding the following to /etc/fstab</p>
+<div class="codehilite"><pre><span class="n">tmpfs</span>   <span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">log</span>    <span class="n">tmpfs</span>   <span class="n">nodev</span><span class="p">,</span><span class="n">nosuid</span>    <span class="mi">0</span>   <span class="mi">0</span>
+<span class="n">tmpfs</span>   <span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">tmp</span>    <span class="n">tmpfs</span>   <span class="n">nodev</span><span class="p">,</span><span class="n">nosuid</span>    <span class="mi">0</span>   <span class="mi">0</span>
+</pre></div>
+
+
+<p>Notice that I did not make a symbolic link between /var/tmp and /tmp. This is
+intentional, doing so seems to trigger a bug with systemd - search for <em>step
+NAMESPACE</em> to find some references.</p>
+<h3>4. Disable some systemd services</h3>
+<p>Systemd has a couple of services that can be disabled:</p>
+<ul>
+<li>systemd-readahead does some optimisations based on disk access patterns</li>
+<li>systemd-random-seed stores entropy information between reboots</li>
+</ul>
+<p>These can be disabled via systemctl</p>
+<div class="codehilite"><pre><span class="c"># systemctl disable systemd-readahead-collect</span>
+<span class="c"># ...</span>
+<span class="c"># systemctl disable systemd-random-seed</span>
+</pre></div>
+
+
+<h3>5. Replace syslog-ng with rsyslog</h3>
+<p><em>syslog-ng</em> will not run if /var/lib is not writeable (it stores persistent data there), so I've
+removed it and started using rsyslog instead.</p>
+<h3>6. Disable ntpd and use a netctl hook instead</h3>
+<p>By default Arch will sync time on boot using ntpd (if an internet connection is available).
+This is a problem for the Raspberry Pi because it has no internal clock, and if
+a connection is not immediatly available, <em>ntpd</em> might take while to sync.</p>
+<p>Personally I've had better results in setting a hook to update the
+time whenever a new connection is available. The following works using dhcpcd
+in <em>/usr/lib/dhcpcd/dhcpcd-hooks/50-ntp</em></p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class="code"><div class="codehilite"><pre><span class="c">#!/bin/sh</span>
+<span class="k">case</span> <span class="s2">&quot;${reason}&quot;</span> in
+    BOUND|INFORM|REBIND|REBOOT|RENEW|TIMEOUT|STATIC<span class="o">)</span>
+        <span class="c"># &quot;-g&quot; allows for large time differences</span>
+        ntpd -qg
+        ;;
+<span class="k">esac</span>
+</pre></div>
+</td></tr></table>
+
+<p>Now you can disable the ntpd daemon</p>
+<div class="codehilite"><pre><span class="c"># systemctl disable ntpd</span>
+</pre></div>
+
+
+<h2>How to use</h2>
+<p>The system will start in read-only mode, whenever I need to write into the root
+I remount the root as read-write and then back:</p>
+<div class="codehilite"><pre><span class="c"># mount -o rw,remount /</span>
+<span class="c"># pacman &lt;...&gt;</span>
+<span class="c"># mount -o ro,remount</span>
+</pre></div>
+
+
+<p>Keep an eye out for the following:</p>
+<ul>
+<li>Some services really need to write to /var/lib, dhcpcd will complain about the leases
+  but otherwise it works, others might not work at all (syslog-ng)</li>
+<li>I've mounted /var/log as tmpfs, there is probably a better way to do this
+  such as using ramlog, or logging into a remote system</li>
+</ul>
+<p>Finally you don't have to do it exactly like this, you can:</p>
+<ul>
+<li>Create a separate writeable partition</li>
+<li>Write to USB flash drive</li>
+</ul>
+<p>It really depends on your setup.</p>
+<h2>References</h2>
+<ul>
+<li><a href="http://riscpi.co.uk/nutcom-services-ltd/">Raspberry Pi gets an Industrial Perennial Environment</a></li>
+</ul>
+
+
+<div id="social">
+	<h2>Liked this? Share it.</h2>
+	<div class="links">
+	<a class="delicious" title="Share on tumblr" href="http://del.icio.us/post?url=">Delicious</a>
+	<a class="stumbleupon" href="http://www.stumbleupon.com/submit?u=">StumbleUpon</a>
+	<a class="twitter" href="http://twitter.com/home/?status=">Twitter</a>
+	<a class="reddit" href="http://www.reddit.com/submit?url=">Reddit</a>
+	<a class="tumblr" href="http://www.tumblr.com/share">Tumblr</a>
+	</div>
+</div>
+<script>
+var url = window.location.href;
+
+var anchor;
+anchor = $('#social a.delicious');
+anchor.attr('href', anchor.attr('href') + url);
+anchor = $('#social a.stumbleupon');
+anchor.attr('href', anchor.attr('href') + url);
+anchor = $('#social a.twitter');
+anchor.attr('href', anchor.attr('href') + url);
+anchor = $('#social a.reddit');
+anchor.attr('href', anchor.attr('href') + url);
+// No need for tumblr
+
+$('#social').show();
+</script>
+
+<h2>Download this</h2>
+<p>To save this as a clean single HTML file you can save, press <a href="2013-06-02-booting-raspberry-pi-in-readonly.print.html">here</a>
+This is ideal for long term storage or reading on your ebook reader.</p>
+
+
+</div>
+
+
+<div class="disclaimer">
+Copyright @ Rui Abreu Ferreira 2014, the opinions expressed here are those of the authors and
+do not reflect the position of anyone else ... really ...
+</div>
+
+</body>
+</html>
+
+

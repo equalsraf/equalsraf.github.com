@@ -1,0 +1,202 @@
+<!DOCTYPE>
+<html>
+<head>
+	<link href='http://fonts.googleapis.com/css?family=Cantata+One&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	
+
+	<title></title>
+	
+	
+	<link type="text/css" media="screen" href="style.css" rel="stylesheet">
+    	<link type="text/css" media="screen and (min-device-width: 1024px)" href="fancy.css" rel="stylesheet"/>
+	<link type="text/css" media="screen" href="code.css" rel="stylesheet"/>
+	
+
+	
+
+<link rel="Alternate" media="Print" href="2013-05-30-c-preprocessor-tricks.print.html" />
+<script src="jquery-1.9.1.js">
+</script>
+
+
+</head>
+<body>
+
+	
+	<div id="title_box">
+	<h1 class="page_title">cat /dev/<span class="red">raf</span>/web&gt;</h1>
+	</div>
+
+	
+	
+	
+
+
+
+<div id="content">
+<h1>C(99) preprocessor tricks</h1><p class=" article_preamble">On account of a recent project i've been working on, I had the chance to
+program a bit of C, something I have not done in a while. 
+This is turn led me to think about macros, and how some of the features in C99
+came together to help me a bit.</p>
+<p>Part of the code involved a message generator that sequentially appended message
+data into a buffer.
+This started by being a wrapper around <em>(v)snprintf()</em> but I disliked it
+on account of the easy bugs I kept introducing, trough mismatches between the
+format string and the function arguments, or protocol specific errors because I
+messed up the message format:</p>
+<div class="codehilite"><pre><span class="n">snprintf</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="n">buflen</span><span class="p">,</span> <span class="s">&quot;411 :%s</span><span class="se">\r\n</span><span class="s">&quot;</span><span class="p">);</span> <span class="c1">// This invites crashing</span>
+</pre></div>
+
+
+<p>So I was looking for a better(safer) API for this, that:</p>
+<ul>
+<li>Did not lead to accidental SEGFAULT, because I forgot a parameter - those should be compile errors</li>
+<li>Added some correctness checks, e.g. Is the message valid</li>
+<li>A pleasant API would be nice too</li>
+</ul>
+<p>My first attempts looked mostly like an <em>strcat()</em></p>
+<div class="codehilite"><pre><span class="c1">// Ignore the &quot;to&quot; argument - its the msg destination/buffer</span>
+<span class="n">writebuf_append</span><span class="p">(</span><span class="n">to</span><span class="p">,</span> <span class="s">&quot;411: &quot;</span><span class="p">);</span>
+<span class="n">writebuf_append</span><span class="p">(</span><span class="n">to</span><span class="p">,</span> <span class="n">some_data</span><span class="p">);</span>
+<span class="n">writebuf_append</span><span class="p">(</span><span class="n">to</span><span class="p">,</span> <span class="n">frame_terminator</span><span class="p">);</span>
+</pre></div>
+
+
+<p>Yes it looks awful, and we have not gained much other than some safety.</p>
+<p>Later on I realised I preferred a function that could do all this in a single
+step, in order to be able to check the message for correctness, e.g.</p>
+<div class="codehilite"><pre><span class="n">writebuf_append</span><span class="p">(</span><span class="n">to</span><span class="p">,</span> <span class="s">&quot;411: &quot;</span><span class="p">,</span> <span class="n">some_data</span><span class="p">,</span> <span class="n">frame_terminator</span><span class="p">);</span>
+</pre></div>
+
+
+<p>And so I started looking at variadic functions (stdarg.h), but discarded them
+after realising that I would need to pass the number of arguments along, i.e.</p>
+<div class="codehilite"><pre><span class="n">writebuf_append</span><span class="p">(</span><span class="n">to</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="s">&quot;411: &quot;</span><span class="p">,</span> <span class="n">some_data</span><span class="p">,</span> <span class="n">frame_terminator</span><span class="p">);</span> <span class="c1">// 3 params</span>
+</pre></div>
+
+
+<p>Afterwards I started looking at encapsulating all the arguments in a list of struct, (with a final element guarding the end of the list)</p>
+<div class="codehilite"><pre><span class="k">struct</span> <span class="n">params</span> <span class="p">{</span>
+    <span class="kt">char</span> <span class="o">*</span><span class="n">val</span><span class="p">;</span>
+    <span class="kt">size_t</span> <span class="n">len</span><span class="p">;</span>
+<span class="p">};</span>
+<span class="kt">void</span> <span class="nf">writebuf_append</span><span class="p">(</span><span class="n">to</span><span class="p">,</span> <span class="k">struct</span> <span class="n">param</span> <span class="o">*</span><span class="n">params</span><span class="p">);</span>
+</pre></div>
+
+
+<p>C99 initialisers help a bit</p>
+<div class="codehilite"><pre><span class="k">struct</span> <span class="n">param</span> <span class="n">params</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="p">{</span><span class="s">&quot;411&quot;</span><span class="p">,</span> <span class="n">strlen</span><span class="p">(</span><span class="s">&quot;411&quot;</span><span class="p">)},</span>
+    <span class="p">{</span><span class="n">some_data</span><span class="p">,</span> <span class="n">some_data_len</span><span class="p">},</span>
+    <span class="p">{</span><span class="nb">NULL</span><span class="p">,</span> <span class="mi">0</span><span class="p">}</span>
+<span class="p">}</span>
+<span class="n">writebuf_append</span><span class="p">(</span><span class="n">to</span><span class="p">,</span> <span class="n">params</span><span class="p">);</span>
+</pre></div>
+
+
+<p>The advantage being that you do it in a single call, and the function can
+handle add the message terminator internally.</p>
+<p>By this point personal aesthetics start to get in the way, specially if you
+think about doing this with half a dozen arguments. You can try to do this
+inline, but you will need an additional cast:</p>
+<div class="codehilite"><pre><span class="n">writebuf_append</span><span class="p">(</span><span class="n">to</span><span class="p">,</span> <span class="p">(</span><span class="k">struct</span> <span class="n">param</span> <span class="p">[]){</span> <span class="p">{</span><span class="s">&quot;411&quot;</span><span class="p">,</span> <span class="n">strlen</span><span class="p">(</span><span class="s">&quot;411&quot;</span><span class="p">)},</span> <span class="p">{</span><span class="n">some_data</span><span class="p">,</span> <span class="n">some_data_len</span><span class="p">},</span> <span class="p">{</span><span class="nb">NULL</span><span class="p">,</span> <span class="mi">0</span><span class="p">}</span> <span class="p">}</span> <span class="p">);</span>
+</pre></div>
+
+
+<p>The annoying bits here are the extra cast, the terminator element and the
+abundance of brackets. First I decided to create a macro to simplify the initialisation of each individual arguments a bit</p>
+<div class="codehilite"><pre><span class="c1">// My data is NULL terminated (adjust accordingly)</span>
+<span class="p">#</span><span class="n">define</span> <span class="no">PARAM</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="p">{</span><span class="n">p</span><span class="p">,</span> <span class="n">strlen</span><span class="p">(</span><span class="n">p</span><span class="p">)}</span> 
+<span class="n">writebuf_append</span><span class="p">(</span><span class="n">to</span><span class="p">,</span> <span class="p">(</span><span class="k">struct</span> <span class="n">param</span> <span class="p">[]){</span> <span class="no">PARAM</span><span class="p">(</span><span class="s">&quot;411&quot;</span><span class="p">),</span> <span class="no">PARAM</span><span class="p">(</span><span class="n">some_data</span><span class="p">),</span> <span class="p">{</span><span class="no">NULL</span><span class="p">,</span> <span class="mh">0</span><span class="p">}</span> <span class="p">}</span> <span class="p">);</span>
+</pre></div>
+
+
+<p>But now I really wanted to hide the cast, brackets and the terminator from the
+call - and so I started to look into variadic macros. It turned out they are not
+as flexible as I would like, you can't get individual arguments, and there are some comma
+related bugs. But from the macro I already had, I can define a macro to wrap
+the existing function</p>
+<div class="codehilite"><pre><span class="c">#define writebuf_append2(to, ...) writebuf_append(to, (struct param[]){ __VA_ARGS__, {NULL, 0} } )</span>
+</pre></div>
+
+
+<p>And now I can call</p>
+<div class="codehilite"><pre><span class="n">writebuf_append2</span><span class="p">(</span><span class="n">to</span><span class="p">,</span> <span class="n">PARAM</span><span class="p">(</span><span class="s">&quot;411&quot;</span><span class="p">),</span> <span class="n">PARAM</span><span class="p">(</span><span class="n">some_data</span><span class="p">)</span> <span class="p">);</span>
+</pre></div>
+
+
+<p>which looks more like a regular function call. The PARAM macro might look annoying, but it can be useful if you have different types of arguments.</p>
+<div class="codehilite"><pre><span class="c1">// type is an enum I added to the struct</span>
+<span class="p">#</span><span class="n">define</span> <span class="no">PARAM</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="k">type</span><span class="p">)</span>    <span class="p">{</span><span class="n">arg</span><span class="p">,</span><span class="n">strlen</span><span class="p">(</span><span class="n">arg</span><span class="p">),</span><span class="k">type</span><span class="p">}</span>
+<span class="c1">// define type specific macros</span>
+<span class="p">#</span><span class="n">define</span> <span class="no">PARAM_CODE</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span> <span class="no">PARAM</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="no">CODE</span><span class="p">)</span>
+<span class="p">#</span><span class="n">define</span> <span class="no">PARAM_MSG</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span>  <span class="no">PARAM</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="no">MSG</span><span class="p">)</span>
+
+<span class="n">writebuf_append2</span><span class="p">(</span><span class="n">to</span><span class="p">,</span> 
+            <span class="no">PARAM_CODE</span><span class="p">(</span><span class="s">&quot;411&quot;</span><span class="p">),</span> 
+            <span class="no">PARAM_MSG</span><span class="p">(</span><span class="n">some_data</span><span class="p">)</span> <span class="p">);</span>
+</pre></div>
+
+
+<p>Internally I use the type to add correctness checks and append additional bytes
+to the message (e.g. whitespace or field separators) - the previous example
+would be the equivalent of doing:</p>
+<div class="codehilite"><pre><span class="c1">// Sigh this still *looks* a lot better :D, but the extra feats</span>
+<span class="c1">// are worth the bulky wrapping</span>
+<span class="n">snprintf</span><span class="p">(</span><span class="n">to</span><span class="p">,</span> <span class="s">&quot;411 :%s</span><span class="se">\r\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">some_data</span><span class="p">)</span>
+</pre></div>
+
+
+<p>BTW life with macros becomes much easier with <strong>clang</strong>, because the compiler
+explicitly expands the macros when reporting errors.</p>
+<h2>References</h2>
+<ul>
+<li><a href="http://stackoverflow.com/questions/1644868/c-define-macro-for-debug-printing">C #define macro for debug printing</a></li>
+</ul>
+
+
+<div id="social">
+	<h2>Liked this? Share it.</h2>
+	<div class="links">
+	<a class="delicious" title="Share on tumblr" href="http://del.icio.us/post?url=">Delicious</a>
+	<a class="stumbleupon" href="http://www.stumbleupon.com/submit?u=">StumbleUpon</a>
+	<a class="twitter" href="http://twitter.com/home/?status=">Twitter</a>
+	<a class="reddit" href="http://www.reddit.com/submit?url=">Reddit</a>
+	<a class="tumblr" href="http://www.tumblr.com/share">Tumblr</a>
+	</div>
+</div>
+<script>
+var url = window.location.href;
+
+var anchor;
+anchor = $('#social a.delicious');
+anchor.attr('href', anchor.attr('href') + url);
+anchor = $('#social a.stumbleupon');
+anchor.attr('href', anchor.attr('href') + url);
+anchor = $('#social a.twitter');
+anchor.attr('href', anchor.attr('href') + url);
+anchor = $('#social a.reddit');
+anchor.attr('href', anchor.attr('href') + url);
+// No need for tumblr
+
+$('#social').show();
+</script>
+
+<h2>Download this</h2>
+<p>To save this as a clean single HTML file you can save, press <a href="2013-05-30-c-preprocessor-tricks.print.html">here</a>
+This is ideal for long term storage or reading on your ebook reader.</p>
+
+
+</div>
+
+
+<div class="disclaimer">
+Copyright @ Rui Abreu Ferreira 2014, the opinions expressed here are those of the authors and
+do not reflect the position of anyone else ... really ...
+</div>
+
+</body>
+</html>
+
+

@@ -1,0 +1,129 @@
+<!DOCTYPE>
+<html>
+<head>
+	<link href='http://fonts.googleapis.com/css?family=Cantata+One&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	
+
+	<title></title>
+	
+	
+	<link type="text/css" media="screen" href="style.css" rel="stylesheet">
+    	<link type="text/css" media="screen and (min-device-width: 1024px)" href="fancy.css" rel="stylesheet"/>
+	<link type="text/css" media="screen" href="code.css" rel="stylesheet"/>
+	
+
+	
+
+<link rel="Alternate" media="Print" href="2013-01-04-como-e-que-se-programava-em-c.print.html" />
+<script src="jquery-1.9.1.js">
+</script>
+
+
+</head>
+<body>
+
+	
+	<div id="title_box">
+	<h1 class="page_title">cat /dev/<span class="red">raf</span>/web&gt;</h1>
+	</div>
+
+	
+	
+	
+
+
+
+<div id="content">
+<h1>Como é que se programava em C mesmo?</h1><p class=" article_preamble">Parece que as sextas feiras são bons dias para questões existenciais :D
+Cenas que eu devia saber fazer em C, mas não sei ou não me lembro ou já não funcionam de todo:</p>
+<h2>string encoding/locale</h2>
+<ul>
+<li>como é que detecto o encoding das strings que o sistema passa para o
+  programa? e as paths do FS?</li>
+<li>como é que converto entre formatos? que tipo de dados uso para
+  representação interna?</li>
+<li>Se usar utf8 para representar strings internamente que funções é que
+  uso para manipular strings? Senão?</li>
+<li>iconv? libicu?</li>
+</ul>
+<h2>File encoding</h2>
+<ul>
+<li>Se abrir um ficheiro em que encoding é que ele está</li>
+<li>BOM BOM BOM</li>
+<li>E se for binário o que é que faço?</li>
+</ul>
+<h2>E parsers?</h2>
+<ul>
+<li>Eu sabia fazer parsers, commo é que faço agora</li>
+</ul>
+<h2>Asynchronous input/output</h2>
+<ul>
+<li>Isto até funciona bem com coisas como libevent2/libev, a parte
+  realmente difícil é definir buffers para os canais de comunicação :D
+  porque em protocolos async - bem são parsers :D</li>
+</ul>
+<h2>Alguém sabe fazer maquinas de estados?</h2>
+<ul>
+<li>Maquinas de estados eram a bimby do C</li>
+<li>Mais a sério, o facto do estado não estar implícito nos objectos (:S
+  OOP) ajuda a desenhar o programa de forma decente - só precisei de
+  uns 10 anos para perceber isto.</li>
+</ul>
+<h2>FS e performance de leitura de ficheiros</h2>
+<ul>
+<li>Tópico antigo, mmap vs others</li>
+<li>Weird algorithms, sliding windows and cache graphs/trees</li>
+<li>Agora misturem isto com encoding e a minha cabeça explode</li>
+</ul>
+<h2>Já agora</h2>
+<ul>
+<li>http://www.250bpm.com/blog:4</li>
+<li>http://www.joelonsoftware.com/items/2009/09/23.html</li>
+</ul>
+
+
+<div id="social">
+	<h2>Liked this? Share it.</h2>
+	<div class="links">
+	<a class="delicious" title="Share on tumblr" href="http://del.icio.us/post?url=">Delicious</a>
+	<a class="stumbleupon" href="http://www.stumbleupon.com/submit?u=">StumbleUpon</a>
+	<a class="twitter" href="http://twitter.com/home/?status=">Twitter</a>
+	<a class="reddit" href="http://www.reddit.com/submit?url=">Reddit</a>
+	<a class="tumblr" href="http://www.tumblr.com/share">Tumblr</a>
+	</div>
+</div>
+<script>
+var url = window.location.href;
+
+var anchor;
+anchor = $('#social a.delicious');
+anchor.attr('href', anchor.attr('href') + url);
+anchor = $('#social a.stumbleupon');
+anchor.attr('href', anchor.attr('href') + url);
+anchor = $('#social a.twitter');
+anchor.attr('href', anchor.attr('href') + url);
+anchor = $('#social a.reddit');
+anchor.attr('href', anchor.attr('href') + url);
+// No need for tumblr
+
+$('#social').show();
+</script>
+
+<h2>Download this</h2>
+<p>To save this as a clean single HTML file you can save, press <a href="2013-01-04-como-e-que-se-programava-em-c.print.html">here</a>
+This is ideal for long term storage or reading on your ebook reader.</p>
+
+
+</div>
+
+
+<div class="disclaimer">
+Copyright @ Rui Abreu Ferreira 2014, the opinions expressed here are those of the authors and
+do not reflect the position of anyone else ... really ...
+</div>
+
+</body>
+</html>
+
+

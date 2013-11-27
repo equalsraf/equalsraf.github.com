@@ -1,0 +1,384 @@
+<!DOCTYPE>
+<html>
+<head>
+	<link href='http://fonts.googleapis.com/css?family=Cantata+One&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	
+
+	<title></title>
+	
+	
+        <style type="text/css" media="screen">
+        
+body {
+	font-family: Helvetica, DejaVu Sans, sans-serif; 
+	font-size: 10pt; 
+	color: #000;
+	margin:	auto;
+	margin-top:		0;
+	line-height		: 1.25em;
+}
+
+#content img {
+	max-width: 100%;
+	clear: both;
+}
+
+h1, h2, h3 {
+	font-family: serif; 
+	font-weight: normal;
+	color: #333;
+	margin-bottom: 0.2em;
+}
+
+h1 {
+	font-size: 2.0em;
+	margin-bottom: 0.5em;
+	margin-top: 0.5em;
+	line-height: 1em;
+	line-height: 1.2em;
+}
+
+h2 {
+	font-size: 1.5em;
+	color:		#999;
+	font-weight:	bold;
+	text-transform: uppercase;
+	clear:	both;
+}
+
+h2.article_title a {
+	color: black;
+}
+
+h1.page_title {
+	margin-top: 0;
+	margin-bottom: 0;
+	font-family: 'Consolas', 'Menlo', 'Deja Vu Sans Mono','Bitstream Vera Sans Mono', monospace!important;
+	font-size: 2em;
+	
+}
+
+h3 {
+	font-weight: bold;
+	margin-bottom: 0.1em;
+}
+
+p {
+	margin: 10px 0 10px 0;
+}
+
+p, ul, ol {
+	line-height		: 1.5em;
+	font-size:		1.5em;
+}
+
+ul, ol {
+	padding-left:		2ex;
+	margin-top:		0;
+}
+
+pre {
+	font-family: 'Consolas', 'Menlo', 'Deja Vu Sans Mono','Bitstream Vera Sans Mono', monospace!important;
+}
+
+a {
+	text-decoration		: none;
+	text-transform		: uppercase;
+	color			: #226CFF;
+}
+
+#menu {
+	margin-top: 1ex;
+	clear:		both;
+	display:	block;
+}
+
+#menu a.sel {
+	text-decoration: underline;
+}
+
+#menu:after {
+	content:	'.';
+	visibility:	hidden;
+	clear:		both;
+	display:	block;
+}
+
+.internal {
+	display:	inline;
+	padding:	3px;
+	
+}
+
+.external {
+	vertical-align: top;
+	text-align:	left;
+	padding:	3px 3px 3px 0;
+}
+
+.red {
+	color: #EA4B2A;
+}
+
+.blue {
+	color			: #226CFF;
+}
+
+#menu .external a {
+	color:		#333;
+	text-transform:	none;
+	border-bottom: 2px solid #226CFF;
+}
+
+#social  {
+	padding:	3px;
+	display: none;
+}
+
+#social .links {
+	column-count: 2;
+	-moz-column-count: 2;
+	margin-left:	10px;
+}
+
+#social .title {
+	color:	#666;
+}
+
+#social a {
+	padding-right:	1ex;
+}
+
+
+#social a {
+	display: block;
+	font-size: 1.5em;
+	padding: 5px;
+	color:	#666;
+}
+
+#social a:hover {
+	color:	black;
+}
+
+#social h2 {
+	margin : 10px 0;
+}
+
+
+.disclaimer {
+	margin: 2ex 3px 3px 0;
+	color:	#ccc;
+}
+
+.codehilite > pre {
+	border-left: 4px solid #666;
+	padding: 2px 2px 2px 5px;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+}
+
+#social a.twitter:hover {
+	color: #00bef6;
+}
+#social a.reddit:hover {
+	color: #D41D00;
+}
+#social a.tumblr:hover {
+	color: #2D4861;
+}
+#social a.stumbleupon:hover {
+	color: #EA4B2A;
+}
+#social a.delicious:hover {
+	color: #3274d1;
+}
+
+        </style>
+
+        <style type="text/css" media="screen">
+        .hll { background-color: #ffffcc }
+.c { color: #228B22 } /* Comment */
+.err { color: #a61717; background-color: #e3d2d2 } /* Error */
+.k { color: #8B008B; font-weight: bold } /* Keyword */
+.cm { color: #228B22 } /* Comment.Multiline */
+.cp { color: #1e889b } /* Comment.Preproc */
+.c1 { color: #228B22 } /* Comment.Single */
+.cs { color: #8B008B; font-weight: bold } /* Comment.Special */
+.gd { color: #aa0000 } /* Generic.Deleted */
+.ge { font-style: italic } /* Generic.Emph */
+.gr { color: #aa0000 } /* Generic.Error */
+.gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.gi { color: #00aa00 } /* Generic.Inserted */
+.go { color: #888888 } /* Generic.Output */
+.gp { color: #555555 } /* Generic.Prompt */
+.gs { font-weight: bold } /* Generic.Strong */
+.gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.gt { color: #aa0000 } /* Generic.Traceback */
+.kc { color: #8B008B; font-weight: bold } /* Keyword.Constant */
+.kd { color: #8B008B; font-weight: bold } /* Keyword.Declaration */
+.kn { color: #8B008B; font-weight: bold } /* Keyword.Namespace */
+.kp { color: #8B008B; font-weight: bold } /* Keyword.Pseudo */
+.kr { color: #8B008B; font-weight: bold } /* Keyword.Reserved */
+.kt { color: #a7a7a7; font-weight: bold } /* Keyword.Type */
+.m { color: #B452CD } /* Literal.Number */
+.s { color: #CD5555 } /* Literal.String */
+.na { color: #658b00 } /* Name.Attribute */
+.nb { color: #658b00 } /* Name.Builtin */
+.nc { color: #008b45; font-weight: bold } /* Name.Class */
+.no { color: #00688B } /* Name.Constant */
+.nd { color: #707a7c } /* Name.Decorator */
+.ne { color: #008b45; font-weight: bold } /* Name.Exception */
+.nf { color: #008b45 } /* Name.Function */
+.nn { color: #008b45; text-decoration: underline } /* Name.Namespace */
+.nt { color: #8B008B; font-weight: bold } /* Name.Tag */
+.nv { color: #00688B } /* Name.Variable */
+.ow { color: #8B008B } /* Operator.Word */
+.w { color: #bbbbbb } /* Text.Whitespace */
+.mf { color: #B452CD } /* Literal.Number.Float */
+.mh { color: #B452CD } /* Literal.Number.Hex */
+.mi { color: #B452CD } /* Literal.Number.Integer */
+.mo { color: #B452CD } /* Literal.Number.Oct */
+.sb { color: #CD5555 } /* Literal.String.Backtick */
+.sc { color: #CD5555 } /* Literal.String.Char */
+.sd { color: #CD5555 } /* Literal.String.Doc */
+.s2 { color: #CD5555 } /* Literal.String.Double */
+.se { color: #CD5555 } /* Literal.String.Escape */
+.sh { color: #1c7e71; font-style: italic } /* Literal.String.Heredoc */
+.si { color: #CD5555 } /* Literal.String.Interpol */
+.sx { color: #cb6c20 } /* Literal.String.Other */
+.sr { color: #1c7e71 } /* Literal.String.Regex */
+.s1 { color: #CD5555 } /* Literal.String.Single */
+.ss { color: #CD5555 } /* Literal.String.Symbol */
+.bp { color: #658b00 } /* Name.Builtin.Pseudo */
+.vc { color: #00688B } /* Name.Variable.Class */
+.vg { color: #00688B } /* Name.Variable.Global */
+.vi { color: #00688B } /* Name.Variable.Instance */
+.il { color: #B452CD } /* Literal.Number.Integer.Long */
+
+        </style>
+	
+
+	
+
+
+</head>
+<body>
+
+	
+
+
+
+<div id="content">
+<h1>Open attachments in Mutt with your desktop apps</h1><p class=" article_preamble">Yes I'm a proud Mutt user, say what you will about user interfaces but no mail
+client in the known universe can compare to the awesomeness of Mutt.</p>
+<p>As ridiculous as this may seem Mutt is not very smart when it comes to
+attachments, it basically uses the mailcap(4) file to figure what application
+to open the file with. A mailcap file is basically a mapping between mimetypes
+and application, for e.g. the following mailcap</p>
+<div class="codehilite"><pre><span class="n">text</span><span class="o">/</span><span class="n">plain</span><span class="p">;</span> <span class="n">cat</span> <span class="o">%</span><span class="n">s</span>
+<span class="n">text</span><span class="o">/</span><span class="n">html</span><span class="p">;</span> <span class="n">lynx</span> <span class="o">-</span><span class="n">display_charset</span><span class="o">=</span><span class="n">utf</span><span class="o">-</span><span class="mi">8</span> <span class="o">-</span><span class="n">dump</span> <span class="o">%</span><span class="n">s</span>
+</pre></div>
+
+
+<p>would open text files with <em>cat</em>, and html files with <em>lynx</em>.</p>
+<p>The problem with this approach is that you would have to add one line per
+mimetype, for every single attachment type you want to open. This makes sense for
+your console environment but looks absurd if you are running a full desktop environment
+that already knows which applications to use.</p>
+<h2>xdg-open</h2>
+<p>Large desktop environments usually have a command to open files with the correct
+application, i.e. they look at the file extension and mimetype and choose the
+application you configured for that file type. In GNOME this is called gnome-open
+and in KDE kde-open. But if you have xdg-utils installed you can simply invoke <em>xdg-open</em>
+and will use the appropriate program for your desktop environment. So running</p>
+<div class="codehilite"><pre><span class="err">$</span> <span class="n">xdg</span><span class="o">-</span><span class="n">open</span> <span class="o">~/</span><span class="n">Downloads</span><span class="o">/</span><span class="mf">1107.5728</span><span class="n">v2</span><span class="p">.</span><span class="n">pdf</span>
+</pre></div>
+
+
+<p>should open your PDF viewer.</p>
+<h2>mutt-open</h2>
+<p>The problem with using xdg-open with Mutt is that mutt expects the application being called
+to block until it is finished, but xdg-open will exit as soon as it calls the app. Internally
+Mutt operates as follows:</p>
+<ol>
+<li>Get mailcap mapping</li>
+<li>Copy attachment to /tmp folder</li>
+<li>Open file with application from mailcap</li>
+<li>Wait for application to close</li>
+<li>Remove temporary file</li>
+</ol>
+<p>The main problem being that Mutt will <strong>remove</strong> the file after the call is
+complete which means any application that is called to open the file will be
+unable to open the file, because it was already removed.</p>
+<p>mutt-open is just a shell wrapper around xdg-open, that makes a copy of the
+file before calling xdg-open. I first saw a script like this in a redhat bug report
+(see the link at the bottom), I just rewrote it in python and added a couple of changes.</p>
+<div class="codehilite"><pre><span class="k">if</span> <span class="nx">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+
+    <span class="k">if</span> <span class="nx">len</span><span class="p">(</span><span class="nx">sys.argv</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="nx">print</span><span class="p">(</span><span class="s1">&#39;Usage: %s &lt;filename&gt; [suffix]&#39;</span><span class="p">)</span>
+        <span class="nx">sys.exit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="n">oldfile</span> <span class="o">=</span> <span class="nx">sys.argv</span><span class="err">[</span><span class="mi">1</span><span class="cp">]</span>
+
+    suffix = file_sha1(oldfile) + os.path.basename(oldfile)
+    if len(sys.argv) == 3:
+        suffix += sys.argv<span class="cp">[</span><span class="mi">2</span><span class="cp">]</span>
+
+    #newfile = mkstemp(suffix=suffix, prefix=&#39;mutt_bak_&#39;)<span class="cp">[</span><span class="mi">1</span><span class="cp">]</span>
+    newfile = os.path.join(&#39;/tmp&#39;, &#39;mutt_bak_&#39; + suffix)
+
+    copyfile(oldfile, newfile)
+    call(<span class="cp">[</span><span class="s1">&#39;xdg-open&#39;</span><span class="p">,</span> <span class="nx">newfile</span><span class="cp">]</span>)
+</pre></div>
+
+
+<p>Do notice that the newly created file is never removed from <em>/tmp</em>, this is
+mostly fine for me since my system will periodically clean up the /tmp folder.</p>
+<p>Finally to make Mutt use mutt-open to open mail attachments you need to add the
+following to your ~/.mailcap file.</p>
+<div class="codehilite"><pre><span class="n">application</span><span class="o">/*</span><span class="p">;</span> <span class="n">mutt</span><span class="o">-</span><span class="n">open</span> <span class="err">&#39;</span><span class="o">%</span><span class="n">s</span><span class="err">&#39;</span><span class="p">;</span> <span class="n">test</span><span class="o">=</span><span class="n">test</span> <span class="o">-</span><span class="n">n</span> <span class="s">&quot;$DISPLAY&quot;</span>
+</pre></div>
+
+
+<p>This mailcap will use mutt-open for all attachments with mimetype
+application/*, but you can change the mimetype to be more restrictive. The
+<strong>test=</strong> expression at the end of the line is there to ensure that this entry
+is not used when X11 is not running.</p>
+<p>I've also added an optional second argument to mutt-open, to specify a suffix
+for the temporary file name suffix. This allows me to handle edge cases
+where the attachment filename has no extension - as is the case with html formatted mails.</p>
+<div class="codehilite"><pre><span class="n">text</span><span class="o">/</span><span class="n">html</span><span class="p">;</span> <span class="n">mutt</span><span class="o">-</span><span class="n">open</span> <span class="err">&#39;</span><span class="o">%</span><span class="n">s</span><span class="err">&#39;</span> <span class="p">.</span><span class="n">html</span> <span class="p">;</span> <span class="n">test</span><span class="o">=</span><span class="n">test</span> <span class="o">-</span><span class="n">n</span> <span class="s">&quot;$DISPLAY&quot;</span>
+</pre></div>
+
+
+<h2>Remaining issues</h2>
+<p>There are still a couple of issues left:</p>
+<ol>
+<li>The files are never removed from tmp, which may be a problem, depending on how you run your system</li>
+<li>For the specific case of opening HTML files, the file encoding might not be your system encoding
+   usually this is fixed by either converting the file on opening, or by specifying the encoding as
+   an argument for the browser</li>
+</ol>
+<h2>References</h2>
+<ul>
+<li><a href="https://bugzilla.redhat.com/show_bug.cgi?id=653249">Bug 653249 - Mutt cannot open attachments w. xdg-open</a></li>
+<li><a href="http://www.in-nomine.org/2009/02/16/character-encoding-in-mailcap-for-mutt-and-w3m/">Character encoding in mailcap for mutt and w3m</a></li>
+</ul>
+
+
+
+</div>
+
+
+<div class="disclaimer">
+Copyright @ Rui Abreu Ferreira 2014, the opinions expressed here are those of the authors and
+do not reflect the position of anyone else ... really ...
+</div>
+
+</body>
+</html>
+
+

@@ -1,0 +1,179 @@
+<!DOCTYPE>
+<html>
+<head>
+	<link href='http://fonts.googleapis.com/css?family=Cantata+One&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	
+
+	<title></title>
+	
+	
+	<link type="text/css" media="screen" href="style.css" rel="stylesheet">
+    	<link type="text/css" media="screen and (min-device-width: 1024px)" href="fancy.css" rel="stylesheet"/>
+	<link type="text/css" media="screen" href="code.css" rel="stylesheet"/>
+	
+
+	
+
+<link rel="Alternate" media="Print" href="2013-01-07-mutt-and-xdg.print.html" />
+<script src="jquery-1.9.1.js">
+</script>
+
+
+</head>
+<body>
+
+	
+	<div id="title_box">
+	<h1 class="page_title">cat /dev/<span class="red">raf</span>/web&gt;</h1>
+	</div>
+
+	
+	
+	
+
+
+
+<div id="content">
+<h1>Open attachments in Mutt with your desktop apps</h1><p class=" article_preamble">Yes I'm a proud Mutt user, say what you will about user interfaces but no mail
+client in the known universe can compare to the awesomeness of Mutt.</p>
+<p>As ridiculous as this may seem Mutt is not very smart when it comes to
+attachments, it basically uses the mailcap(4) file to figure what application
+to open the file with. A mailcap file is basically a mapping between mimetypes
+and application, for e.g. the following mailcap</p>
+<div class="codehilite"><pre><span class="n">text</span><span class="o">/</span><span class="n">plain</span><span class="p">;</span> <span class="n">cat</span> <span class="o">%</span><span class="n">s</span>
+<span class="n">text</span><span class="o">/</span><span class="n">html</span><span class="p">;</span> <span class="n">lynx</span> <span class="o">-</span><span class="n">display_charset</span><span class="o">=</span><span class="n">utf</span><span class="o">-</span><span class="mi">8</span> <span class="o">-</span><span class="n">dump</span> <span class="o">%</span><span class="n">s</span>
+</pre></div>
+
+
+<p>would open text files with <em>cat</em>, and html files with <em>lynx</em>.</p>
+<p>The problem with this approach is that you would have to add one line per
+mimetype, for every single attachment type you want to open. This makes sense for
+your console environment but looks absurd if you are running a full desktop environment
+that already knows which applications to use.</p>
+<h2>xdg-open</h2>
+<p>Large desktop environments usually have a command to open files with the correct
+application, i.e. they look at the file extension and mimetype and choose the
+application you configured for that file type. In GNOME this is called gnome-open
+and in KDE kde-open. But if you have xdg-utils installed you can simply invoke <em>xdg-open</em>
+and will use the appropriate program for your desktop environment. So running</p>
+<div class="codehilite"><pre><span class="err">$</span> <span class="n">xdg</span><span class="o">-</span><span class="n">open</span> <span class="o">~/</span><span class="n">Downloads</span><span class="o">/</span><span class="mf">1107.5728</span><span class="n">v2</span><span class="p">.</span><span class="n">pdf</span>
+</pre></div>
+
+
+<p>should open your PDF viewer.</p>
+<h2>mutt-open</h2>
+<p>The problem with using xdg-open with Mutt is that mutt expects the application being called
+to block until it is finished, but xdg-open will exit as soon as it calls the app. Internally
+Mutt operates as follows:</p>
+<ol>
+<li>Get mailcap mapping</li>
+<li>Copy attachment to /tmp folder</li>
+<li>Open file with application from mailcap</li>
+<li>Wait for application to close</li>
+<li>Remove temporary file</li>
+</ol>
+<p>The main problem being that Mutt will <strong>remove</strong> the file after the call is
+complete which means any application that is called to open the file will be
+unable to open the file, because it was already removed.</p>
+<p>mutt-open is just a shell wrapper around xdg-open, that makes a copy of the
+file before calling xdg-open. I first saw a script like this in a redhat bug report
+(see the link at the bottom), I just rewrote it in python and added a couple of changes.</p>
+<div class="codehilite"><pre><span class="k">if</span> <span class="nx">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+
+    <span class="k">if</span> <span class="nx">len</span><span class="p">(</span><span class="nx">sys.argv</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="nx">print</span><span class="p">(</span><span class="s1">&#39;Usage: %s &lt;filename&gt; [suffix]&#39;</span><span class="p">)</span>
+        <span class="nx">sys.exit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="n">oldfile</span> <span class="o">=</span> <span class="nx">sys.argv</span><span class="err">[</span><span class="mi">1</span><span class="cp">]</span>
+
+    suffix = file_sha1(oldfile) + os.path.basename(oldfile)
+    if len(sys.argv) == 3:
+        suffix += sys.argv<span class="cp">[</span><span class="mi">2</span><span class="cp">]</span>
+
+    #newfile = mkstemp(suffix=suffix, prefix=&#39;mutt_bak_&#39;)<span class="cp">[</span><span class="mi">1</span><span class="cp">]</span>
+    newfile = os.path.join(&#39;/tmp&#39;, &#39;mutt_bak_&#39; + suffix)
+
+    copyfile(oldfile, newfile)
+    call(<span class="cp">[</span><span class="s1">&#39;xdg-open&#39;</span><span class="p">,</span> <span class="nx">newfile</span><span class="cp">]</span>)
+</pre></div>
+
+
+<p>Do notice that the newly created file is never removed from <em>/tmp</em>, this is
+mostly fine for me since my system will periodically clean up the /tmp folder.</p>
+<p>Finally to make Mutt use mutt-open to open mail attachments you need to add the
+following to your ~/.mailcap file.</p>
+<div class="codehilite"><pre><span class="n">application</span><span class="o">/*</span><span class="p">;</span> <span class="n">mutt</span><span class="o">-</span><span class="n">open</span> <span class="err">&#39;</span><span class="o">%</span><span class="n">s</span><span class="err">&#39;</span><span class="p">;</span> <span class="n">test</span><span class="o">=</span><span class="n">test</span> <span class="o">-</span><span class="n">n</span> <span class="s">&quot;$DISPLAY&quot;</span>
+</pre></div>
+
+
+<p>This mailcap will use mutt-open for all attachments with mimetype
+application/*, but you can change the mimetype to be more restrictive. The
+<strong>test=</strong> expression at the end of the line is there to ensure that this entry
+is not used when X11 is not running.</p>
+<p>I've also added an optional second argument to mutt-open, to specify a suffix
+for the temporary file name suffix. This allows me to handle edge cases
+where the attachment filename has no extension - as is the case with html formatted mails.</p>
+<div class="codehilite"><pre><span class="n">text</span><span class="o">/</span><span class="n">html</span><span class="p">;</span> <span class="n">mutt</span><span class="o">-</span><span class="n">open</span> <span class="err">&#39;</span><span class="o">%</span><span class="n">s</span><span class="err">&#39;</span> <span class="p">.</span><span class="n">html</span> <span class="p">;</span> <span class="n">test</span><span class="o">=</span><span class="n">test</span> <span class="o">-</span><span class="n">n</span> <span class="s">&quot;$DISPLAY&quot;</span>
+</pre></div>
+
+
+<h2>Remaining issues</h2>
+<p>There are still a couple of issues left:</p>
+<ol>
+<li>The files are never removed from tmp, which may be a problem, depending on how you run your system</li>
+<li>For the specific case of opening HTML files, the file encoding might not be your system encoding
+   usually this is fixed by either converting the file on opening, or by specifying the encoding as
+   an argument for the browser</li>
+</ol>
+<h2>References</h2>
+<ul>
+<li><a href="https://bugzilla.redhat.com/show_bug.cgi?id=653249">Bug 653249 - Mutt cannot open attachments w. xdg-open</a></li>
+<li><a href="http://www.in-nomine.org/2009/02/16/character-encoding-in-mailcap-for-mutt-and-w3m/">Character encoding in mailcap for mutt and w3m</a></li>
+</ul>
+
+
+<div id="social">
+	<h2>Liked this? Share it.</h2>
+	<div class="links">
+	<a class="delicious" title="Share on tumblr" href="http://del.icio.us/post?url=">Delicious</a>
+	<a class="stumbleupon" href="http://www.stumbleupon.com/submit?u=">StumbleUpon</a>
+	<a class="twitter" href="http://twitter.com/home/?status=">Twitter</a>
+	<a class="reddit" href="http://www.reddit.com/submit?url=">Reddit</a>
+	<a class="tumblr" href="http://www.tumblr.com/share">Tumblr</a>
+	</div>
+</div>
+<script>
+var url = window.location.href;
+
+var anchor;
+anchor = $('#social a.delicious');
+anchor.attr('href', anchor.attr('href') + url);
+anchor = $('#social a.stumbleupon');
+anchor.attr('href', anchor.attr('href') + url);
+anchor = $('#social a.twitter');
+anchor.attr('href', anchor.attr('href') + url);
+anchor = $('#social a.reddit');
+anchor.attr('href', anchor.attr('href') + url);
+// No need for tumblr
+
+$('#social').show();
+</script>
+
+<h2>Download this</h2>
+<p>To save this as a clean single HTML file you can save, press <a href="2013-01-07-mutt-and-xdg.print.html">here</a>
+This is ideal for long term storage or reading on your ebook reader.</p>
+
+
+</div>
+
+
+<div class="disclaimer">
+Copyright @ Rui Abreu Ferreira 2014, the opinions expressed here are those of the authors and
+do not reflect the position of anyone else ... really ...
+</div>
+
+</body>
+</html>
+
+

@@ -1,0 +1,345 @@
+<!DOCTYPE>
+<html>
+<head>
+	<link href='http://fonts.googleapis.com/css?family=Cantata+One&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	
+
+	<title></title>
+	
+	
+        <style type="text/css" media="screen">
+        
+body {
+	font-family: Helvetica, DejaVu Sans, sans-serif; 
+	font-size: 10pt; 
+	color: #000;
+	margin:	auto;
+	margin-top:		0;
+	line-height		: 1.25em;
+}
+
+#content img {
+	max-width: 100%;
+	clear: both;
+}
+
+h1, h2, h3 {
+	font-family: serif; 
+	font-weight: normal;
+	color: #333;
+	margin-bottom: 0.2em;
+}
+
+h1 {
+	font-size: 2.0em;
+	margin-bottom: 0.5em;
+	margin-top: 0.5em;
+	line-height: 1em;
+	line-height: 1.2em;
+}
+
+h2 {
+	font-size: 1.5em;
+	color:		#999;
+	font-weight:	bold;
+	text-transform: uppercase;
+	clear:	both;
+}
+
+h2.article_title a {
+	color: black;
+}
+
+h1.page_title {
+	margin-top: 0;
+	margin-bottom: 0;
+	font-family: 'Consolas', 'Menlo', 'Deja Vu Sans Mono','Bitstream Vera Sans Mono', monospace!important;
+	font-size: 2em;
+	
+}
+
+h3 {
+	font-weight: bold;
+	margin-bottom: 0.1em;
+}
+
+p {
+	margin: 10px 0 10px 0;
+}
+
+p, ul, ol {
+	line-height		: 1.5em;
+	font-size:		1.5em;
+}
+
+ul, ol {
+	padding-left:		2ex;
+	margin-top:		0;
+}
+
+pre {
+	font-family: 'Consolas', 'Menlo', 'Deja Vu Sans Mono','Bitstream Vera Sans Mono', monospace!important;
+}
+
+a {
+	text-decoration		: none;
+	text-transform		: uppercase;
+	color			: #226CFF;
+}
+
+#menu {
+	margin-top: 1ex;
+	clear:		both;
+	display:	block;
+}
+
+#menu a.sel {
+	text-decoration: underline;
+}
+
+#menu:after {
+	content:	'.';
+	visibility:	hidden;
+	clear:		both;
+	display:	block;
+}
+
+.internal {
+	display:	inline;
+	padding:	3px;
+	
+}
+
+.external {
+	vertical-align: top;
+	text-align:	left;
+	padding:	3px 3px 3px 0;
+}
+
+.red {
+	color: #EA4B2A;
+}
+
+.blue {
+	color			: #226CFF;
+}
+
+#menu .external a {
+	color:		#333;
+	text-transform:	none;
+	border-bottom: 2px solid #226CFF;
+}
+
+#social  {
+	padding:	3px;
+	display: none;
+}
+
+#social .links {
+	column-count: 2;
+	-moz-column-count: 2;
+	margin-left:	10px;
+}
+
+#social .title {
+	color:	#666;
+}
+
+#social a {
+	padding-right:	1ex;
+}
+
+
+#social a {
+	display: block;
+	font-size: 1.5em;
+	padding: 5px;
+	color:	#666;
+}
+
+#social a:hover {
+	color:	black;
+}
+
+#social h2 {
+	margin : 10px 0;
+}
+
+
+.disclaimer {
+	margin: 2ex 3px 3px 0;
+	color:	#ccc;
+}
+
+.codehilite > pre {
+	border-left: 4px solid #666;
+	padding: 2px 2px 2px 5px;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+}
+
+#social a.twitter:hover {
+	color: #00bef6;
+}
+#social a.reddit:hover {
+	color: #D41D00;
+}
+#social a.tumblr:hover {
+	color: #2D4861;
+}
+#social a.stumbleupon:hover {
+	color: #EA4B2A;
+}
+#social a.delicious:hover {
+	color: #3274d1;
+}
+
+        </style>
+
+        <style type="text/css" media="screen">
+        .hll { background-color: #ffffcc }
+.c { color: #228B22 } /* Comment */
+.err { color: #a61717; background-color: #e3d2d2 } /* Error */
+.k { color: #8B008B; font-weight: bold } /* Keyword */
+.cm { color: #228B22 } /* Comment.Multiline */
+.cp { color: #1e889b } /* Comment.Preproc */
+.c1 { color: #228B22 } /* Comment.Single */
+.cs { color: #8B008B; font-weight: bold } /* Comment.Special */
+.gd { color: #aa0000 } /* Generic.Deleted */
+.ge { font-style: italic } /* Generic.Emph */
+.gr { color: #aa0000 } /* Generic.Error */
+.gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.gi { color: #00aa00 } /* Generic.Inserted */
+.go { color: #888888 } /* Generic.Output */
+.gp { color: #555555 } /* Generic.Prompt */
+.gs { font-weight: bold } /* Generic.Strong */
+.gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.gt { color: #aa0000 } /* Generic.Traceback */
+.kc { color: #8B008B; font-weight: bold } /* Keyword.Constant */
+.kd { color: #8B008B; font-weight: bold } /* Keyword.Declaration */
+.kn { color: #8B008B; font-weight: bold } /* Keyword.Namespace */
+.kp { color: #8B008B; font-weight: bold } /* Keyword.Pseudo */
+.kr { color: #8B008B; font-weight: bold } /* Keyword.Reserved */
+.kt { color: #a7a7a7; font-weight: bold } /* Keyword.Type */
+.m { color: #B452CD } /* Literal.Number */
+.s { color: #CD5555 } /* Literal.String */
+.na { color: #658b00 } /* Name.Attribute */
+.nb { color: #658b00 } /* Name.Builtin */
+.nc { color: #008b45; font-weight: bold } /* Name.Class */
+.no { color: #00688B } /* Name.Constant */
+.nd { color: #707a7c } /* Name.Decorator */
+.ne { color: #008b45; font-weight: bold } /* Name.Exception */
+.nf { color: #008b45 } /* Name.Function */
+.nn { color: #008b45; text-decoration: underline } /* Name.Namespace */
+.nt { color: #8B008B; font-weight: bold } /* Name.Tag */
+.nv { color: #00688B } /* Name.Variable */
+.ow { color: #8B008B } /* Operator.Word */
+.w { color: #bbbbbb } /* Text.Whitespace */
+.mf { color: #B452CD } /* Literal.Number.Float */
+.mh { color: #B452CD } /* Literal.Number.Hex */
+.mi { color: #B452CD } /* Literal.Number.Integer */
+.mo { color: #B452CD } /* Literal.Number.Oct */
+.sb { color: #CD5555 } /* Literal.String.Backtick */
+.sc { color: #CD5555 } /* Literal.String.Char */
+.sd { color: #CD5555 } /* Literal.String.Doc */
+.s2 { color: #CD5555 } /* Literal.String.Double */
+.se { color: #CD5555 } /* Literal.String.Escape */
+.sh { color: #1c7e71; font-style: italic } /* Literal.String.Heredoc */
+.si { color: #CD5555 } /* Literal.String.Interpol */
+.sx { color: #cb6c20 } /* Literal.String.Other */
+.sr { color: #1c7e71 } /* Literal.String.Regex */
+.s1 { color: #CD5555 } /* Literal.String.Single */
+.ss { color: #CD5555 } /* Literal.String.Symbol */
+.bp { color: #658b00 } /* Name.Builtin.Pseudo */
+.vc { color: #00688B } /* Name.Variable.Class */
+.vg { color: #00688B } /* Name.Variable.Global */
+.vi { color: #00688B } /* Name.Variable.Instance */
+.il { color: #B452CD } /* Literal.Number.Integer.Long */
+
+        </style>
+	
+
+	
+
+
+</head>
+<body>
+
+	
+
+
+
+<div id="content">
+<h1>python-blogpit is born</h1><p class=" article_preamble">So I had a few vacation days and decided to put some old ideas into
+practice: starting with a nice upgrade for blogpit, using libgit2 instead
+of gitshelve and getting a nice performance upgrade in the process.</p>
+<h2>The battle plan</h2>
+<p>Blogpit was born as a way for me to manage my web site as a git repository,
+mostly using a python library to access Git repositories - called gitshelve.
+Gitshelve is a great piece of software, with a very easy API, unfortunately 
+it suffered from the same problem all git libraries had at the time - access to
+git was done via calls to git commands and parsing of stdout. </p>
+<p>But a lot has changed since then. We now have a actual library to access git
+repositories (Libgit2), which is mature enough to use. This led me to the idea
+of implementing a replacement for gitshelve in C as a python extension.</p>
+<p>So my goals for this little project are:
+ - Clearly separate storage logic (blogpit) from frontend (django-blogpit)
+ - Turn blogpit into a C library to fetch content from a git repository
+ - Create a Python module - pyblogpit - to replace gitshelve and friends</p>
+<h2>Changes along the way</h2>
+<p>Gitshelve had something which was very well designed, its API. In gitshelve a
+git repository was accessed as a python dictionary, this made it brilliantly
+easy to use. I must say I miss that a lot, but it is not too late to bring that
+back.</p>
+<p>One thing we did loose was flexibility, gitshelve was a general purpose storage backend - in blogpit I took some shortcuts to accommodate my use case. 
+The most relevant is that I commit whenever an article is changed, i.e. one file change one commit.
+This might not be the best policy but it is the one I use for blogpit, so blogpit enforces this.</p>
+<h2>The speed boost</h2>
+<p>So I set out to test the speed improvement of using a libgit2 based solution.
+For both gitshelve and blogpit, I ran two tests (25 repetitions): </p>
+<ol>
+<li>Starting from an existing repository with one commit - create
+    270 commits, each one with one file in it.</li>
+<li>Read all 270 files from the repository</li>
+</ol>
+<p>The 270 files are split between 26 folders, at 10 files per folder, plus 10 files in the root directory. 
+The max path depth is 3, two folders and one file.
+All measures are made after initializing the repository, because it would otherwise influence the measurements - blogpit initializes early, while gitshelve is lazy. </p>
+<p>First: content writing. The average for blogpit is ~0.27s against gitshelve's average of ~6.97s. Thats 25 times less (on average). Of course there is some very visible variation, and on the worst measured case (for blogpit) it was only 7 times faster than gitshelve. In any case a significant difference in favour of blogpit.</p>
+<p><img alt="" src="data:image/png;base64,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" /></p>
+<p>As for the reading cases, that is where the real pearl is hiding. blogpit is 70 times faster on average. The average time for blogpit is 0.015s vs 1.069 for gitshelve. </p>
+<p><img alt="" src="data:image/png;base64,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" /></p>
+<h2>The bottom line</h2>
+<p>To sum it up:</p>
+<ul>
+<li>On average blogpit is <strong>25 times</strong> faster at writing.</li>
+<li>On average blogpit is <strong>70 times</strong> faster at reading.</li>
+</ul>
+<p>Granted that this is not the most exact comparison ever made, it still shows a significant difference between blogpit and gitshelve. The results will probably fluctuate under a different CPU/IO load. There is also a lot to be said, about the missing features from GitShelve. I left them behind (for now) because for the most part I don't need them. But I will probably introduce a few of them in blogpit when I get the chance.</p>
+<p>Now the only thing we are missing is to port this back to django-blogpit. 
+The django-blogpit middleware got some changes to accommodate the new API, but
+for the most part it has less lines of code than before, because I moved part of 
+the Unicode handling to C. I'll be pushing those gitorious later.</p>
+<h2>References</h2>
+<ul>
+<li><a href="http://newartisans.com/2008/05/using-git-as-a-versioned-data-store-in-python/">Gitshelve</a></li>
+<li><a href="http://libgit2.github.com/">Libgit2</a></li>
+<li><a href="https://github.com/equalsraf/blogpit">Blogpit</a></li>
+<li><a href="http://gitorious.org/django-blogpit">Django-blogpit</a></li>
+</ul>
+
+
+
+</div>
+
+
+<div class="disclaimer">
+Copyright @ Rui Abreu Ferreira 2014, the opinions expressed here are those of the authors and
+do not reflect the position of anyone else ... really ...
+</div>
+
+</body>
+</html>
+
+

@@ -1,0 +1,403 @@
+<!DOCTYPE>
+<html>
+<head>
+	<link href='http://fonts.googleapis.com/css?family=Cantata+One&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	
+
+	<title></title>
+	
+	
+        <style type="text/css" media="screen">
+        
+body {
+	font-family: Helvetica, DejaVu Sans, sans-serif; 
+	font-size: 10pt; 
+	color: #000;
+	margin:	auto;
+	margin-top:		0;
+	line-height		: 1.25em;
+}
+
+#content img {
+	max-width: 100%;
+	clear: both;
+}
+
+h1, h2, h3 {
+	font-family: serif; 
+	font-weight: normal;
+	color: #333;
+	margin-bottom: 0.2em;
+}
+
+h1 {
+	font-size: 2.0em;
+	margin-bottom: 0.5em;
+	margin-top: 0.5em;
+	line-height: 1em;
+	line-height: 1.2em;
+}
+
+h2 {
+	font-size: 1.5em;
+	color:		#999;
+	font-weight:	bold;
+	text-transform: uppercase;
+	clear:	both;
+}
+
+h2.article_title a {
+	color: black;
+}
+
+h1.page_title {
+	margin-top: 0;
+	margin-bottom: 0;
+	font-family: 'Consolas', 'Menlo', 'Deja Vu Sans Mono','Bitstream Vera Sans Mono', monospace!important;
+	font-size: 2em;
+	
+}
+
+h3 {
+	font-weight: bold;
+	margin-bottom: 0.1em;
+}
+
+p {
+	margin: 10px 0 10px 0;
+}
+
+p, ul, ol {
+	line-height		: 1.5em;
+	font-size:		1.5em;
+}
+
+ul, ol {
+	padding-left:		2ex;
+	margin-top:		0;
+}
+
+pre {
+	font-family: 'Consolas', 'Menlo', 'Deja Vu Sans Mono','Bitstream Vera Sans Mono', monospace!important;
+}
+
+a {
+	text-decoration		: none;
+	text-transform		: uppercase;
+	color			: #226CFF;
+}
+
+#menu {
+	margin-top: 1ex;
+	clear:		both;
+	display:	block;
+}
+
+#menu a.sel {
+	text-decoration: underline;
+}
+
+#menu:after {
+	content:	'.';
+	visibility:	hidden;
+	clear:		both;
+	display:	block;
+}
+
+.internal {
+	display:	inline;
+	padding:	3px;
+	
+}
+
+.external {
+	vertical-align: top;
+	text-align:	left;
+	padding:	3px 3px 3px 0;
+}
+
+.red {
+	color: #EA4B2A;
+}
+
+.blue {
+	color			: #226CFF;
+}
+
+#menu .external a {
+	color:		#333;
+	text-transform:	none;
+	border-bottom: 2px solid #226CFF;
+}
+
+#social  {
+	padding:	3px;
+	display: none;
+}
+
+#social .links {
+	column-count: 2;
+	-moz-column-count: 2;
+	margin-left:	10px;
+}
+
+#social .title {
+	color:	#666;
+}
+
+#social a {
+	padding-right:	1ex;
+}
+
+
+#social a {
+	display: block;
+	font-size: 1.5em;
+	padding: 5px;
+	color:	#666;
+}
+
+#social a:hover {
+	color:	black;
+}
+
+#social h2 {
+	margin : 10px 0;
+}
+
+
+.disclaimer {
+	margin: 2ex 3px 3px 0;
+	color:	#ccc;
+}
+
+.codehilite > pre {
+	border-left: 4px solid #666;
+	padding: 2px 2px 2px 5px;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+}
+
+#social a.twitter:hover {
+	color: #00bef6;
+}
+#social a.reddit:hover {
+	color: #D41D00;
+}
+#social a.tumblr:hover {
+	color: #2D4861;
+}
+#social a.stumbleupon:hover {
+	color: #EA4B2A;
+}
+#social a.delicious:hover {
+	color: #3274d1;
+}
+
+        </style>
+
+        <style type="text/css" media="screen">
+        .hll { background-color: #ffffcc }
+.c { color: #228B22 } /* Comment */
+.err { color: #a61717; background-color: #e3d2d2 } /* Error */
+.k { color: #8B008B; font-weight: bold } /* Keyword */
+.cm { color: #228B22 } /* Comment.Multiline */
+.cp { color: #1e889b } /* Comment.Preproc */
+.c1 { color: #228B22 } /* Comment.Single */
+.cs { color: #8B008B; font-weight: bold } /* Comment.Special */
+.gd { color: #aa0000 } /* Generic.Deleted */
+.ge { font-style: italic } /* Generic.Emph */
+.gr { color: #aa0000 } /* Generic.Error */
+.gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.gi { color: #00aa00 } /* Generic.Inserted */
+.go { color: #888888 } /* Generic.Output */
+.gp { color: #555555 } /* Generic.Prompt */
+.gs { font-weight: bold } /* Generic.Strong */
+.gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.gt { color: #aa0000 } /* Generic.Traceback */
+.kc { color: #8B008B; font-weight: bold } /* Keyword.Constant */
+.kd { color: #8B008B; font-weight: bold } /* Keyword.Declaration */
+.kn { color: #8B008B; font-weight: bold } /* Keyword.Namespace */
+.kp { color: #8B008B; font-weight: bold } /* Keyword.Pseudo */
+.kr { color: #8B008B; font-weight: bold } /* Keyword.Reserved */
+.kt { color: #a7a7a7; font-weight: bold } /* Keyword.Type */
+.m { color: #B452CD } /* Literal.Number */
+.s { color: #CD5555 } /* Literal.String */
+.na { color: #658b00 } /* Name.Attribute */
+.nb { color: #658b00 } /* Name.Builtin */
+.nc { color: #008b45; font-weight: bold } /* Name.Class */
+.no { color: #00688B } /* Name.Constant */
+.nd { color: #707a7c } /* Name.Decorator */
+.ne { color: #008b45; font-weight: bold } /* Name.Exception */
+.nf { color: #008b45 } /* Name.Function */
+.nn { color: #008b45; text-decoration: underline } /* Name.Namespace */
+.nt { color: #8B008B; font-weight: bold } /* Name.Tag */
+.nv { color: #00688B } /* Name.Variable */
+.ow { color: #8B008B } /* Operator.Word */
+.w { color: #bbbbbb } /* Text.Whitespace */
+.mf { color: #B452CD } /* Literal.Number.Float */
+.mh { color: #B452CD } /* Literal.Number.Hex */
+.mi { color: #B452CD } /* Literal.Number.Integer */
+.mo { color: #B452CD } /* Literal.Number.Oct */
+.sb { color: #CD5555 } /* Literal.String.Backtick */
+.sc { color: #CD5555 } /* Literal.String.Char */
+.sd { color: #CD5555 } /* Literal.String.Doc */
+.s2 { color: #CD5555 } /* Literal.String.Double */
+.se { color: #CD5555 } /* Literal.String.Escape */
+.sh { color: #1c7e71; font-style: italic } /* Literal.String.Heredoc */
+.si { color: #CD5555 } /* Literal.String.Interpol */
+.sx { color: #cb6c20 } /* Literal.String.Other */
+.sr { color: #1c7e71 } /* Literal.String.Regex */
+.s1 { color: #CD5555 } /* Literal.String.Single */
+.ss { color: #CD5555 } /* Literal.String.Symbol */
+.bp { color: #658b00 } /* Name.Builtin.Pseudo */
+.vc { color: #00688B } /* Name.Variable.Class */
+.vg { color: #00688B } /* Name.Variable.Global */
+.vi { color: #00688B } /* Name.Variable.Instance */
+.il { color: #B452CD } /* Literal.Number.Integer.Long */
+
+        </style>
+	
+
+	
+
+
+</head>
+<body>
+
+	
+
+
+
+<div id="content">
+<h1>2 days with Android</h1><p class=" article_preamble">After being annoyed with some show-stopping bugs at work, I decided to take two days
+out of my life and tackle a major Bluetooth related BUG() we had in our Android application. 
+Being the first time I tried to develop for android I was concerned I would have to use 
+Eclipse, and loose my Vim-powered productivity. </p>
+<p>So here's a short primer on console based development for Android</p>
+<h2>Installation</h2>
+<p>Being a happy openSUSE user, android packages were already available. Replace
+the following with the appropriate (apt-get, yum) commands, or download the
+SDK from the android website.</p>
+<div class="codehilite"><pre><span class="err">$</span> <span class="n">sudo</span> <span class="n">zypper</span> <span class="n">install</span> <span class="n">android</span><span class="o">-</span><span class="n">sdk</span>
+<span class="err">$</span> <span class="n">kdesu</span> <span class="n">android</span>
+</pre></div>
+
+
+<p>A nice enough GUI will open and you will be able to update the SDK and install
+additional components.</p>
+<h2>Starting adb</h2>
+<p>To run code on the device you need to start the adb daemon. I 
+do it as root, but you should probably setup some rules in udev to set
+appropriate usb permissions.</p>
+<div class="codehilite"><pre><span class="err">$</span> <span class="n">adb</span> <span class="n">kill</span><span class="o">-</span><span class="n">server</span>
+<span class="err">$</span> <span class="n">sudo</span> <span class="n">adb</span> <span class="n">start</span><span class="o">-</span><span class="n">server</span>
+<span class="err">$</span> <span class="n">adb</span> <span class="n">devices</span>
+</pre></div>
+
+
+<h2>Lets create a project</h2>
+<p>To create a project in the current folder:</p>
+<div class="codehilite"><pre><span class="err">$</span> <span class="n">android</span> <span class="n">create</span> <span class="n">project</span> <span class="o">--</span><span class="n">target</span>  <span class="mi">1</span>  <span class="o">--</span><span class="n">path</span> <span class="p">.</span> <span class="o">--</span><span class="n">package</span> <span class="n">com</span><span class="p">.</span><span class="n">example</span><span class="p">.</span><span class="n">Test</span> <span class="o">--</span><span class="n">activity</span> <span class="n">MyAndroidAppActivity</span>
+</pre></div>
+
+
+<p>The arguments:</p>
+<ul>
+<li>Target(1) : Depends on your installation, check <strong>android list</strong></li>
+<li>Path(.) : The target path, in this case <strong>.</strong>, the current directory</li>
+<li>Package(com.example.Test) : The Java package for your source code</li>
+<li>Activity(MyAndroidAppActivity) : The name of the main activity class</li>
+</ul>
+<h2>Compiling and running code</h2>
+<p>Android projects use <strong>ant</strong> to build the source and install it into the device. 
+The following commands will compile, install and run the application in a plugged
+Android device:</p>
+<div class="codehilite"><pre><span class="err">$</span> <span class="n">ant</span> <span class="n">compile</span>
+<span class="err">$</span> <span class="n">ant</span> <span class="n">install</span>
+<span class="err">$</span> <span class="n">adb</span> <span class="n">shell</span> <span class="err">&#39;</span><span class="n">am</span> <span class="n">start</span> <span class="o">-</span><span class="n">n</span> <span class="n">com</span><span class="p">.</span><span class="n">example</span><span class="p">.</span><span class="n">Test</span><span class="o">/</span><span class="p">.</span><span class="n">MyAndroidAppActivity</span><span class="err">&#39;</span>
+</pre></div>
+
+
+<p>Sometimes it is also useful to remove an application from the phone:</p>
+<div class="codehilite"><pre><span class="err">$</span> <span class="n">adb</span> <span class="n">uninstall</span> <span class="n">com</span><span class="p">.</span><span class="n">example</span><span class="p">.</span><span class="n">Test</span>
+</pre></div>
+
+
+<h2>Logging and Debugging</h2>
+<p>One of my favourite parts so far in developing for android is the debugging
+logs. You can see a live log of what is happening in your device:</p>
+<div class="codehilite"><pre><span class="err">$</span> <span class="n">adb</span> <span class="n">logcat</span>
+</pre></div>
+
+
+<p>or if you want to restrict it to a single application and log level:</p>
+<div class="codehilite"><pre><span class="err">$</span> <span class="n">adb</span> <span class="n">logcat</span> <span class="o">-</span><span class="n">s</span> <span class="n">MyActivity</span><span class="o">:</span><span class="n">V</span>
+</pre></div>
+
+
+<p>If you are like me you'll want to keep track of stacktraces on the log.
+Here's a treat:</p>
+<div class="codehilite"><pre><span class="kd">public</span> <span class="kt">void</span> <span class="nf">logTrace</span><span class="o">(</span><span class="n">StackTraceElement</span><span class="o">[]</span> <span class="n">trace</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kt">int</span> <span class="n">i</span><span class="o">;</span>
+    <span class="k">for</span> <span class="o">(</span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">trace</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+     <span class="n">Log</span><span class="o">.</span><span class="na">v</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">getClass</span><span class="o">().</span><span class="na">getName</span><span class="o">(),</span> <span class="n">trace</span><span class="o">[</span><span class="n">i</span><span class="o">].</span><span class="na">toString</span><span class="o">());</span>          
+    <span class="o">}</span>
+<span class="o">}</span>
+<span class="o">...</span>
+    <span class="n">logTrace</span><span class="o">(</span><span class="n">e</span><span class="o">.</span><span class="na">getStackTrace</span><span class="o">());</span>
+</pre></div>
+
+
+<h2>A brief Conclusion</h2>
+<p>All in all not a bad development environment for the console. I admit I didn't
+handle enough GUI development to miss the designer in eclipse, but still with 3 console
+commands you are mostly ready to run your own app on the device. Which is more than can be 
+said for several other development environments.</p>
+<p>While the development environment was fine, I was pissed at the Java APIs. It
+seems Bluetooth support in Android <em>sucks</em>, no Secure Simple Pairing, little to no control
+over Bluetooth sockets other than the ability to <em>close</em> them, and the wretched 
+<em>createRfcommSocketToServiceRecord(UUID)</em> method that does not seem to work.</p>
+<p>Finally, I also took an hour to peek at native development with the android NDK, and I
+wasn't particularly pleased about it, it has but the most basic libraries (libc, libz, etc), just
+enough to optimise some heavy duty computation but useless for almost anything else. Things
+like libbluetooth were sorely missed.</p>
+<p>Not a bad way to spend two days, I actually got a lot done, which is lot to say about any 
+first time use of any development environment. I like some of the concepts behind
+Android development (Activities, AsyncTask), others not so much (Dialogs :S).</p>
+<h3>PS: some extra bits I picked up later</h3>
+<p>If for any reason you lost you build.xml, just ask adb to rebuild it.</p>
+<div class="codehilite"><pre><span class="err">$</span> <span class="nx">android</span> <span class="nx">update</span> <span class="nx">project</span>  <span class="o">--</span><span class="nb">path</span> <span class="nx">.</span> <span class="o">--</span><span class="nb">target</span> <span class="o">&lt;</span><span class="nb">TARGET</span><span class="o">&gt;</span>
+</pre></div>
+
+
+<p>To open a browser from the adb shell:</p>
+<div class="codehilite"><pre><span class="err">$</span> <span class="n">am</span> <span class="n">start</span> <span class="o">-</span><span class="n">a</span> <span class="n">android</span><span class="p">.</span><span class="n">intent</span><span class="p">.</span><span class="n">action</span><span class="p">.</span><span class="n">VIEW</span> <span class="o">-</span><span class="n">n</span> <span class="n">com</span><span class="p">.</span><span class="n">android</span><span class="p">.</span><span class="n">browser</span><span class="o">/</span><span class="p">.</span><span class="n">BrowserActivity</span> <span class="n">http</span><span class="o">:</span><span class="c1">//www.raf.im</span>
+</pre></div>
+
+
+<h2>References</h2>
+<p>Some additional tutorials on console powered development for android.</p>
+<ul>
+<li>http://developer.android.com/guide/developing/other-ide.html</li>
+<li>http://incise.org/android-development-on-the-command-line.html</li>
+<li>http://mobile.tutsplus.com/tutorials/android/ndk-tutorial/</li>
+<li>http://developer.android.com/</li>
+<li>http://www.droiddraw.org/</li>
+</ul>
+
+
+
+</div>
+
+
+<div class="disclaimer">
+Copyright @ Rui Abreu Ferreira 2014, the opinions expressed here are those of the authors and
+do not reflect the position of anyone else ... really ...
+</div>
+
+</body>
+</html>
+
+

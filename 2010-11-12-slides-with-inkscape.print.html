@@ -1,0 +1,338 @@
+<!DOCTYPE>
+<html>
+<head>
+	<link href='http://fonts.googleapis.com/css?family=Cantata+One&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	
+
+	<title></title>
+	
+	
+        <style type="text/css" media="screen">
+        
+body {
+	font-family: Helvetica, DejaVu Sans, sans-serif; 
+	font-size: 10pt; 
+	color: #000;
+	margin:	auto;
+	margin-top:		0;
+	line-height		: 1.25em;
+}
+
+#content img {
+	max-width: 100%;
+	clear: both;
+}
+
+h1, h2, h3 {
+	font-family: serif; 
+	font-weight: normal;
+	color: #333;
+	margin-bottom: 0.2em;
+}
+
+h1 {
+	font-size: 2.0em;
+	margin-bottom: 0.5em;
+	margin-top: 0.5em;
+	line-height: 1em;
+	line-height: 1.2em;
+}
+
+h2 {
+	font-size: 1.5em;
+	color:		#999;
+	font-weight:	bold;
+	text-transform: uppercase;
+	clear:	both;
+}
+
+h2.article_title a {
+	color: black;
+}
+
+h1.page_title {
+	margin-top: 0;
+	margin-bottom: 0;
+	font-family: 'Consolas', 'Menlo', 'Deja Vu Sans Mono','Bitstream Vera Sans Mono', monospace!important;
+	font-size: 2em;
+	
+}
+
+h3 {
+	font-weight: bold;
+	margin-bottom: 0.1em;
+}
+
+p {
+	margin: 10px 0 10px 0;
+}
+
+p, ul, ol {
+	line-height		: 1.5em;
+	font-size:		1.5em;
+}
+
+ul, ol {
+	padding-left:		2ex;
+	margin-top:		0;
+}
+
+pre {
+	font-family: 'Consolas', 'Menlo', 'Deja Vu Sans Mono','Bitstream Vera Sans Mono', monospace!important;
+}
+
+a {
+	text-decoration		: none;
+	text-transform		: uppercase;
+	color			: #226CFF;
+}
+
+#menu {
+	margin-top: 1ex;
+	clear:		both;
+	display:	block;
+}
+
+#menu a.sel {
+	text-decoration: underline;
+}
+
+#menu:after {
+	content:	'.';
+	visibility:	hidden;
+	clear:		both;
+	display:	block;
+}
+
+.internal {
+	display:	inline;
+	padding:	3px;
+	
+}
+
+.external {
+	vertical-align: top;
+	text-align:	left;
+	padding:	3px 3px 3px 0;
+}
+
+.red {
+	color: #EA4B2A;
+}
+
+.blue {
+	color			: #226CFF;
+}
+
+#menu .external a {
+	color:		#333;
+	text-transform:	none;
+	border-bottom: 2px solid #226CFF;
+}
+
+#social  {
+	padding:	3px;
+	display: none;
+}
+
+#social .links {
+	column-count: 2;
+	-moz-column-count: 2;
+	margin-left:	10px;
+}
+
+#social .title {
+	color:	#666;
+}
+
+#social a {
+	padding-right:	1ex;
+}
+
+
+#social a {
+	display: block;
+	font-size: 1.5em;
+	padding: 5px;
+	color:	#666;
+}
+
+#social a:hover {
+	color:	black;
+}
+
+#social h2 {
+	margin : 10px 0;
+}
+
+
+.disclaimer {
+	margin: 2ex 3px 3px 0;
+	color:	#ccc;
+}
+
+.codehilite > pre {
+	border-left: 4px solid #666;
+	padding: 2px 2px 2px 5px;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+}
+
+#social a.twitter:hover {
+	color: #00bef6;
+}
+#social a.reddit:hover {
+	color: #D41D00;
+}
+#social a.tumblr:hover {
+	color: #2D4861;
+}
+#social a.stumbleupon:hover {
+	color: #EA4B2A;
+}
+#social a.delicious:hover {
+	color: #3274d1;
+}
+
+        </style>
+
+        <style type="text/css" media="screen">
+        .hll { background-color: #ffffcc }
+.c { color: #228B22 } /* Comment */
+.err { color: #a61717; background-color: #e3d2d2 } /* Error */
+.k { color: #8B008B; font-weight: bold } /* Keyword */
+.cm { color: #228B22 } /* Comment.Multiline */
+.cp { color: #1e889b } /* Comment.Preproc */
+.c1 { color: #228B22 } /* Comment.Single */
+.cs { color: #8B008B; font-weight: bold } /* Comment.Special */
+.gd { color: #aa0000 } /* Generic.Deleted */
+.ge { font-style: italic } /* Generic.Emph */
+.gr { color: #aa0000 } /* Generic.Error */
+.gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.gi { color: #00aa00 } /* Generic.Inserted */
+.go { color: #888888 } /* Generic.Output */
+.gp { color: #555555 } /* Generic.Prompt */
+.gs { font-weight: bold } /* Generic.Strong */
+.gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.gt { color: #aa0000 } /* Generic.Traceback */
+.kc { color: #8B008B; font-weight: bold } /* Keyword.Constant */
+.kd { color: #8B008B; font-weight: bold } /* Keyword.Declaration */
+.kn { color: #8B008B; font-weight: bold } /* Keyword.Namespace */
+.kp { color: #8B008B; font-weight: bold } /* Keyword.Pseudo */
+.kr { color: #8B008B; font-weight: bold } /* Keyword.Reserved */
+.kt { color: #a7a7a7; font-weight: bold } /* Keyword.Type */
+.m { color: #B452CD } /* Literal.Number */
+.s { color: #CD5555 } /* Literal.String */
+.na { color: #658b00 } /* Name.Attribute */
+.nb { color: #658b00 } /* Name.Builtin */
+.nc { color: #008b45; font-weight: bold } /* Name.Class */
+.no { color: #00688B } /* Name.Constant */
+.nd { color: #707a7c } /* Name.Decorator */
+.ne { color: #008b45; font-weight: bold } /* Name.Exception */
+.nf { color: #008b45 } /* Name.Function */
+.nn { color: #008b45; text-decoration: underline } /* Name.Namespace */
+.nt { color: #8B008B; font-weight: bold } /* Name.Tag */
+.nv { color: #00688B } /* Name.Variable */
+.ow { color: #8B008B } /* Operator.Word */
+.w { color: #bbbbbb } /* Text.Whitespace */
+.mf { color: #B452CD } /* Literal.Number.Float */
+.mh { color: #B452CD } /* Literal.Number.Hex */
+.mi { color: #B452CD } /* Literal.Number.Integer */
+.mo { color: #B452CD } /* Literal.Number.Oct */
+.sb { color: #CD5555 } /* Literal.String.Backtick */
+.sc { color: #CD5555 } /* Literal.String.Char */
+.sd { color: #CD5555 } /* Literal.String.Doc */
+.s2 { color: #CD5555 } /* Literal.String.Double */
+.se { color: #CD5555 } /* Literal.String.Escape */
+.sh { color: #1c7e71; font-style: italic } /* Literal.String.Heredoc */
+.si { color: #CD5555 } /* Literal.String.Interpol */
+.sx { color: #cb6c20 } /* Literal.String.Other */
+.sr { color: #1c7e71 } /* Literal.String.Regex */
+.s1 { color: #CD5555 } /* Literal.String.Single */
+.ss { color: #CD5555 } /* Literal.String.Symbol */
+.bp { color: #658b00 } /* Name.Builtin.Pseudo */
+.vc { color: #00688B } /* Name.Variable.Class */
+.vg { color: #00688B } /* Name.Variable.Global */
+.vi { color: #00688B } /* Name.Variable.Instance */
+.il { color: #B452CD } /* Literal.Number.Integer.Long */
+
+        </style>
+	
+
+	
+
+
+</head>
+<body>
+
+	
+
+
+
+<div id="content">
+<h1>Slides with inkscapeslide</h1><p class=" article_preamble">I've been growing fond of using inkscape for drawing content for my slides.
+Figures, sequence diagrams and weird charts all end up going through inkscape,
+either drawn from scratch or just for some graphical fixes before they end up
+on the final slides.</p>
+<p>So for some time now I've been searching for a way to make my slides directly from 
+inkscape instead of using OpenOffice. I'm unhappy with Powerpoint like apps
+because these days slides are mostly design work rather than random bullet
+point sorting (Presentation Zen anyone?), and as such drawing programs are more
+suited for this task.</p>
+<p>Having said that, I started to work on some python scripts to sort, convert and glue together 
+multiple SVG files, and them abandoned them when I found a much better solution 
+called InkscapeSlide. InkscapeSlide is tiny python script that converts several layers in a 
+SVG file into multiple slides for a PDF. The creation process goes more or less like
+this: first you create multiple layers in inkscape, you can have as many layers per slide
+as you want. I usually put the background in one layer and then use one layer per slide 
+in the presentation. Finally you create a layer called "content" with a text label
+that will map the layers into slides and run InkscapeSlide.</p>
+<h2>The content layer</h2>
+<p>InkscapeSlide relies on the SVG having a layer named "content" with a single text
+label. The content of this label maps the multiple layers into slides, each line
+in the label creates one slide with one or more layers:</p>
+<div class="codehilite"><pre><span class="n">title</span>
+<span class="n">background</span><span class="p">,</span> <span class="n">content</span>
+<span class="o">+</span><span class="n">bullet1</span>
+<span class="o">+</span><span class="n">bullet2</span>
+<span class="o">+</span><span class="n">bullet3</span>
+<span class="n">background</span><span class="p">,</span> <span class="n">questions</span> <span class="o">*</span> <span class="mf">0.5</span>
+</pre></div>
+
+
+<p>This example would create 6 slides. The first slide is made of a single layer 'title'; The
+second uses two layers 'background' and 'content', this allows us to set a template layer
+with elements that show up on all slides; The slides 3,4,5 are incremental, the '+' sign
+means the previous slide plus; the last slide is similar to the second except it sets the 
+"questions" layer to have an opacity of 0.5.</p>
+<h2>Running InkscapeSlide</h2>
+<p>Running InkscapeSlide is as simple as issuing the following command in the
+console:</p>
+<div class="codehilite"><pre><span class="err">$</span> <span class="n">inkscapeslide</span> <span class="n">slides</span><span class="p">.</span><span class="n">svg</span>
+</pre></div>
+
+
+<p>The command will generate a pdf with the slides, or fail if the content layer does not
+exist. Be careful to check the result tough, because InkscapeSlide wont complain about
+missing layers.</p>
+<p>Here is a full example <a href="http://media.ruiabreu.org/files/2010-11-12-slides-with-inkscape.svg">SVG</a>
+and the resulting <a href="http://media.ruiabreu.org/files/2010-11-12-slides-with-inkscape.pdf">PDF</a> with
+a few slides.</p>
+<h2>Reference</h2>
+<p><a href="http://projects.abourget.net/inkscapeslide/">inkscapeslide</a></p>
+
+
+
+</div>
+
+
+<div class="disclaimer">
+Copyright @ Rui Abreu Ferreira 2014, the opinions expressed here are those of the authors and
+do not reflect the position of anyone else ... really ...
+</div>
+
+</body>
+</html>
+
+

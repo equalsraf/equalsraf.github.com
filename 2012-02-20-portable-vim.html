@@ -1,0 +1,170 @@
+<!DOCTYPE>
+<html>
+<head>
+	<link href='http://fonts.googleapis.com/css?family=Cantata+One&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	
+
+	<title></title>
+	
+	
+	<link type="text/css" media="screen" href="style.css" rel="stylesheet">
+    	<link type="text/css" media="screen and (min-device-width: 1024px)" href="fancy.css" rel="stylesheet"/>
+	<link type="text/css" media="screen" href="code.css" rel="stylesheet"/>
+	
+
+	
+
+<link rel="Alternate" media="Print" href="2012-02-20-portable-vim.print.html" />
+<script src="jquery-1.9.1.js">
+</script>
+
+
+</head>
+<body>
+
+	
+	<div id="title_box">
+	<h1 class="page_title">cat /dev/<span class="red">raf</span>/web&gt;</h1>
+	</div>
+
+	
+	
+	
+
+
+
+<div id="content">
+<h1>Portable Vim settings</h1><p class=" article_preamble">Several people have acquired the habit of keeping their Vim settings under version control and sharing those settings as git/mercurial repositories.
+Generally people do this for three reasons:</p>
+<ol>
+<li>To keep a close eye on their settings ( raise your hand if <strong>.vimrc</strong> is the most important settings file in your pc).</li>
+<li>To share their vimrc with other people.</li>
+<li>... and to have a trivial way to get their vimrc when they are in another terminal.</li>
+</ol>
+<p>What I'm describing below is a quick hack on how to cleanly handle point n.º 3.
+What I wanted was a way to quickly get my Vim settings when I am working at another terminal:</p>
+<ul>
+<li>Don't just store the <em>vimrc</em> file but also the plugins and color schemes</li>
+<li>Don't need to overwrite the Vim config files on the system/home folder</li>
+<li>Do this as cleanly as possible - don't store redundant information, or require lots of steps to download it</li>
+</ul>
+<p>The objective here is to keep all my Vim settings under version control and easily import then when on another machine, preferably without altering the local settings.
+I'll be using Git for this, but I'm sure any other version control system will do.</p>
+<h2>Keeping your Vim settings under version control</h2>
+<p>In Unix, Vim loads user settings from two locations: settings files from the home folder (.vimrc and .gvimrc) and additional files from the .vim/ folder (plugins, color schemes, etc)
+The problem with these two locations is that they are not easy to keep separate from the remainder of my files, and I'm not keen on creating a git repository in my home folder.</p>
+<p>To solve this I moved all my Vim settings files inside the <em>.vim</em> folder and created symbolic links:</p>
+<div class="codehilite"><pre><span class="err">$</span> <span class="n">mv</span> <span class="o">~/</span><span class="p">.</span><span class="n">vimrc</span> <span class="o">~/</span><span class="p">.</span><span class="n">vim</span><span class="o">/</span><span class="n">vimrc</span>
+<span class="err">$</span> <span class="n">ln</span> <span class="o">~/</span><span class="p">.</span><span class="n">vim</span><span class="o">/</span><span class="n">vimrc</span> <span class="o">~/</span><span class="p">.</span><span class="n">vimrc</span>
+</pre></div>
+
+
+<p>This way I can create a git repository inside my .vim folder to track all files.
+There is no need to move files around after creating the initial symlinks.</p>
+<p>It is also a good idea to have Git ignore some files such as plugins or settings that can only work on the original machine.</p>
+<h2>Being portable</h2>
+<p>The core issue here is finding a way to get your settings from a remote git repo without needing to overwrite the local settings, that is ignoring the local <em>.vim</em> and <em>.vimrc</em>.</p>
+<p>I got this neat idea from a stackoverflow question on how to override local settings completely.
+Vim already has a <strong>-u</strong> options to load settings from a given file instead of <em>.vimrc</em>, what is missing is a way to alter the runtime path to load plugins and.
+Below is the script I found on stackoverflow along with some changes to fix the runtimepath and load a second vimrc file from the same folder:</p>
+<div class="codehilite"><pre><span class="s2">&quot; Portable VIM setup, ignore local vim settings and use settings from this folder</span>
+<span class="s2">&quot;</span> <span class="p">@</span><span class="nx">warning</span> <span class="nx">this</span> <span class="nx">only</span> <span class="n">works</span> <span class="k">in</span> <span class="nx">a</span> <span class="nb">script</span> <span class="o">-</span> <span class="nx">it</span> <span class="nx">can</span><span class="s1">&#39;t be called from the Vim command</span>
+<span class="s1">&quot;       prompt</span>
+<span class="s1">&quot;</span>
+
+<span class="s1">&quot; set default &#39;</span><span class="nx">runtimepath</span><span class="s1">&#39; (without ~/.vim folders)</span>
+<span class="s1">let &amp;runtimepath = printf(&#39;</span><span class="o">%</span><span class="nb">s</span><span class="p">/</span><span class="nx">site</span><span class="p">,</span><span class="o">%</span><span class="nb">s</span><span class="p">,</span><span class="o">%</span><span class="nb">s</span><span class="p">/</span><span class="nx">site</span><span class="p">/</span><span class="nx">after</span><span class="s1">&#39;, $VIM, $VIMRUNTIME, $VIM)</span>
+
+<span class="s1">&quot; what is the name of the directory containing this file?</span>
+<span class="s1">let s:portable = expand(&#39;</span><span class="o">&lt;</span><span class="nx">sfile</span><span class="o">&gt;</span><span class="p">:</span><span class="nx">p</span><span class="p">:</span><span class="nx">h</span><span class="s1">&#39;)</span>
+
+<span class="s1">&quot; add the directory to &#39;</span><span class="nx">runtimepath</span><span class="s1">&#39;</span>
+<span class="s1">let &amp;runtimepath = printf(&#39;</span><span class="o">%</span><span class="nb">s</span><span class="o">/</span><span class="p">,</span><span class="o">%</span><span class="nb">s</span><span class="p">,</span><span class="o">%</span><span class="nb">s</span><span class="p">/</span><span class="nx">after</span><span class="s1">&#39;, s:portable, &amp;runtimepath, s:portable)</span>
+
+<span class="s1">let s:realvimrc = printf(&#39;</span><span class="o">%</span><span class="nb">s</span><span class="p">/</span><span class="nx">vimrc</span><span class="s1">&#39;, s:portable)</span>
+<span class="s1">exec &quot;:source&quot; . s:realvimrc</span>
+</pre></div>
+
+
+<p>So whenever I want to get my vim settings I will do:</p>
+<div class="codehilite"><pre><span class="err">$</span> <span class="n">git</span> <span class="n">clone</span> <span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="o">:</span><span class="c1">//bitbucket.org/equalsraf/vimrc.git</span>
+<span class="err">$</span> <span class="n">vim</span> <span class="o">-</span><span class="n">u</span> <span class="n">vimrc</span><span class="o">/</span><span class="n">portable</span><span class="o">-</span><span class="n">vim</span>
+</pre></div>
+
+
+<p>And there you go, you are now running vim with my Vim settings.</p>
+<h2>Extra tricks</h2>
+<p>These days most sane people use pathogen to manage their Vim plugins, which means that plugins are stored as Git/Mercurial repositories inside the <em>bundle</em> folder.
+If that is the case, then there is not point to storing the content of those folders in the repositories.
+You might as well setup git submodules to handle those repositories.</p>
+<p>I've added a link to my Vim settings in the references below.
+If you check it you'll see that some plugins are inside the repository, while others are references to external git repositories.
+So the previous example becomes:</p>
+<div class="codehilite"><pre><span class="err">$</span> <span class="n">git</span> <span class="n">clone</span> <span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="o">:</span><span class="c1">//bitbucket.org/equalsraf/vimrc.git</span>
+<span class="err">$</span> <span class="n">git</span> <span class="n">submodule</span> <span class="n">init</span> 
+<span class="err">$</span> <span class="n">git</span> <span class="n">submodule</span> <span class="n">update</span>
+<span class="err">$</span> <span class="n">vim</span> <span class="o">-</span><span class="n">u</span> <span class="n">vimrc</span><span class="o">/</span><span class="n">portable</span><span class="o">-</span><span class="n">vim</span>
+</pre></div>
+
+
+<p>Now, not only do we have the config files and color schemes but we also have plugins.</p>
+<h2>A few Caveats</h2>
+<p>Before I finish this up, here are a few a caveats</p>
+<ul>
+<li>This requires Git (or other version control system)</li>
+<li>Some distributions load vim settings from unusual locations, such as /etc/vimrc. Make sure your <em>vimrc</em> has everything you need (set <strong>nocp</strong> and set backspace=2 for example)</li>
+<li>Some plugins will not work in other systems, if they have local dependencies.</li>
+</ul>
+<h2>References</h2>
+<ul>
+<li><a href="https://bitbucket.org/equalsraf/vimrc">My vimrc</a></li>
+<li><a href="http://stackoverflow.com/questions/3377298/how-can-i-override-vim-and-vimrc-paths-but-no-others-in-vim">Stackoverflow: How can I override ~/.vim and ~/.vimrc paths (but no others) in vim?</a></li>
+<li><a href="https://github.com/tpope/vim-pathogen">Pathogen</a></li>
+</ul>
+
+
+<div id="social">
+	<h2>Liked this? Share it.</h2>
+	<div class="links">
+	<a class="delicious" title="Share on tumblr" href="http://del.icio.us/post?url=">Delicious</a>
+	<a class="stumbleupon" href="http://www.stumbleupon.com/submit?u=">StumbleUpon</a>
+	<a class="twitter" href="http://twitter.com/home/?status=">Twitter</a>
+	<a class="reddit" href="http://www.reddit.com/submit?url=">Reddit</a>
+	<a class="tumblr" href="http://www.tumblr.com/share">Tumblr</a>
+	</div>
+</div>
+<script>
+var url = window.location.href;
+
+var anchor;
+anchor = $('#social a.delicious');
+anchor.attr('href', anchor.attr('href') + url);
+anchor = $('#social a.stumbleupon');
+anchor.attr('href', anchor.attr('href') + url);
+anchor = $('#social a.twitter');
+anchor.attr('href', anchor.attr('href') + url);
+anchor = $('#social a.reddit');
+anchor.attr('href', anchor.attr('href') + url);
+// No need for tumblr
+
+$('#social').show();
+</script>
+
+<h2>Download this</h2>
+<p>To save this as a clean single HTML file you can save, press <a href="2012-02-20-portable-vim.print.html">here</a>
+This is ideal for long term storage or reading on your ebook reader.</p>
+
+
+</div>
+
+
+<div class="disclaimer">
+Copyright @ Rui Abreu Ferreira 2014, the opinions expressed here are those of the authors and
+do not reflect the position of anyone else ... really ...
+</div>
+
+</body>
+</html>
+
+

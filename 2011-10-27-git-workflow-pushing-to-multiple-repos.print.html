@@ -1,0 +1,373 @@
+<!DOCTYPE>
+<html>
+<head>
+	<link href='http://fonts.googleapis.com/css?family=Cantata+One&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	
+
+	<title></title>
+	
+	
+        <style type="text/css" media="screen">
+        
+body {
+	font-family: Helvetica, DejaVu Sans, sans-serif; 
+	font-size: 10pt; 
+	color: #000;
+	margin:	auto;
+	margin-top:		0;
+	line-height		: 1.25em;
+}
+
+#content img {
+	max-width: 100%;
+	clear: both;
+}
+
+h1, h2, h3 {
+	font-family: serif; 
+	font-weight: normal;
+	color: #333;
+	margin-bottom: 0.2em;
+}
+
+h1 {
+	font-size: 2.0em;
+	margin-bottom: 0.5em;
+	margin-top: 0.5em;
+	line-height: 1em;
+	line-height: 1.2em;
+}
+
+h2 {
+	font-size: 1.5em;
+	color:		#999;
+	font-weight:	bold;
+	text-transform: uppercase;
+	clear:	both;
+}
+
+h2.article_title a {
+	color: black;
+}
+
+h1.page_title {
+	margin-top: 0;
+	margin-bottom: 0;
+	font-family: 'Consolas', 'Menlo', 'Deja Vu Sans Mono','Bitstream Vera Sans Mono', monospace!important;
+	font-size: 2em;
+	
+}
+
+h3 {
+	font-weight: bold;
+	margin-bottom: 0.1em;
+}
+
+p {
+	margin: 10px 0 10px 0;
+}
+
+p, ul, ol {
+	line-height		: 1.5em;
+	font-size:		1.5em;
+}
+
+ul, ol {
+	padding-left:		2ex;
+	margin-top:		0;
+}
+
+pre {
+	font-family: 'Consolas', 'Menlo', 'Deja Vu Sans Mono','Bitstream Vera Sans Mono', monospace!important;
+}
+
+a {
+	text-decoration		: none;
+	text-transform		: uppercase;
+	color			: #226CFF;
+}
+
+#menu {
+	margin-top: 1ex;
+	clear:		both;
+	display:	block;
+}
+
+#menu a.sel {
+	text-decoration: underline;
+}
+
+#menu:after {
+	content:	'.';
+	visibility:	hidden;
+	clear:		both;
+	display:	block;
+}
+
+.internal {
+	display:	inline;
+	padding:	3px;
+	
+}
+
+.external {
+	vertical-align: top;
+	text-align:	left;
+	padding:	3px 3px 3px 0;
+}
+
+.red {
+	color: #EA4B2A;
+}
+
+.blue {
+	color			: #226CFF;
+}
+
+#menu .external a {
+	color:		#333;
+	text-transform:	none;
+	border-bottom: 2px solid #226CFF;
+}
+
+#social  {
+	padding:	3px;
+	display: none;
+}
+
+#social .links {
+	column-count: 2;
+	-moz-column-count: 2;
+	margin-left:	10px;
+}
+
+#social .title {
+	color:	#666;
+}
+
+#social a {
+	padding-right:	1ex;
+}
+
+
+#social a {
+	display: block;
+	font-size: 1.5em;
+	padding: 5px;
+	color:	#666;
+}
+
+#social a:hover {
+	color:	black;
+}
+
+#social h2 {
+	margin : 10px 0;
+}
+
+
+.disclaimer {
+	margin: 2ex 3px 3px 0;
+	color:	#ccc;
+}
+
+.codehilite > pre {
+	border-left: 4px solid #666;
+	padding: 2px 2px 2px 5px;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+}
+
+#social a.twitter:hover {
+	color: #00bef6;
+}
+#social a.reddit:hover {
+	color: #D41D00;
+}
+#social a.tumblr:hover {
+	color: #2D4861;
+}
+#social a.stumbleupon:hover {
+	color: #EA4B2A;
+}
+#social a.delicious:hover {
+	color: #3274d1;
+}
+
+        </style>
+
+        <style type="text/css" media="screen">
+        .hll { background-color: #ffffcc }
+.c { color: #228B22 } /* Comment */
+.err { color: #a61717; background-color: #e3d2d2 } /* Error */
+.k { color: #8B008B; font-weight: bold } /* Keyword */
+.cm { color: #228B22 } /* Comment.Multiline */
+.cp { color: #1e889b } /* Comment.Preproc */
+.c1 { color: #228B22 } /* Comment.Single */
+.cs { color: #8B008B; font-weight: bold } /* Comment.Special */
+.gd { color: #aa0000 } /* Generic.Deleted */
+.ge { font-style: italic } /* Generic.Emph */
+.gr { color: #aa0000 } /* Generic.Error */
+.gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.gi { color: #00aa00 } /* Generic.Inserted */
+.go { color: #888888 } /* Generic.Output */
+.gp { color: #555555 } /* Generic.Prompt */
+.gs { font-weight: bold } /* Generic.Strong */
+.gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.gt { color: #aa0000 } /* Generic.Traceback */
+.kc { color: #8B008B; font-weight: bold } /* Keyword.Constant */
+.kd { color: #8B008B; font-weight: bold } /* Keyword.Declaration */
+.kn { color: #8B008B; font-weight: bold } /* Keyword.Namespace */
+.kp { color: #8B008B; font-weight: bold } /* Keyword.Pseudo */
+.kr { color: #8B008B; font-weight: bold } /* Keyword.Reserved */
+.kt { color: #a7a7a7; font-weight: bold } /* Keyword.Type */
+.m { color: #B452CD } /* Literal.Number */
+.s { color: #CD5555 } /* Literal.String */
+.na { color: #658b00 } /* Name.Attribute */
+.nb { color: #658b00 } /* Name.Builtin */
+.nc { color: #008b45; font-weight: bold } /* Name.Class */
+.no { color: #00688B } /* Name.Constant */
+.nd { color: #707a7c } /* Name.Decorator */
+.ne { color: #008b45; font-weight: bold } /* Name.Exception */
+.nf { color: #008b45 } /* Name.Function */
+.nn { color: #008b45; text-decoration: underline } /* Name.Namespace */
+.nt { color: #8B008B; font-weight: bold } /* Name.Tag */
+.nv { color: #00688B } /* Name.Variable */
+.ow { color: #8B008B } /* Operator.Word */
+.w { color: #bbbbbb } /* Text.Whitespace */
+.mf { color: #B452CD } /* Literal.Number.Float */
+.mh { color: #B452CD } /* Literal.Number.Hex */
+.mi { color: #B452CD } /* Literal.Number.Integer */
+.mo { color: #B452CD } /* Literal.Number.Oct */
+.sb { color: #CD5555 } /* Literal.String.Backtick */
+.sc { color: #CD5555 } /* Literal.String.Char */
+.sd { color: #CD5555 } /* Literal.String.Doc */
+.s2 { color: #CD5555 } /* Literal.String.Double */
+.se { color: #CD5555 } /* Literal.String.Escape */
+.sh { color: #1c7e71; font-style: italic } /* Literal.String.Heredoc */
+.si { color: #CD5555 } /* Literal.String.Interpol */
+.sx { color: #cb6c20 } /* Literal.String.Other */
+.sr { color: #1c7e71 } /* Literal.String.Regex */
+.s1 { color: #CD5555 } /* Literal.String.Single */
+.ss { color: #CD5555 } /* Literal.String.Symbol */
+.bp { color: #658b00 } /* Name.Builtin.Pseudo */
+.vc { color: #00688B } /* Name.Variable.Class */
+.vg { color: #00688B } /* Name.Variable.Global */
+.vi { color: #00688B } /* Name.Variable.Instance */
+.il { color: #B452CD } /* Literal.Number.Integer.Long */
+
+        </style>
+	
+
+	
+
+
+</head>
+<body>
+
+	
+
+
+
+<div id="content">
+<h1>git workflow: pushing to multiple repositories in sync</h1><p class=" article_preamble">Recently I've been keeping an eye out for a solution to keep multiple git repositories in sync.
+I've already discussed mirroring repositories in a previous post.
+But in this case what I was looking for was the ability to push branches into multiple remote repositories, in one command.</p>
+<p>The reason why I was looking into this is because I keep some projects in multiple online hosting services (github, gitorious, etc) at the same time.
+After a while it becomes tiresome to push against all those remotes, so basically I'm looking for a way to save some keystrokes, and avoid stupid errors like forgetting to push into one of the remotes.</p>
+<h2>The new Origin</h2>
+<p>One way to partially achieve this is by creating a new remote that aggregates all the remotes you want to push into. For example by adding the following into .git/config.</p>
+<div class="codehilite"><pre><span class="k">[remote &quot;Origin&quot;]</span>
+    <span class="na">url</span> <span class="o">=</span> <span class="s">git@gitorious.org:vim-qt/vim-qt.git</span>
+<span class="s">    url = git@github.com:equalsraf/vim-qt.git</span>
+<span class="s">    url = git@bitbucket.org:equalsraf/vim-qt.git</span>
+</pre></div>
+
+
+<p>This essentially aggregates three remotes into a new one. I've named it "Origin" as a pun to the usual origin branch in git, but you can call it whatever you want.
+You can even call it <em>origin</em> (in lowercase), but I prefer a name that explicitly lets me know what I am doing.
+At this point pushing into Origin will be equivalent of pushing into all the other branches.</p>
+<div class="codehilite"><pre><span class="err">$</span> <span class="n">git</span> <span class="n">push</span> <span class="n">Origin</span> <span class="n">master</span>
+</pre></div>
+
+
+<p>A few notes about this remote before we continue. 
+The remote, and any remote branches will not appear in git tools. 
+So running <em>git branch -a</em>  will not show any Origin/master, for example. 
+This is alright, since doing it would require all those remotes to be in sync which may not be true at all, but it has some disadvantages that we will discuss later.
+You probably want to keep regular references to the individual remote branches anyway, so that you can push into them individually.
+So my .git/config file looks like this,</p>
+<div class="codehilite"><pre><span class="k">[remote &quot;gitorious&quot;]</span>
+    <span class="na">url</span> <span class="o">=</span> <span class="s">git@gitorious.org:vim-qt/vim-qt.git</span>
+<span class="s">    fetch = +refs/heads/*:refs/remotes/gitorious/*</span>
+<span class="k">[remote &quot;github&quot;]</span>
+    <span class="na">url</span> <span class="o">=</span> <span class="s">git@github.com:equalsraf/vim-qt.git</span>
+<span class="s">    fetch = +refs/heads/*:refs/remotes/github/*</span>
+<span class="k">[remote &quot;bitbucket&quot;]</span>
+    <span class="na">url</span> <span class="o">=</span> <span class="s">git@bitbucket.org:equalsraf/vim-qt.git</span>
+<span class="s">    fetch = +refs/heads/*:refs/remotes/bitbucket/*</span>
+<span class="k">[remote &quot;Origin&quot;]</span>
+    <span class="na">url</span> <span class="o">=</span> <span class="s">git@gitorious.org:vim-qt/vim-qt.git</span>
+<span class="s">    url = git@github.com:equalsraf/vim-qt.git</span>
+<span class="s">    url = git@bitbucket.org:equalsraf/vim-qt.git</span>
+</pre></div>
+
+
+<h2>Fixing remote updates</h2>
+<p>The downside of the previous configuration is that it only works that well for pushing into the remote. 
+If you try fetching from it nothing interesting happens, and more importantly pushing into it does not update remote references you may have to the individual remotes, because git sees those as unrelated remotes.
+This unfortunate shortcoming requires us to run a remote update (or a git fetch for example), in order to have those remotes updated, i.e.</p>
+<div class="codehilite"><pre><span class="err">$</span> <span class="n">git</span> <span class="n">push</span> <span class="n">Origin</span> <span class="n">master</span>
+<span class="err">$</span> <span class="n">git</span> <span class="n">remote</span> <span class="n">update</span>
+</pre></div>
+
+
+<p>Instead of a single git push.
+To make this even better we need to find a way to automatically run the <em>git remote</em>  command after the push.
+Unfortunately git-hooks are of no use here, because there is no such thing as a post-push hook.</p>
+<p>The best solution I was able to come up for this, was to create a git alias that merges those to commands, like this</p>
+<div class="codehilite"><pre><span class="k">[alias]</span>
+    <span class="na">multipush</span> <span class="o">=</span> <span class="s">&quot;!f() { git push $@; git remote update; }; f&quot;</span>
+</pre></div>
+
+
+<p>Basically <em>git multipush</em> is an alias for git push, that is always followed by a call to <em>git remote</em>.
+So now I would call</p>
+<div class="codehilite"><pre><span class="err">$</span> <span class="n">git</span> <span class="n">multipush</span> <span class="n">Origin</span> <span class="n">master</span>
+</pre></div>
+
+
+<p>and that would be it, the master branch would be pushed into all remotes, and all the references would be updated.</p>
+<p>An unfortunate side effect is that git bash auto-completion does not work for alias commands, which is unfortunate because I not keep pushing Tab for nothing.</p>
+<h2>Watch out for dragons</h2>
+<p>This all works under the assumptions that you want to push from your local branch into multiple remote replicas, where YOU are the ONLY one pushing into those repositories.
+Guard this assumption carefully, because for other workflows this might blow up in your face.
+This seems to be fine for online Git hosting, where most workflows use pull-requests.</p>
+<p>For example if you are not able to push to one the remote branches (network failure, server down, etc), the branches will remain out of sync, and might be synced again when you push later.
+If someone else, other than you, were to push something into one remote branch (or all for that matter), then those branches would now hold distinct histories.</p>
+<h2>The would-be-perfect solution!</h2>
+<p>For me, the would-be-perfect solution entails doing all this synchronization work on the server side.
+Assuming that Bitbucket was my main repository, then pushing to Bitbucket would trigger a push into Gitorious and Github.
+As far the git client is concerned there would be only one push (into Bitbucket).</p>
+<p>This would be easier for the git client (a.k.a. ME) but harder for those services.
+Because Bitbucket would have to be able to authenticate into those other two services.
+This would be something like using a service hook, plus the ability to place some ssh keys in Bitbucket to be able to authenticate with the other services.</p>
+<p>Does that sound like a good idea?
+And more importantly would Github/Bitbucket be willing to support a service that pushes code to other services?
+Or maybe what we really need is a new service just for this - codereplicator.org - wink, wink anyone?</p>
+
+
+
+</div>
+
+
+<div class="disclaimer">
+Copyright @ Rui Abreu Ferreira 2014, the opinions expressed here are those of the authors and
+do not reflect the position of anyone else ... really ...
+</div>
+
+</body>
+</html>
+
+

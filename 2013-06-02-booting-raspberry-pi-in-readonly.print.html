@@ -1,0 +1,401 @@
+<!DOCTYPE>
+<html>
+<head>
+	<link href='http://fonts.googleapis.com/css?family=Cantata+One&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	
+
+	<title></title>
+	
+	
+        <style type="text/css" media="screen">
+        
+body {
+	font-family: Helvetica, DejaVu Sans, sans-serif; 
+	font-size: 10pt; 
+	color: #000;
+	margin:	auto;
+	margin-top:		0;
+	line-height		: 1.25em;
+}
+
+#content img {
+	max-width: 100%;
+	clear: both;
+}
+
+h1, h2, h3 {
+	font-family: serif; 
+	font-weight: normal;
+	color: #333;
+	margin-bottom: 0.2em;
+}
+
+h1 {
+	font-size: 2.0em;
+	margin-bottom: 0.5em;
+	margin-top: 0.5em;
+	line-height: 1em;
+	line-height: 1.2em;
+}
+
+h2 {
+	font-size: 1.5em;
+	color:		#999;
+	font-weight:	bold;
+	text-transform: uppercase;
+	clear:	both;
+}
+
+h2.article_title a {
+	color: black;
+}
+
+h1.page_title {
+	margin-top: 0;
+	margin-bottom: 0;
+	font-family: 'Consolas', 'Menlo', 'Deja Vu Sans Mono','Bitstream Vera Sans Mono', monospace!important;
+	font-size: 2em;
+	
+}
+
+h3 {
+	font-weight: bold;
+	margin-bottom: 0.1em;
+}
+
+p {
+	margin: 10px 0 10px 0;
+}
+
+p, ul, ol {
+	line-height		: 1.5em;
+	font-size:		1.5em;
+}
+
+ul, ol {
+	padding-left:		2ex;
+	margin-top:		0;
+}
+
+pre {
+	font-family: 'Consolas', 'Menlo', 'Deja Vu Sans Mono','Bitstream Vera Sans Mono', monospace!important;
+}
+
+a {
+	text-decoration		: none;
+	text-transform		: uppercase;
+	color			: #226CFF;
+}
+
+#menu {
+	margin-top: 1ex;
+	clear:		both;
+	display:	block;
+}
+
+#menu a.sel {
+	text-decoration: underline;
+}
+
+#menu:after {
+	content:	'.';
+	visibility:	hidden;
+	clear:		both;
+	display:	block;
+}
+
+.internal {
+	display:	inline;
+	padding:	3px;
+	
+}
+
+.external {
+	vertical-align: top;
+	text-align:	left;
+	padding:	3px 3px 3px 0;
+}
+
+.red {
+	color: #EA4B2A;
+}
+
+.blue {
+	color			: #226CFF;
+}
+
+#menu .external a {
+	color:		#333;
+	text-transform:	none;
+	border-bottom: 2px solid #226CFF;
+}
+
+#social  {
+	padding:	3px;
+	display: none;
+}
+
+#social .links {
+	column-count: 2;
+	-moz-column-count: 2;
+	margin-left:	10px;
+}
+
+#social .title {
+	color:	#666;
+}
+
+#social a {
+	padding-right:	1ex;
+}
+
+
+#social a {
+	display: block;
+	font-size: 1.5em;
+	padding: 5px;
+	color:	#666;
+}
+
+#social a:hover {
+	color:	black;
+}
+
+#social h2 {
+	margin : 10px 0;
+}
+
+
+.disclaimer {
+	margin: 2ex 3px 3px 0;
+	color:	#ccc;
+}
+
+.codehilite > pre {
+	border-left: 4px solid #666;
+	padding: 2px 2px 2px 5px;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+}
+
+#social a.twitter:hover {
+	color: #00bef6;
+}
+#social a.reddit:hover {
+	color: #D41D00;
+}
+#social a.tumblr:hover {
+	color: #2D4861;
+}
+#social a.stumbleupon:hover {
+	color: #EA4B2A;
+}
+#social a.delicious:hover {
+	color: #3274d1;
+}
+
+        </style>
+
+        <style type="text/css" media="screen">
+        .hll { background-color: #ffffcc }
+.c { color: #228B22 } /* Comment */
+.err { color: #a61717; background-color: #e3d2d2 } /* Error */
+.k { color: #8B008B; font-weight: bold } /* Keyword */
+.cm { color: #228B22 } /* Comment.Multiline */
+.cp { color: #1e889b } /* Comment.Preproc */
+.c1 { color: #228B22 } /* Comment.Single */
+.cs { color: #8B008B; font-weight: bold } /* Comment.Special */
+.gd { color: #aa0000 } /* Generic.Deleted */
+.ge { font-style: italic } /* Generic.Emph */
+.gr { color: #aa0000 } /* Generic.Error */
+.gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.gi { color: #00aa00 } /* Generic.Inserted */
+.go { color: #888888 } /* Generic.Output */
+.gp { color: #555555 } /* Generic.Prompt */
+.gs { font-weight: bold } /* Generic.Strong */
+.gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.gt { color: #aa0000 } /* Generic.Traceback */
+.kc { color: #8B008B; font-weight: bold } /* Keyword.Constant */
+.kd { color: #8B008B; font-weight: bold } /* Keyword.Declaration */
+.kn { color: #8B008B; font-weight: bold } /* Keyword.Namespace */
+.kp { color: #8B008B; font-weight: bold } /* Keyword.Pseudo */
+.kr { color: #8B008B; font-weight: bold } /* Keyword.Reserved */
+.kt { color: #a7a7a7; font-weight: bold } /* Keyword.Type */
+.m { color: #B452CD } /* Literal.Number */
+.s { color: #CD5555 } /* Literal.String */
+.na { color: #658b00 } /* Name.Attribute */
+.nb { color: #658b00 } /* Name.Builtin */
+.nc { color: #008b45; font-weight: bold } /* Name.Class */
+.no { color: #00688B } /* Name.Constant */
+.nd { color: #707a7c } /* Name.Decorator */
+.ne { color: #008b45; font-weight: bold } /* Name.Exception */
+.nf { color: #008b45 } /* Name.Function */
+.nn { color: #008b45; text-decoration: underline } /* Name.Namespace */
+.nt { color: #8B008B; font-weight: bold } /* Name.Tag */
+.nv { color: #00688B } /* Name.Variable */
+.ow { color: #8B008B } /* Operator.Word */
+.w { color: #bbbbbb } /* Text.Whitespace */
+.mf { color: #B452CD } /* Literal.Number.Float */
+.mh { color: #B452CD } /* Literal.Number.Hex */
+.mi { color: #B452CD } /* Literal.Number.Integer */
+.mo { color: #B452CD } /* Literal.Number.Oct */
+.sb { color: #CD5555 } /* Literal.String.Backtick */
+.sc { color: #CD5555 } /* Literal.String.Char */
+.sd { color: #CD5555 } /* Literal.String.Doc */
+.s2 { color: #CD5555 } /* Literal.String.Double */
+.se { color: #CD5555 } /* Literal.String.Escape */
+.sh { color: #1c7e71; font-style: italic } /* Literal.String.Heredoc */
+.si { color: #CD5555 } /* Literal.String.Interpol */
+.sx { color: #cb6c20 } /* Literal.String.Other */
+.sr { color: #1c7e71 } /* Literal.String.Regex */
+.s1 { color: #CD5555 } /* Literal.String.Single */
+.ss { color: #CD5555 } /* Literal.String.Symbol */
+.bp { color: #658b00 } /* Name.Builtin.Pseudo */
+.vc { color: #00688B } /* Name.Variable.Class */
+.vg { color: #00688B } /* Name.Variable.Global */
+.vi { color: #00688B } /* Name.Variable.Instance */
+.il { color: #B452CD } /* Literal.Number.Integer.Long */
+
+        </style>
+	
+
+	
+
+
+</head>
+<body>
+
+	
+
+
+
+<div id="content">
+<h1>Booting Raspberry Pi Root in read-only</h1><p class=" article_preamble">So last week a lot of people around here were looking into how to boot a raspberry pi with
+the SD card partition in read only mode - this came after a couple of annoying
+data losses.</p>
+<p>A lot of us are using the R-Pi as cheap automation system - 
+as terminal(tty) server, 3D print server, server monitoring, and more ideas are
+constantly on the way in.  Personally I use it as a media center attached to my
+TV.</p>
+<p>The main problem with this kind of use are that the devices are constantly on, and might have
+to suffer trough power failures - <em>For my part I'm ready to admit that I've
+pulled the plug a couple times</em>.</p>
+<p>So I wanted to have a way to keep the root partition as read only, thus avoiding corruption
+on the SD Card. I can always plug in some USB storage if I need it, and in some cases there
+really is no need for persistent storage of any kind.</p>
+<p>The following are a set of steps to accomplish this on Arch Linux (2013-05-14.img), if you use
+Raspbian instead check the references at the end for a working solution.</p>
+<h3>1. Mount the root partition as read-only (ro) on boot</h3>
+<p>In raspberry pi the root partition flags can be set as kernel parameters in
+/boot/cmdline.txt. You should add an <strong>ro</strong> flag right after the <strong>root=</strong> parameter.</p>
+<div class="codehilite"><pre><span class="n">selinux</span><span class="o">=</span><span class="mi">0</span> <span class="n">plymouth</span><span class="p">.</span><span class="n">enable</span><span class="o">=</span><span class="mi">0</span> <span class="n">smsc95xx</span><span class="p">.</span><span class="n">turbo_mode</span><span class="o">=</span><span class="n">N</span> <span class="n">dwc_otg</span><span class="p">.</span><span class="n">lpm_enable</span><span class="o">=</span><span class="mi">0</span> <span class="n">console</span><span class="o">=</span><span class="n">ttyAMA0</span><span class="p">,</span><span class="mi">115200</span> <span class="n">kgdboc</span><span class="o">=</span><span class="n">ttyAMA0</span><span class="p">,</span><span class="mi">115200</span> <span class="n">console</span><span class="o">=</span><span class="n">tty1</span> <span class="n">root</span><span class="o">=/</span><span class="n">dev</span><span class="o">/</span><span class="n">mmcblk0p2</span> <span class="n">ro</span> <span class="n">rootfstype</span><span class="o">=</span><span class="n">ext4</span> <span class="n">elevator</span><span class="o">=</span><span class="n">noop</span> <span class="n">rootwait</span>
+</pre></div>
+
+
+<h3>2. Find a new location for resolv.conf</h3>
+<p>The /etc/resolv.conf file stores the list of DNS nameservers your machine
+uses, if it is not writable it will be empty and applications won't be able
+to resolve names.</p>
+<p>I've moved mine into /tmp/ (which is a tmpfs partition by default):</p>
+<div class="codehilite"><pre><span class="c"># rm /etc/resolv.conf</span>
+<span class="c"># ln -s /tmp/resolv.conf /etc/resolv.conf</span>
+</pre></div>
+
+
+<h3>3. Mount /var/{tmp, log} as tmpfs</h3>
+<p>The /var/tmp directory is used to store temporary files, and the /var/log for system logfiles.</p>
+<p>You can mount these two as tmpfs by adding the following to /etc/fstab</p>
+<div class="codehilite"><pre><span class="n">tmpfs</span>   <span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">log</span>    <span class="n">tmpfs</span>   <span class="n">nodev</span><span class="p">,</span><span class="n">nosuid</span>    <span class="mi">0</span>   <span class="mi">0</span>
+<span class="n">tmpfs</span>   <span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">tmp</span>    <span class="n">tmpfs</span>   <span class="n">nodev</span><span class="p">,</span><span class="n">nosuid</span>    <span class="mi">0</span>   <span class="mi">0</span>
+</pre></div>
+
+
+<p>Notice that I did not make a symbolic link between /var/tmp and /tmp. This is
+intentional, doing so seems to trigger a bug with systemd - search for <em>step
+NAMESPACE</em> to find some references.</p>
+<h3>4. Disable some systemd services</h3>
+<p>Systemd has a couple of services that can be disabled:</p>
+<ul>
+<li>systemd-readahead does some optimisations based on disk access patterns</li>
+<li>systemd-random-seed stores entropy information between reboots</li>
+</ul>
+<p>These can be disabled via systemctl</p>
+<div class="codehilite"><pre><span class="c"># systemctl disable systemd-readahead-collect</span>
+<span class="c"># ...</span>
+<span class="c"># systemctl disable systemd-random-seed</span>
+</pre></div>
+
+
+<h3>5. Replace syslog-ng with rsyslog</h3>
+<p><em>syslog-ng</em> will not run if /var/lib is not writeable (it stores persistent data there), so I've
+removed it and started using rsyslog instead.</p>
+<h3>6. Disable ntpd and use a netctl hook instead</h3>
+<p>By default Arch will sync time on boot using ntpd (if an internet connection is available).
+This is a problem for the Raspberry Pi because it has no internal clock, and if
+a connection is not immediatly available, <em>ntpd</em> might take while to sync.</p>
+<p>Personally I've had better results in setting a hook to update the
+time whenever a new connection is available. The following works using dhcpcd
+in <em>/usr/lib/dhcpcd/dhcpcd-hooks/50-ntp</em></p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class="code"><div class="codehilite"><pre><span class="c">#!/bin/sh</span>
+<span class="k">case</span> <span class="s2">&quot;${reason}&quot;</span> in
+    BOUND|INFORM|REBIND|REBOOT|RENEW|TIMEOUT|STATIC<span class="o">)</span>
+        <span class="c"># &quot;-g&quot; allows for large time differences</span>
+        ntpd -qg
+        ;;
+<span class="k">esac</span>
+</pre></div>
+</td></tr></table>
+
+<p>Now you can disable the ntpd daemon</p>
+<div class="codehilite"><pre><span class="c"># systemctl disable ntpd</span>
+</pre></div>
+
+
+<h2>How to use</h2>
+<p>The system will start in read-only mode, whenever I need to write into the root
+I remount the root as read-write and then back:</p>
+<div class="codehilite"><pre><span class="c"># mount -o rw,remount /</span>
+<span class="c"># pacman &lt;...&gt;</span>
+<span class="c"># mount -o ro,remount</span>
+</pre></div>
+
+
+<p>Keep an eye out for the following:</p>
+<ul>
+<li>Some services really need to write to /var/lib, dhcpcd will complain about the leases
+  but otherwise it works, others might not work at all (syslog-ng)</li>
+<li>I've mounted /var/log as tmpfs, there is probably a better way to do this
+  such as using ramlog, or logging into a remote system</li>
+</ul>
+<p>Finally you don't have to do it exactly like this, you can:</p>
+<ul>
+<li>Create a separate writeable partition</li>
+<li>Write to USB flash drive</li>
+</ul>
+<p>It really depends on your setup.</p>
+<h2>References</h2>
+<ul>
+<li><a href="http://riscpi.co.uk/nutcom-services-ltd/">Raspberry Pi gets an Industrial Perennial Environment</a></li>
+</ul>
+
+
+
+</div>
+
+
+<div class="disclaimer">
+Copyright @ Rui Abreu Ferreira 2014, the opinions expressed here are those of the authors and
+do not reflect the position of anyone else ... really ...
+</div>
+
+</body>
+</html>
+
+

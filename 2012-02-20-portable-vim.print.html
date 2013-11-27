@@ -1,0 +1,375 @@
+<!DOCTYPE>
+<html>
+<head>
+	<link href='http://fonts.googleapis.com/css?family=Cantata+One&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	
+
+	<title></title>
+	
+	
+        <style type="text/css" media="screen">
+        
+body {
+	font-family: Helvetica, DejaVu Sans, sans-serif; 
+	font-size: 10pt; 
+	color: #000;
+	margin:	auto;
+	margin-top:		0;
+	line-height		: 1.25em;
+}
+
+#content img {
+	max-width: 100%;
+	clear: both;
+}
+
+h1, h2, h3 {
+	font-family: serif; 
+	font-weight: normal;
+	color: #333;
+	margin-bottom: 0.2em;
+}
+
+h1 {
+	font-size: 2.0em;
+	margin-bottom: 0.5em;
+	margin-top: 0.5em;
+	line-height: 1em;
+	line-height: 1.2em;
+}
+
+h2 {
+	font-size: 1.5em;
+	color:		#999;
+	font-weight:	bold;
+	text-transform: uppercase;
+	clear:	both;
+}
+
+h2.article_title a {
+	color: black;
+}
+
+h1.page_title {
+	margin-top: 0;
+	margin-bottom: 0;
+	font-family: 'Consolas', 'Menlo', 'Deja Vu Sans Mono','Bitstream Vera Sans Mono', monospace!important;
+	font-size: 2em;
+	
+}
+
+h3 {
+	font-weight: bold;
+	margin-bottom: 0.1em;
+}
+
+p {
+	margin: 10px 0 10px 0;
+}
+
+p, ul, ol {
+	line-height		: 1.5em;
+	font-size:		1.5em;
+}
+
+ul, ol {
+	padding-left:		2ex;
+	margin-top:		0;
+}
+
+pre {
+	font-family: 'Consolas', 'Menlo', 'Deja Vu Sans Mono','Bitstream Vera Sans Mono', monospace!important;
+}
+
+a {
+	text-decoration		: none;
+	text-transform		: uppercase;
+	color			: #226CFF;
+}
+
+#menu {
+	margin-top: 1ex;
+	clear:		both;
+	display:	block;
+}
+
+#menu a.sel {
+	text-decoration: underline;
+}
+
+#menu:after {
+	content:	'.';
+	visibility:	hidden;
+	clear:		both;
+	display:	block;
+}
+
+.internal {
+	display:	inline;
+	padding:	3px;
+	
+}
+
+.external {
+	vertical-align: top;
+	text-align:	left;
+	padding:	3px 3px 3px 0;
+}
+
+.red {
+	color: #EA4B2A;
+}
+
+.blue {
+	color			: #226CFF;
+}
+
+#menu .external a {
+	color:		#333;
+	text-transform:	none;
+	border-bottom: 2px solid #226CFF;
+}
+
+#social  {
+	padding:	3px;
+	display: none;
+}
+
+#social .links {
+	column-count: 2;
+	-moz-column-count: 2;
+	margin-left:	10px;
+}
+
+#social .title {
+	color:	#666;
+}
+
+#social a {
+	padding-right:	1ex;
+}
+
+
+#social a {
+	display: block;
+	font-size: 1.5em;
+	padding: 5px;
+	color:	#666;
+}
+
+#social a:hover {
+	color:	black;
+}
+
+#social h2 {
+	margin : 10px 0;
+}
+
+
+.disclaimer {
+	margin: 2ex 3px 3px 0;
+	color:	#ccc;
+}
+
+.codehilite > pre {
+	border-left: 4px solid #666;
+	padding: 2px 2px 2px 5px;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+}
+
+#social a.twitter:hover {
+	color: #00bef6;
+}
+#social a.reddit:hover {
+	color: #D41D00;
+}
+#social a.tumblr:hover {
+	color: #2D4861;
+}
+#social a.stumbleupon:hover {
+	color: #EA4B2A;
+}
+#social a.delicious:hover {
+	color: #3274d1;
+}
+
+        </style>
+
+        <style type="text/css" media="screen">
+        .hll { background-color: #ffffcc }
+.c { color: #228B22 } /* Comment */
+.err { color: #a61717; background-color: #e3d2d2 } /* Error */
+.k { color: #8B008B; font-weight: bold } /* Keyword */
+.cm { color: #228B22 } /* Comment.Multiline */
+.cp { color: #1e889b } /* Comment.Preproc */
+.c1 { color: #228B22 } /* Comment.Single */
+.cs { color: #8B008B; font-weight: bold } /* Comment.Special */
+.gd { color: #aa0000 } /* Generic.Deleted */
+.ge { font-style: italic } /* Generic.Emph */
+.gr { color: #aa0000 } /* Generic.Error */
+.gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.gi { color: #00aa00 } /* Generic.Inserted */
+.go { color: #888888 } /* Generic.Output */
+.gp { color: #555555 } /* Generic.Prompt */
+.gs { font-weight: bold } /* Generic.Strong */
+.gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.gt { color: #aa0000 } /* Generic.Traceback */
+.kc { color: #8B008B; font-weight: bold } /* Keyword.Constant */
+.kd { color: #8B008B; font-weight: bold } /* Keyword.Declaration */
+.kn { color: #8B008B; font-weight: bold } /* Keyword.Namespace */
+.kp { color: #8B008B; font-weight: bold } /* Keyword.Pseudo */
+.kr { color: #8B008B; font-weight: bold } /* Keyword.Reserved */
+.kt { color: #a7a7a7; font-weight: bold } /* Keyword.Type */
+.m { color: #B452CD } /* Literal.Number */
+.s { color: #CD5555 } /* Literal.String */
+.na { color: #658b00 } /* Name.Attribute */
+.nb { color: #658b00 } /* Name.Builtin */
+.nc { color: #008b45; font-weight: bold } /* Name.Class */
+.no { color: #00688B } /* Name.Constant */
+.nd { color: #707a7c } /* Name.Decorator */
+.ne { color: #008b45; font-weight: bold } /* Name.Exception */
+.nf { color: #008b45 } /* Name.Function */
+.nn { color: #008b45; text-decoration: underline } /* Name.Namespace */
+.nt { color: #8B008B; font-weight: bold } /* Name.Tag */
+.nv { color: #00688B } /* Name.Variable */
+.ow { color: #8B008B } /* Operator.Word */
+.w { color: #bbbbbb } /* Text.Whitespace */
+.mf { color: #B452CD } /* Literal.Number.Float */
+.mh { color: #B452CD } /* Literal.Number.Hex */
+.mi { color: #B452CD } /* Literal.Number.Integer */
+.mo { color: #B452CD } /* Literal.Number.Oct */
+.sb { color: #CD5555 } /* Literal.String.Backtick */
+.sc { color: #CD5555 } /* Literal.String.Char */
+.sd { color: #CD5555 } /* Literal.String.Doc */
+.s2 { color: #CD5555 } /* Literal.String.Double */
+.se { color: #CD5555 } /* Literal.String.Escape */
+.sh { color: #1c7e71; font-style: italic } /* Literal.String.Heredoc */
+.si { color: #CD5555 } /* Literal.String.Interpol */
+.sx { color: #cb6c20 } /* Literal.String.Other */
+.sr { color: #1c7e71 } /* Literal.String.Regex */
+.s1 { color: #CD5555 } /* Literal.String.Single */
+.ss { color: #CD5555 } /* Literal.String.Symbol */
+.bp { color: #658b00 } /* Name.Builtin.Pseudo */
+.vc { color: #00688B } /* Name.Variable.Class */
+.vg { color: #00688B } /* Name.Variable.Global */
+.vi { color: #00688B } /* Name.Variable.Instance */
+.il { color: #B452CD } /* Literal.Number.Integer.Long */
+
+        </style>
+	
+
+	
+
+
+</head>
+<body>
+
+	
+
+
+
+<div id="content">
+<h1>Portable Vim settings</h1><p class=" article_preamble">Several people have acquired the habit of keeping their Vim settings under version control and sharing those settings as git/mercurial repositories.
+Generally people do this for three reasons:</p>
+<ol>
+<li>To keep a close eye on their settings ( raise your hand if <strong>.vimrc</strong> is the most important settings file in your pc).</li>
+<li>To share their vimrc with other people.</li>
+<li>... and to have a trivial way to get their vimrc when they are in another terminal.</li>
+</ol>
+<p>What I'm describing below is a quick hack on how to cleanly handle point n.º 3.
+What I wanted was a way to quickly get my Vim settings when I am working at another terminal:</p>
+<ul>
+<li>Don't just store the <em>vimrc</em> file but also the plugins and color schemes</li>
+<li>Don't need to overwrite the Vim config files on the system/home folder</li>
+<li>Do this as cleanly as possible - don't store redundant information, or require lots of steps to download it</li>
+</ul>
+<p>The objective here is to keep all my Vim settings under version control and easily import then when on another machine, preferably without altering the local settings.
+I'll be using Git for this, but I'm sure any other version control system will do.</p>
+<h2>Keeping your Vim settings under version control</h2>
+<p>In Unix, Vim loads user settings from two locations: settings files from the home folder (.vimrc and .gvimrc) and additional files from the .vim/ folder (plugins, color schemes, etc)
+The problem with these two locations is that they are not easy to keep separate from the remainder of my files, and I'm not keen on creating a git repository in my home folder.</p>
+<p>To solve this I moved all my Vim settings files inside the <em>.vim</em> folder and created symbolic links:</p>
+<div class="codehilite"><pre><span class="err">$</span> <span class="n">mv</span> <span class="o">~/</span><span class="p">.</span><span class="n">vimrc</span> <span class="o">~/</span><span class="p">.</span><span class="n">vim</span><span class="o">/</span><span class="n">vimrc</span>
+<span class="err">$</span> <span class="n">ln</span> <span class="o">~/</span><span class="p">.</span><span class="n">vim</span><span class="o">/</span><span class="n">vimrc</span> <span class="o">~/</span><span class="p">.</span><span class="n">vimrc</span>
+</pre></div>
+
+
+<p>This way I can create a git repository inside my .vim folder to track all files.
+There is no need to move files around after creating the initial symlinks.</p>
+<p>It is also a good idea to have Git ignore some files such as plugins or settings that can only work on the original machine.</p>
+<h2>Being portable</h2>
+<p>The core issue here is finding a way to get your settings from a remote git repo without needing to overwrite the local settings, that is ignoring the local <em>.vim</em> and <em>.vimrc</em>.</p>
+<p>I got this neat idea from a stackoverflow question on how to override local settings completely.
+Vim already has a <strong>-u</strong> options to load settings from a given file instead of <em>.vimrc</em>, what is missing is a way to alter the runtime path to load plugins and.
+Below is the script I found on stackoverflow along with some changes to fix the runtimepath and load a second vimrc file from the same folder:</p>
+<div class="codehilite"><pre><span class="s2">&quot; Portable VIM setup, ignore local vim settings and use settings from this folder</span>
+<span class="s2">&quot;</span> <span class="p">@</span><span class="nx">warning</span> <span class="nx">this</span> <span class="nx">only</span> <span class="n">works</span> <span class="k">in</span> <span class="nx">a</span> <span class="nb">script</span> <span class="o">-</span> <span class="nx">it</span> <span class="nx">can</span><span class="s1">&#39;t be called from the Vim command</span>
+<span class="s1">&quot;       prompt</span>
+<span class="s1">&quot;</span>
+
+<span class="s1">&quot; set default &#39;</span><span class="nx">runtimepath</span><span class="s1">&#39; (without ~/.vim folders)</span>
+<span class="s1">let &amp;runtimepath = printf(&#39;</span><span class="o">%</span><span class="nb">s</span><span class="p">/</span><span class="nx">site</span><span class="p">,</span><span class="o">%</span><span class="nb">s</span><span class="p">,</span><span class="o">%</span><span class="nb">s</span><span class="p">/</span><span class="nx">site</span><span class="p">/</span><span class="nx">after</span><span class="s1">&#39;, $VIM, $VIMRUNTIME, $VIM)</span>
+
+<span class="s1">&quot; what is the name of the directory containing this file?</span>
+<span class="s1">let s:portable = expand(&#39;</span><span class="o">&lt;</span><span class="nx">sfile</span><span class="o">&gt;</span><span class="p">:</span><span class="nx">p</span><span class="p">:</span><span class="nx">h</span><span class="s1">&#39;)</span>
+
+<span class="s1">&quot; add the directory to &#39;</span><span class="nx">runtimepath</span><span class="s1">&#39;</span>
+<span class="s1">let &amp;runtimepath = printf(&#39;</span><span class="o">%</span><span class="nb">s</span><span class="o">/</span><span class="p">,</span><span class="o">%</span><span class="nb">s</span><span class="p">,</span><span class="o">%</span><span class="nb">s</span><span class="p">/</span><span class="nx">after</span><span class="s1">&#39;, s:portable, &amp;runtimepath, s:portable)</span>
+
+<span class="s1">let s:realvimrc = printf(&#39;</span><span class="o">%</span><span class="nb">s</span><span class="p">/</span><span class="nx">vimrc</span><span class="s1">&#39;, s:portable)</span>
+<span class="s1">exec &quot;:source&quot; . s:realvimrc</span>
+</pre></div>
+
+
+<p>So whenever I want to get my vim settings I will do:</p>
+<div class="codehilite"><pre><span class="err">$</span> <span class="n">git</span> <span class="n">clone</span> <span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="o">:</span><span class="c1">//bitbucket.org/equalsraf/vimrc.git</span>
+<span class="err">$</span> <span class="n">vim</span> <span class="o">-</span><span class="n">u</span> <span class="n">vimrc</span><span class="o">/</span><span class="n">portable</span><span class="o">-</span><span class="n">vim</span>
+</pre></div>
+
+
+<p>And there you go, you are now running vim with my Vim settings.</p>
+<h2>Extra tricks</h2>
+<p>These days most sane people use pathogen to manage their Vim plugins, which means that plugins are stored as Git/Mercurial repositories inside the <em>bundle</em> folder.
+If that is the case, then there is not point to storing the content of those folders in the repositories.
+You might as well setup git submodules to handle those repositories.</p>
+<p>I've added a link to my Vim settings in the references below.
+If you check it you'll see that some plugins are inside the repository, while others are references to external git repositories.
+So the previous example becomes:</p>
+<div class="codehilite"><pre><span class="err">$</span> <span class="n">git</span> <span class="n">clone</span> <span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="o">:</span><span class="c1">//bitbucket.org/equalsraf/vimrc.git</span>
+<span class="err">$</span> <span class="n">git</span> <span class="n">submodule</span> <span class="n">init</span> 
+<span class="err">$</span> <span class="n">git</span> <span class="n">submodule</span> <span class="n">update</span>
+<span class="err">$</span> <span class="n">vim</span> <span class="o">-</span><span class="n">u</span> <span class="n">vimrc</span><span class="o">/</span><span class="n">portable</span><span class="o">-</span><span class="n">vim</span>
+</pre></div>
+
+
+<p>Now, not only do we have the config files and color schemes but we also have plugins.</p>
+<h2>A few Caveats</h2>
+<p>Before I finish this up, here are a few a caveats</p>
+<ul>
+<li>This requires Git (or other version control system)</li>
+<li>Some distributions load vim settings from unusual locations, such as /etc/vimrc. Make sure your <em>vimrc</em> has everything you need (set <strong>nocp</strong> and set backspace=2 for example)</li>
+<li>Some plugins will not work in other systems, if they have local dependencies.</li>
+</ul>
+<h2>References</h2>
+<ul>
+<li><a href="https://bitbucket.org/equalsraf/vimrc">My vimrc</a></li>
+<li><a href="http://stackoverflow.com/questions/3377298/how-can-i-override-vim-and-vimrc-paths-but-no-others-in-vim">Stackoverflow: How can I override ~/.vim and ~/.vimrc paths (but no others) in vim?</a></li>
+<li><a href="https://github.com/tpope/vim-pathogen">Pathogen</a></li>
+</ul>
+
+
+
+</div>
+
+
+<div class="disclaimer">
+Copyright @ Rui Abreu Ferreira 2014, the opinions expressed here are those of the authors and
+do not reflect the position of anyone else ... really ...
+</div>
+
+</body>
+</html>
+
+
