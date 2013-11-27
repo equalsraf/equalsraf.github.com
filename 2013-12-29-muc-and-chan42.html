@@ -1,0 +1,97 @@
+
+<!DOCTYPE>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	
+	<meta name="viewport" content="width=device-width">
+
+	<title></title>
+	
+	
+	<link type="text/css" media="screen" href="style.css" rel="stylesheet">
+	<link type="text/css" media="screen" href="code.css" rel="stylesheet"/>
+	
+
+	
+
+<link rel="Alternate" type="text/plain" href="2013-12-29-muc-and-chan42.md" />
+<link rel="Alternate" media="Print" href="2013-12-29-muc-and-chan42.print.html" />
+
+
+</head>
+<body>
+
+	
+	<h1><a href="index.html">raf</a>/On group chat, chan42 and other things</h1>
+	
+
+
+
+<div id="content">
+<p class=" article_preamble">A while ago <strong>pgf</strong> and I started this endless discussion about how the centralisation of the Internet in some key services seems to be stifling some of the giddiness of the old days (by old I mean the nineties). We don't necessarily agree on all of this, specially since there is usually beer involved in such discussions, but here is my spin over it.</p>
+<p>These days the preferred Internet spots for random nonsensical group discussion seem to be Reddit/4chan (or argh Facebook/G+). Back in the day (for me) this was mostly IRC, over several servers (FreeNode, some local servers, etc) and some specialised web boards.</p>
+<p>The good (or bad) thing about IRC was that the variety of servers/channels led to all sorts of behaviours, some places were <em>serious</em> while other were explicitly intended for fooling around.</p>
+<ol>
+<li>Interaction was real time. Most channels did not keep logs, and even if they did, nobody would show up to comment something said 12 hours ago.</li>
+<li>Since everyone could create their own channel, everyone did, and operators were in on the fun. Voice/Ban dynamics made for some pretty amusing episodes (check bash.org).</li>
+<li>Most servers supported registered nicknames that only you could use. Some servers enforced their use, others did not. It was common for users to switch nicknames for a prank or just as a joke.</li>
+</ol>
+<p>How do current services fill into this view? Well:</p>
+<ul>
+<li>Reddit seems to favour (2), but not (1). You need an account for commenting (3).</li>
+<li>4chan is mostly real time (1), but only a set of known channels exist (2), anonymous posts are common (3) but you can play around with your name, and there is also a lightweight form of identification</li>
+<li>Facebook is not real time oriented (1) all interactions are stored. There are lots of group dynamics (2). You are always identified with your profile info (3) also they are strict about user naming/information.</li>
+<li>We can probably describe Google+ in the same terms as Facebook</li>
+<li>Twitter sometimes seems real time (1) even if is was not intended. Group discussion can only occur over #hashtags (2). An account is required to use the service (3).</li>
+<li>XMPP chat rooms supported (1) and (2). I am not sure about (3), as far as recall servers allowed the use of nicknames to conceal the user JID, but nicknames were unique per room (I may be wrong here).</li>
+</ul>
+<p>So <strong>pgf</strong> supported that we are missing some kind of service that offers real time group chat. I am going to focus on text chat here, but you can poke <strong>pgf</strong> directly for ideas on audio.</p>
+<p>Among the both of us, we defined the requirements for this mythic system as, more or less the following:</p>
+<ol>
+<li>Real time chat, with no server side history.</li>
+<li>Easy to create separate chats, as in click and done</li>
+<li>Decentralised, because we can :D</li>
+</ol>
+<p>You'll notice that there is nothing in those requirements about identification/nicknames/etc that is because we never actually agreed on those.</p>
+<h2>User identity</h2>
+<p>From this discussion I created a hacky group chat, called chan42, that works over websockets using JSON messages.
+Since I could never agree on a solution for user identification I tried to fit them all in:</p>
+<ol>
+<li>Server provided session identicons to distinguish between users. These did not work across sessions they were just intended to prevent impersonation.</li>
+<li>Client side nicknames. These are non unique, client chosen nicknames, mostly for fun and games.</li>
+<li>Server nicknames (I call these <strong>handles</strong>). These should be unique nicknames enforced by the server. So far I only experimented with this for random nicknames.</li>
+</ol>
+<p>This resulted in some fun moments with people playing with nicknames and being assigned hilarious server handles. It sounds awkward to allow users to set any nickname without checking for duplicates, but I actually find it reasonable to have a group discussion in a room where all participants are unidentifiable - TLDR; <strong>uniqueness is not important</strong>.</p>
+<p>So far I only use (3.) for random funny server handles, but the following should also be possible (FYI this is not supported, but can be future work for someone with some free time :D):</p>
+<ul>
+<li>The handle could have special meaning, e.g. it could indicate that the client was authenticated with some know identity</li>
+<li>For example <strong>@fb/briangriffin</strong> could mean the user was authenticated with facebook account <strong>briangriffin</strong>.</li>
+<li>Same could be valid for other identity providers <strong>@tw/briangriffin</strong> could be twitter and <strong>@gh/briangriffin</strong> github.</li>
+<li>In these examples I used the <strong>@</strong> symbol to express <code>handle is verified identity from</code></li>
+</ul>
+<p>All this identity mumbo jumbo brings in some extra complexity, in how do we explain users what is going on, and what everything means. I’ll happily offer praise and beer to any designer/interaction expert that can merge all this into a coherent interface concept. Technically thins could work like this:</p>
+<ol>
+<li>If a user is not authenticated through any special means (facebook/twitter/ or even user:password) then he is assigned a unique session id. This <strong>id</strong> only lasts until the user disconnects and is used to generate the user identicon.</li>
+<li>If the user has authenticated to the server (facebook/twitter/etc) then the server identifies the user using handle.</li>
+<li><strong>Nicknames</strong> are completely independent of the previous points - they are a client side feature - it is important to help the user understand this though.</li>
+</ol>
+<h2>Being Distributed</h2>
+<p>By distributed I mean being a disjoint bunch of chatrooms hosted by however wants to host them. Without a common infrastructure or oversight.</p>
+<p>While IRC was fully distributed, I feel it fell short on this area because each network was not only one chat room but also one identity (i.e. nickserv). Also support in clients for multiple servers was not exactly stellar.</p>
+<p>From the technical standpoint XMPP MUC got the <strong>distributed</strong> part right. You could connect to a chatroom in any server. But it suffered from other issues. Hosting a XMPP server was a hard job. Also client support for MUC was sometimes poor.</p>
+<p>All other services gain no benefit from being truly distributed, since they get profit from steering users to their chat services - to gather revenue.</p>
+<h2>References</h2>
+<ul>
+<li><a href="http://xkcd.com/1305/">XKCD</a> I think embodies all this in a single picture</li>
+<li><a href="https://bitbucket.org/equalsraf/chan42/">chan42</a> Is so far my best attempt to turn this into reality</li>
+<li><a href="https://plus.google.com/105103961488205321035/">pgf</a> is the spiritual guru behind this whole idea, poke him for awesome insights</li>
+<li><a href="http://bash.org">bash.org</a> for some incredible lore on IRC chats</li>
+</ul>
+</div>
+
+
+</body>
+</html>
+
+

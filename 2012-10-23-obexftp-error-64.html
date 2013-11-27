@@ -1,125 +1,80 @@
+
 <!DOCTYPE>
 <html>
 <head>
-	<link href='http://fonts.googleapis.com/css?family=Cantata+One&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8">
 	
+	<meta name="viewport" content="width=device-width">
 
 	<title></title>
 	
 	
 	<link type="text/css" media="screen" href="style.css" rel="stylesheet">
-    	<link type="text/css" media="screen and (min-device-width: 1024px)" href="fancy.css" rel="stylesheet"/>
 	<link type="text/css" media="screen" href="code.css" rel="stylesheet"/>
 	
 
 	
 
+<link rel="Alternate" type="text/plain" href="2012-10-23-obexftp-error-64.md" />
 <link rel="Alternate" media="Print" href="2012-10-23-obexftp-error-64.print.html" />
-<script src="jquery-1.9.1.js">
-</script>
 
 
 </head>
 <body>
 
 	
-	<div id="title_box">
-	<h1 class="page_title">cat /dev/<span class="red">raf</span>/web&gt;</h1>
-	</div>
-
-	
-	
+	<h1><a href="index.html">raf</a>/OBEXFTP and the elusive error code 64</h1>
 	
 
 
 
 <div id="content">
-<h1>OBEXFTP and the elusive error code 64</h1><p class=" article_preamble">I was trying to push some files into my Nokia this morning and failed miserably at it ...</p>
+<p class=" article_preamble">I was trying to push some files into my Nokia this morning and failed miserably at it ...</p>
 <p>For a while now I've been getting used to see KDE's bluedeviz fail in some curious manner, specially when I use it from other desktop environments.
 One google search and one manpage later, I decided to try to send the file from the command line, using</p>
-<div class="codehilite"><pre><span class="nx">hcitool</span> <span class="nx">scan</span>
-<span class="nx">...</span>
-<span class="nx">obexftp</span> <span class="na">-b</span> <span class="o">&lt;</span><span class="nx">Bluetooth</span> <span class="nx">Addr</span><span class="o">&gt;</span> <span class="na">-p</span> <span class="o">&lt;</span><span class="nb">filename</span><span class="o">&gt;</span>
+<div class="codehilite"><pre><span></span>hcitool scan
+...
+obexftp -b &lt;Bluetooth Addr&gt; -p &lt;filename&gt;
 </pre></div>
 
 
 <p>All this seemed pretty straightforward, except for the fact that obexftp failed
 with the following message:</p>
-<div class="codehilite"><pre><span class="err">$</span> <span class="n">obexftp</span> <span class="o">-</span><span class="n">b</span> <span class="n">XX</span><span class="o">:</span><span class="n">XX</span><span class="o">:</span><span class="n">XX</span><span class="o">:</span><span class="n">XX</span><span class="o">:</span><span class="n">XX</span><span class="o">:</span><span class="n">XX</span> <span class="o">-</span><span class="n">p</span> <span class="n">file</span><span class="p">.</span><span class="n">pdf</span>
-<span class="n">Browsing</span> <span class="n">XX</span><span class="o">:</span><span class="n">XX</span><span class="o">:</span><span class="n">XX</span><span class="o">:</span><span class="n">XX</span><span class="o">:</span><span class="n">XX</span><span class="o">:</span><span class="n">XX</span> <span class="p">...</span>
-<span class="n">Connecting</span><span class="p">..</span><span class="err">\</span><span class="n">done</span>
-<span class="n">Tried</span> <span class="n">to</span> <span class="n">connect</span> <span class="k">for</span> <span class="mi">29</span><span class="n">ms</span>
-<span class="n">Sending</span> <span class="s">&quot;file.pdf&quot;</span><span class="p">...</span><span class="o">/</span><span class="n">failed</span><span class="o">:</span> <span class="n">file</span><span class="p">.</span><span class="n">pdf</span>
-<span class="n">The</span> <span class="n">operation</span> <span class="n">failed</span> <span class="n">with</span> <span class="k">return</span> <span class="n">code</span> <span class="mi">64</span>
-<span class="n">Disconnecting</span><span class="p">..</span><span class="o">-</span><span class="n">done</span>
+<div class="codehilite"><pre><span></span>$ obexftp -b XX:XX:XX:XX:XX:XX -p file.pdf
+Browsing XX:XX:XX:XX:XX:XX ...
+Connecting..<span class="se">\d</span>one
+Tried to connect <span class="k">for</span> 29ms
+Sending <span class="s2">&quot;file.pdf&quot;</span>.../failed: file.pdf
+The operation failed with <span class="k">return</span> code 64
+Disconnecting..-done
 </pre></div>
 
 
 <p>Now if that is not cryptic, I don't know what is. I have no idea what "error code 64" is supposed to be (although perror treats it a network error) and Google doesn't seem to be very helpful on this.
 For some reason I can not explain, I decided to backtrack and try to force the bluetooth channel that obexftp should use. I did a scan for services and found my phone's OBEX File Transfer service in channel 4:</p>
-<div class="codehilite"><pre><span class="err">$</span> <span class="n">sdptool</span> <span class="n">browse</span>
-<span class="p">...</span>
-<span class="n">Service</span> <span class="n">Name</span><span class="o">:</span> <span class="n">OBEX</span> <span class="n">File</span> <span class="n">Transfer</span>
-<span class="n">Service</span> <span class="n">RecHandle</span><span class="o">:</span> <span class="mh">0x10007</span>
-<span class="n">Service</span> <span class="n">Class</span> <span class="n">ID</span> <span class="n">List</span><span class="o">:</span>
-  <span class="s">&quot;OBEX File Transfer&quot;</span> <span class="p">(</span><span class="mh">0x1106</span><span class="p">)</span>
-<span class="n">Protocol</span> <span class="n">Descriptor</span> <span class="n">List</span><span class="o">:</span>
-  <span class="s">&quot;L2CAP&quot;</span> <span class="p">(</span><span class="mh">0x0100</span><span class="p">)</span>
-  <span class="s">&quot;RFCOMM&quot;</span> <span class="p">(</span><span class="mh">0x0003</span><span class="p">)</span>
-    <span class="nl">Channel:</span> <span class="mi">4</span>
-  <span class="s">&quot;OBEX&quot;</span> <span class="p">(</span><span class="mh">0x0008</span><span class="p">)</span>
-<span class="p">...</span>
+<div class="codehilite"><pre><span></span>$ sdptool browse
+...
+Service Name: OBEX File Transfer
+Service RecHandle: 0x10007
+Service Class ID List:
+  <span class="s2">&quot;OBEX File Transfer&quot;</span> <span class="o">(</span>0x1106<span class="o">)</span>
+Protocol Descriptor List:
+  <span class="s2">&quot;L2CAP&quot;</span> <span class="o">(</span>0x0100<span class="o">)</span>
+  <span class="s2">&quot;RFCOMM&quot;</span> <span class="o">(</span>0x0003<span class="o">)</span>
+    Channel: 4
+  <span class="s2">&quot;OBEX&quot;</span> <span class="o">(</span>0x0008<span class="o">)</span>
+...
 </pre></div>
 
 
 <p>And changed the obexftp command to</p>
-<div class="codehilite"><pre><span class="err">$</span> <span class="n">obexftp</span> <span class="o">-</span><span class="n">b</span> <span class="n">XX</span><span class="o">:</span><span class="n">XX</span><span class="o">:</span><span class="n">XX</span><span class="o">:</span><span class="n">XX</span><span class="o">:</span><span class="n">XX</span><span class="o">:</span><span class="n">XX</span> <span class="o">-</span><span class="n">B</span> <span class="mi">4</span> <span class="o">-</span><span class="n">p</span> <span class="n">file</span><span class="p">.</span><span class="n">pdf</span>
+<div class="codehilite"><pre><span></span>$ obexftp -b XX:XX:XX:XX:XX:XX -B <span class="m">4</span> -p file.pdf
 </pre></div>
 
 
 <p>and it succeeded :D. Hell if I have any idea why obexftp is sending files to the wrong channel.</p>
-
-
-<div id="social">
-	<h2>Liked this? Share it.</h2>
-	<div class="links">
-	<a class="delicious" title="Share on tumblr" href="http://del.icio.us/post?url=">Delicious</a>
-	<a class="stumbleupon" href="http://www.stumbleupon.com/submit?u=">StumbleUpon</a>
-	<a class="twitter" href="http://twitter.com/home/?status=">Twitter</a>
-	<a class="reddit" href="http://www.reddit.com/submit?url=">Reddit</a>
-	<a class="tumblr" href="http://www.tumblr.com/share">Tumblr</a>
-	</div>
-</div>
-<script>
-var url = window.location.href;
-
-var anchor;
-anchor = $('#social a.delicious');
-anchor.attr('href', anchor.attr('href') + url);
-anchor = $('#social a.stumbleupon');
-anchor.attr('href', anchor.attr('href') + url);
-anchor = $('#social a.twitter');
-anchor.attr('href', anchor.attr('href') + url);
-anchor = $('#social a.reddit');
-anchor.attr('href', anchor.attr('href') + url);
-// No need for tumblr
-
-$('#social').show();
-</script>
-
-<h2>Download this</h2>
-<p>To save this as a clean single HTML file you can save, press <a href="2012-10-23-obexftp-error-64.print.html">here</a>
-This is ideal for long term storage or reading on your ebook reader.</p>
-
-
 </div>
 
-
-<div class="disclaimer">
-Copyright @ Rui Abreu Ferreira 2014, the opinions expressed here are those of the authors and
-do not reflect the position of anyone else ... really ...
-</div>
 
 </body>
 </html>

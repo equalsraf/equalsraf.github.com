@@ -1,0 +1,247 @@
+
+<!DOCTYPE>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	
+	<meta name="viewport" content="width=device-width">
+
+	<title></title>
+	
+	
+        <style type="text/css" media="screen">
+        
+body {
+	font-family: monospace;
+	font-size: 12pt;
+	color: #000;
+}
+
+#content img {
+	max-width: 100%;
+	clear: both;
+}
+
+.red {
+	color: #EA4B2A;
+}
+
+.codehilite > pre {
+	border-left: 6px solid #333;
+	padding: 2px 2px 2px 5px;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	background: #eee;
+}
+
+blockquote {
+	background: #ddd;
+	color: #666;
+	margin: 0;
+	border-left: 2ex solid #bbb;
+}
+
+h2:before {
+	content: '# ';
+}
+h3:before {
+	content: '## ';
+}
+
+
+        </style>
+
+        <style type="text/css" media="screen">
+        .hll { background-color: #ffffcc }
+.c { color: #228B22 } /* Comment */
+.err { color: #a61717; background-color: #e3d2d2 } /* Error */
+.k { color: #8B008B; font-weight: bold } /* Keyword */
+.cm { color: #228B22 } /* Comment.Multiline */
+.cp { color: #1e889b } /* Comment.Preproc */
+.c1 { color: #228B22 } /* Comment.Single */
+.cs { color: #8B008B; font-weight: bold } /* Comment.Special */
+.gd { color: #aa0000 } /* Generic.Deleted */
+.ge { font-style: italic } /* Generic.Emph */
+.gr { color: #aa0000 } /* Generic.Error */
+.gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.gi { color: #00aa00 } /* Generic.Inserted */
+.go { color: #888888 } /* Generic.Output */
+.gp { color: #555555 } /* Generic.Prompt */
+.gs { font-weight: bold } /* Generic.Strong */
+.gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.gt { color: #aa0000 } /* Generic.Traceback */
+.kc { color: #8B008B; font-weight: bold } /* Keyword.Constant */
+.kd { color: #8B008B; font-weight: bold } /* Keyword.Declaration */
+.kn { color: #8B008B; font-weight: bold } /* Keyword.Namespace */
+.kp { color: #8B008B; font-weight: bold } /* Keyword.Pseudo */
+.kr { color: #8B008B; font-weight: bold } /* Keyword.Reserved */
+.kt { color: #a7a7a7; font-weight: bold } /* Keyword.Type */
+.m { color: #B452CD } /* Literal.Number */
+.s { color: #CD5555 } /* Literal.String */
+.na { color: #658b00 } /* Name.Attribute */
+.nb { color: #658b00 } /* Name.Builtin */
+.nc { color: #008b45; font-weight: bold } /* Name.Class */
+.no { color: #00688B } /* Name.Constant */
+.nd { color: #707a7c } /* Name.Decorator */
+.ne { color: #008b45; font-weight: bold } /* Name.Exception */
+.nf { color: #008b45 } /* Name.Function */
+.nn { color: #008b45; text-decoration: underline } /* Name.Namespace */
+.nt { color: #8B008B; font-weight: bold } /* Name.Tag */
+.nv { color: #00688B } /* Name.Variable */
+.ow { color: #8B008B } /* Operator.Word */
+.w { color: #bbbbbb } /* Text.Whitespace */
+.mf { color: #B452CD } /* Literal.Number.Float */
+.mh { color: #B452CD } /* Literal.Number.Hex */
+.mi { color: #B452CD } /* Literal.Number.Integer */
+.mo { color: #B452CD } /* Literal.Number.Oct */
+.sb { color: #CD5555 } /* Literal.String.Backtick */
+.sc { color: #CD5555 } /* Literal.String.Char */
+.sd { color: #CD5555 } /* Literal.String.Doc */
+.s2 { color: #CD5555 } /* Literal.String.Double */
+.se { color: #CD5555 } /* Literal.String.Escape */
+.sh { color: #1c7e71; font-style: italic } /* Literal.String.Heredoc */
+.si { color: #CD5555 } /* Literal.String.Interpol */
+.sx { color: #cb6c20 } /* Literal.String.Other */
+.sr { color: #1c7e71 } /* Literal.String.Regex */
+.s1 { color: #CD5555 } /* Literal.String.Single */
+.ss { color: #CD5555 } /* Literal.String.Symbol */
+.bp { color: #658b00 } /* Name.Builtin.Pseudo */
+.vc { color: #00688B } /* Name.Variable.Class */
+.vg { color: #00688B } /* Name.Variable.Global */
+.vi { color: #00688B } /* Name.Variable.Instance */
+.il { color: #B452CD } /* Literal.Number.Integer.Long */
+
+        </style>
+	
+
+	
+
+
+</head>
+<body>
+
+	
+	<h1><a href="index.html">raf</a>/Thoughts on Vim and Sublime Text</h1>
+	
+
+
+
+<div id="content">
+<p class=" article_preamble">Spurred by a reddit post a lot of people started laying out their thoughts over Vim vs Sublime Text. With some heated arguments and rebuttals going around. So I am going to write down some of my reasoning so far on the Vim vs Sublime debate.</p>
+<p>As a Vim user I also spent some time thinking over this, after I saw some friends moving away to Sublime Text. At the time I tried to get someone to give a concrete answer on <strong>why</strong> would I want to move, but nobody could offer me a convincing reason. Arguments would usually go along the lines of:</p>
+<ul>
+<li>Aesthetics</li>
+<li>GUI vs Console debate</li>
+<li>Plugin management is much better</li>
+<li>Some specific plugin that is better</li>
+<li>Reverse argument: Sublime has Vi mode ...</li>
+<li>The minimap</li>
+<li>multi-select</li>
+<li>.vimrc causes users to OCD </li>
+</ul>
+<p><strong>Disclaimer:</strong> As with any other tech related flame, real-programmers should know that it doesn't matter which editor you use, only that you can <a href="http://xkcd.com/378/">stand your ground</a> with it.</p>
+<h3>Aesthetics</h3>
+<p>I assume most hardcore Vimmers will frown at this argument. But there is some truth in that aesthetics win people around, specially if you have to choose between any two things that otherwise seem equivalent (sorry it's that kind of shallow world) then people will go for <em>pretty</em>. This phenomenon is not dissimilar to people going for novelty items over older things. And it is fine if things are otherwise equivalent. </p>
+<p>Usability is probably a big part of this as well. People are used to certain usability patterns, and when a tool consistently behaves differently from what they expect, people move way for no concrete reason other than a feeling of uneasiness.</p>
+<p>Granted that Sublime looks better than most Vim installations out there - unless you take your time to pimp Vim up, and even then it might not go that well :D.</p>
+<p>The problem is they are not otherwise equivalent. Vim does not do things the same way as Sublime and vice-versa -- <em>More on this in a bit.</em></p>
+<h3>GUI vs Console debate</h3>
+<p>The previous argument sometimes degenerates into a GUI vs TUI debate. I'm slightly odd in this regard in that I do absolutely prefer the GUI to the Console Vim.</p>
+<p>Make no mistake, the fact that Vim runs on a console allows it to run remotely everywhere, and is one of the features that keeps its userbase going. The ability to have both a GUI and a TUI for the same editor is almost unique to Vim (hi Emacs :D) and is a feature that should never be forfeited.</p>
+<p>Now the reasons why I prefer the GUI are fairly trivial:</p>
+<ol>
+<li><em>Fonts/Color</em> - <strong>in general</strong> these work better on the Gui - and if you keep staring at your editor for 10h a day it does help. It is common to find a console out there that will mess something up, specially if it is not your machine.</li>
+<li><em>Consistent Behaviour</em> - The same GUI will mostly likely behave the same across machine/OS(s), the console might not (sigh Windows). Either being key mappings or weird chars, those things just annoy you after a while.</li>
+</ol>
+<p>Granted these are not strong arguments, particularly if you always work in the same machine the console might be just fine. And then again, aesthetics does matter.</p>
+<h3>Plugin management</h3>
+<p>Sublime did a great job with their plugin management. It is easy and just works, kudos to Sublime on this.</p>
+<p>Pathogen and now Vundle have radically changed plugin management for Vim, making things much better. It is still not as <em>streamlined</em> as Sublime, because Sublime plugins is more of a curated environment. There are downsides to this as well, specially since Sublime is closed source and plugins need to be ported across versions. In Vim you primarily head to vimscripts.org or github for your plugins.</p>
+<p>I understand the appeal of the Sublime plugin ecosystem, but I would not want Vim to do it the same way. Still there is room for improvement in Vim.</p>
+<p>Conversely some of the issues with plugins in Vim are the result of teardown (22 years old) - I suspect we might also see some of that for Sublime as the user base grows (if not for the API switch). Extensible tools tend to face these problems on the long run.</p>
+<h3>The right plugin for the job</h3>
+<p>For a pragmatic person, there is no counter argument for this - the right tool for the job is the right tool for the job! If someone took the time to write a great Sublime plugin for you that is awesome</p>
+<p>But remember then that you are not using Sublime for the text editor, you are using it for the tooling - which is similar to saying that you treat Sublime as an IDE for a certain task, this a completely different mindset from that of Vim.</p>
+<h3>The minimap</h3>
+<p>I kept a section just for the minimap :D. I find it a bit disturbing that it gets so much attention.</p>
+<p>Apparently a lot of people like to visually browse a file. The concept seems inefficient to me, I would prefer to move based on search terms or marks. But people deal with these things differently. Maybe my brain is not wired for minimap browsing.</p>
+<p>Even if I were to use the minimap, I would probably never keep it on by default. I would prefer if slid in when needed or even better for me would for the minimap to be this zoom-in/out transition.</p>
+<h3>Reverse argument: Sublime has Vi mode</h3>
+<p>Doesn't even get close to Vim ... end of discussion!</p>
+<p>Too many features are missing. For a Vim user, trying to use Sublime in Vi mode is a painful experience.</p>
+<p>For a non-Vim user I assume that it can be useful to have some of its power at your fingertips, but if you find yourself using it too much just switch to Vim :D</p>
+<h3>Multi-Select</h3>
+<p>This seems to be Sublime's competitor to Vim's selection modes and macros. I may be wrong here but so far these are the use cases I've seen:</p>
+<ol>
+<li>Replace multiple occurrences of the same string</li>
+<li>Insert the same bit of text in multiple locations at the same time</li>
+<li>Some sort of join/split lines</li>
+</ol>
+<p>With the exception of (2.) for most cases I don't see much advantage to multiple cursors vs Vim visual modes and macros. The one advantage that multiple cursors seem to hold is that they provide visual feedback (vs macros), but not vs selection modes/replace. But all this is still mostly mouse oriented, which I personally find annoying :D.</p>
+<p>BTW there is a multiple cursor Vim plugin and it seems to be showing up in other text editors as well.</p>
+<h3>.vimrc causes users to OCD</h3>
+<p>I suppose any technical oriented user of Vim can relate to this, since .vimrc offers endless possibilities we explore them all until exhaustion. And then we feel bad because whe spent our day editing .vimrc instead of writing awesome code.</p>
+<p>Now there are two sides to this issue one good and one bad. The good side is that technically savvy users will always try to tweak up their tools. This is a good thing (specially for Open Source projects) because it is what makes them move forward - users think the tools can work better and push them to the limits at which point someone might develop improvements over it.</p>
+<p>The bad side would be the tendency to obsess over your Vim settings to perfection at a level where you get no benefit out of it. But this is a far bigger problem, people who tend to OCD will find other things to OCD over, whether it is .vimrc, a big configuration panel or random colour themes. While I can agree that a change of scenery will help (on the short run) causing you to focus on what matters, you should really consider focus as wider problems in your life.</p>
+<h2>The Vi mindset</h2>
+<p>The goal of Vi is to be the best text editor. The hard part of being a text editor is not to insert the text - if you write all your text in perfect order then any editor will do (hell I can use cat for that) and the only limitation would be your typing speed. The <strong>really hard</strong> part of being a text editor is <strong>to edit</strong>, to change text into what you want. If it is a very long text created in non sequential order you need to find the right place to insert it. Or if you have to do a lot of repetitive work, you would like to avoid that because it is error prone or it takes too long. These are the things Vi is good at - <strong>text editing</strong>.</p>
+<p>The reason good text editors are also good programming tools is because, hopefully, you spend more time editing your code than calling you build tool, or changing its settings. If during your day, you spend five minutes writing code and the rest fiddling with build/deploy/ options then you probably want an IDE. Or if 50/50 times testing outputs vs coding you need to write some unit tests.</p>
+<p>The underlying assumption in Vi is that you are here to edit text, and occasionally you may want to do something else (like calling Make).</p>
+<p>Now this is where things get a bit more tricky, Vi took two design decisions that non-Vimmers may find hard to understand:</p>
+<ol>
+<li>Vi is modal</li>
+<li>Use the keyboard not your mouse and HJKL</li>
+</ol>
+<p>A modal editor (and Vi in particular) assumes that you as the operator are doing one of two things: either your are inserting text, or you are doing something else. Like I said earlier inserting text is easy, it is the rest that is hard. So Vi treats these two things as separate. The INSERT mode is meant for blind text insertion, just put text in and it shows up in front of the cursor. The NORMAL mode is where you <strong>move</strong> around the file and trigger other modes for specific tasks (search/replace, selection, copy/paste, etc).</p>
+<p>Because of this (or perhaps in order to do it -- causality evades me) Vi commands work like a language. Vi's power is the ability of these commands to express complex operations. Delete line/word/paragraph - all these are commands in a language that Vi understands - just say (d)elete followed by <em>what</em> you want to remove.</p>
+<p>The keyboard/HJKL usually turns into a more convoluted discussion, sometimes followed by one of these arguments</p>
+<ol>
+<li>Using the mouse strains your wrist</li>
+<li>You want to keep your hands in the home row for posture</li>
+<li>HJKL is faster</li>
+</ol>
+<p>While the first two points are relevant for your health and you should take some time to ponder on those issues, any of these arguments are hard to hold as absolutes - I am sure there lots of mouse users out there with the eye accuracy of a sniper, healthy wrists and impeccable posture - so I wont try to argue my way through those, and besides I'm not a very fast typist anyway :D</p>
+<p>Instead consider that the mouse is not a very reliable input for commands - I mean commands as assertive orders - keyboards are better suited for this since they have a wider range of combinations. So Vi allows for assertive commands that are harder to express with your mouse, e.g.</p>
+<ul>
+<li>If I want to go to line 33 I don't care if it is up or down, I just want to <strong>go</strong> there regardless of where I am now <strong>:33</strong></li>
+<li>If I want to delete the current word <strong>:diw</strong>, I don't care where the mouse is right now or if I selected too much or little - I just want it gone</li>
+</ul>
+<p>Expressiveness is the key to Vi's power and since Vi commands are exact orders they tend to be more reliable than your mouse. Now if are not sure what you want to do, and need to think it over, you tend to move your mouse around along with your eyes - that is fine for those situations. But Vi assumes that you are an assertive writer that wants things done - I secretly imagine myself shouting to my Vi minion - MINION DELETE LINE - instead I do it with my fingers.</p>
+<p>Unlike languages though, there is no need for you to learn all of Vi(m), you can be sure I didn't. Learn only the bits you need to be productive and go no further.</p>
+<ul>
+<li>If your text editing job consists of fixing config/xml files all day learn only what you need to do efficient find and replace</li>
+<li>If you do professional spell checking then just learn to move and replace words or sentences.</li>
+<li>Similarly if you are an editor learn to order Vi to move/remove paragraphs</li>
+<li>Doing repetitive work on CSV tables - move/delete lines and find/replace</li>
+<li>Programmer? I'm sure there is a tool out there for you</li>
+<li>There no list of Vi commands you must know - it is just easier to identify what would make your life easier and search for that instead</li>
+</ul>
+<h2>Why Sublime then?</h2>
+<p>Well they got a lot right, and realistically they seem to be one of the best non-Vi editors out there. Keeping in mind that the competition in that segment is Notepad++, gedit, Textmate (dead?-ish), etc, then Sublime is probably the best of the lot.</p>
+<p>If you are a programmer then they got even more stuff right:
+<em> sensible settings for code (tabspaces and what not)
+</em> <em>project</em> settings
+* good organisation features: tabs, layouts, file groups</p>
+<p>The plugin ecosystem also helps putting Sublime ahead of the competition since the only alternative, other than Emacs, would be Textmate.</p>
+<p>Finally Sublime is cross platform. And there aren't that many editors that can say this (scratch Emacs/Textmate). Vim is one of the few, but it also struggles with issues on Windows, where things are different enough to be annoying.</p>
+<h2>In a nutshell</h2>
+<p>It seems Sublime is a great text editor, but it is not a Vim replacement. I'm not moving away from Vim any time soon - specially now that Neovim is on the horizon.</p>
+<p>Still it makes for a top notch text editor that you definitely should consider if you're not going the Vi way. The only downsides being the price tag and the fact that it is not Open Source.</p>
+<h2>References</h2>
+<ol>
+<li><a href="http://www.reddit.com/r/webdev/comments/19lobl/serious_discussion_sublime_text_2_versus_Vim_on/">Reddit discussion on Sublime vs Vim</a></li>
+<li><a href="http://delvarworld.github.io/blog/2013/03/16/just-use-sublime-text/">Just use sublime text</a></li>
+<li><a href="http://vpaste.net/fA7rH">Vim rebutal</a> </li>
+<li><a href="https://sublimebullshit.wordpress.com/2013/03/22/response-to-andrew-rays-blog-post/">Another Vim rebutal</a></li>
+<li><a href="http://stackoverflow.com/questions/1218390/what-is-your-most-productive-shortcut-with-vim/1220118#1220118">Stackoverflow: Your problem with Vim is that you dont grok Vi</a></li>
+<li><a href="http://stackoverflow.com/questions/371618/what-modal-editors-are-available-aside-from-vi-vim">Stackoverflow: What modal editors are available aside from vi/vim?</a></li>
+<li><a href="http://www.moolenaar.net/habits.html">Bram Moolenaar: Seven habits of effective text editing</a></li>
+<li><a href="https://github.com/terryma/vim-multiple-cursors">Vim-multiple-cursors</a></li>
+</ol>
+</div>
+
+
+</body>
+</html>
+
+

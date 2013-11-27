@@ -1,41 +1,35 @@
+
 <!DOCTYPE>
 <html>
 <head>
-	<link href='http://fonts.googleapis.com/css?family=Cantata+One&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8">
 	
+	<meta name="viewport" content="width=device-width">
 
 	<title></title>
 	
 	
 	<link type="text/css" media="screen" href="style.css" rel="stylesheet">
-    	<link type="text/css" media="screen and (min-device-width: 1024px)" href="fancy.css" rel="stylesheet"/>
 	<link type="text/css" media="screen" href="code.css" rel="stylesheet"/>
 	
 
 	
 
+<link rel="Alternate" type="text/plain" href="2011-01-14-two-days-with-android.md" />
 <link rel="Alternate" media="Print" href="2011-01-14-two-days-with-android.print.html" />
-<script src="jquery-1.9.1.js">
-</script>
 
 
 </head>
 <body>
 
 	
-	<div id="title_box">
-	<h1 class="page_title">cat /dev/<span class="red">raf</span>/web&gt;</h1>
-	</div>
-
-	
-	
+	<h1><a href="index.html">raf</a>/2 days with Android</h1>
 	
 
 
 
 <div id="content">
-<h1>2 days with Android</h1><p class=" article_preamble">After being annoyed with some show-stopping bugs at work, I decided to take two days
+<p class=" article_preamble">After being annoyed with some show-stopping bugs at work, I decided to take two days
 out of my life and tackle a major Bluetooth related BUG() we had in our Android application. 
 Being the first time I tried to develop for android I was concerned I would have to use 
 Eclipse, and loose my Vim-powered productivity. </p>
@@ -44,8 +38,8 @@ Eclipse, and loose my Vim-powered productivity. </p>
 <p>Being a happy openSUSE user, android packages were already available. Replace
 the following with the appropriate (apt-get, yum) commands, or download the
 SDK from the android website.</p>
-<div class="codehilite"><pre><span class="err">$</span> <span class="n">sudo</span> <span class="n">zypper</span> <span class="n">install</span> <span class="n">android</span><span class="o">-</span><span class="n">sdk</span>
-<span class="err">$</span> <span class="n">kdesu</span> <span class="n">android</span>
+<div class="codehilite"><pre><span></span>$ sudo zypper install android-sdk
+$ kdesu android
 </pre></div>
 
 
@@ -55,15 +49,15 @@ additional components.</p>
 <p>To run code on the device you need to start the adb daemon. I 
 do it as root, but you should probably setup some rules in udev to set
 appropriate usb permissions.</p>
-<div class="codehilite"><pre><span class="err">$</span> <span class="n">adb</span> <span class="n">kill</span><span class="o">-</span><span class="n">server</span>
-<span class="err">$</span> <span class="n">sudo</span> <span class="n">adb</span> <span class="n">start</span><span class="o">-</span><span class="n">server</span>
-<span class="err">$</span> <span class="n">adb</span> <span class="n">devices</span>
+<div class="codehilite"><pre><span></span>$ adb kill-server
+$ sudo adb start-server
+$ adb devices
 </pre></div>
 
 
 <h2>Lets create a project</h2>
 <p>To create a project in the current folder:</p>
-<div class="codehilite"><pre><span class="err">$</span> <span class="n">android</span> <span class="n">create</span> <span class="n">project</span> <span class="o">--</span><span class="n">target</span>  <span class="mi">1</span>  <span class="o">--</span><span class="n">path</span> <span class="p">.</span> <span class="o">--</span><span class="n">package</span> <span class="n">com</span><span class="p">.</span><span class="n">example</span><span class="p">.</span><span class="n">Test</span> <span class="o">--</span><span class="n">activity</span> <span class="n">MyAndroidAppActivity</span>
+<div class="codehilite"><pre><span></span>$ android create project --target  <span class="m">1</span>  --path . --package com.example.Test --activity MyAndroidAppActivity
 </pre></div>
 
 
@@ -78,32 +72,32 @@ appropriate usb permissions.</p>
 <p>Android projects use <strong>ant</strong> to build the source and install it into the device. 
 The following commands will compile, install and run the application in a plugged
 Android device:</p>
-<div class="codehilite"><pre><span class="err">$</span> <span class="n">ant</span> <span class="n">compile</span>
-<span class="err">$</span> <span class="n">ant</span> <span class="n">install</span>
-<span class="err">$</span> <span class="n">adb</span> <span class="n">shell</span> <span class="err">&#39;</span><span class="n">am</span> <span class="n">start</span> <span class="o">-</span><span class="n">n</span> <span class="n">com</span><span class="p">.</span><span class="n">example</span><span class="p">.</span><span class="n">Test</span><span class="o">/</span><span class="p">.</span><span class="n">MyAndroidAppActivity</span><span class="err">&#39;</span>
+<div class="codehilite"><pre><span></span>$ ant compile
+$ ant install
+$ adb shell <span class="s1">&#39;am start -n com.example.Test/.MyAndroidAppActivity&#39;</span>
 </pre></div>
 
 
 <p>Sometimes it is also useful to remove an application from the phone:</p>
-<div class="codehilite"><pre><span class="err">$</span> <span class="n">adb</span> <span class="n">uninstall</span> <span class="n">com</span><span class="p">.</span><span class="n">example</span><span class="p">.</span><span class="n">Test</span>
+<div class="codehilite"><pre><span></span>$ adb uninstall com.example.Test
 </pre></div>
 
 
 <h2>Logging and Debugging</h2>
 <p>One of my favourite parts so far in developing for android is the debugging
 logs. You can see a live log of what is happening in your device:</p>
-<div class="codehilite"><pre><span class="err">$</span> <span class="n">adb</span> <span class="n">logcat</span>
+<div class="codehilite"><pre><span></span>$ adb logcat
 </pre></div>
 
 
 <p>or if you want to restrict it to a single application and log level:</p>
-<div class="codehilite"><pre><span class="err">$</span> <span class="n">adb</span> <span class="n">logcat</span> <span class="o">-</span><span class="n">s</span> <span class="n">MyActivity</span><span class="o">:</span><span class="n">V</span>
+<div class="codehilite"><pre><span></span>$ adb logcat -s MyActivity:V
 </pre></div>
 
 
 <p>If you are like me you'll want to keep track of stacktraces on the log.
 Here's a treat:</p>
-<div class="codehilite"><pre><span class="kd">public</span> <span class="kt">void</span> <span class="nf">logTrace</span><span class="o">(</span><span class="n">StackTraceElement</span><span class="o">[]</span> <span class="n">trace</span><span class="o">)</span> <span class="o">{</span>
+<div class="codehilite"><pre><span></span><span class="kd">public</span> <span class="kt">void</span> <span class="nf">logTrace</span><span class="o">(</span><span class="n">StackTraceElement</span><span class="o">[]</span> <span class="n">trace</span><span class="o">)</span> <span class="o">{</span>
     <span class="kt">int</span> <span class="n">i</span><span class="o">;</span>
     <span class="k">for</span> <span class="o">(</span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">trace</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
      <span class="n">Log</span><span class="o">.</span><span class="na">v</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">getClass</span><span class="o">().</span><span class="na">getName</span><span class="o">(),</span> <span class="n">trace</span><span class="o">[</span><span class="n">i</span><span class="o">].</span><span class="na">toString</span><span class="o">());</span>          
@@ -132,12 +126,12 @@ first time use of any development environment. I like some of the concepts behin
 Android development (Activities, AsyncTask), others not so much (Dialogs :S).</p>
 <h3>PS: some extra bits I picked up later</h3>
 <p>If for any reason you lost you build.xml, just ask adb to rebuild it.</p>
-<div class="codehilite"><pre><span class="err">$</span> <span class="nx">android</span> <span class="nx">update</span> <span class="nx">project</span>  <span class="o">--</span><span class="nb">path</span> <span class="nx">.</span> <span class="o">--</span><span class="nb">target</span> <span class="o">&lt;</span><span class="nb">TARGET</span><span class="o">&gt;</span>
+<div class="codehilite"><pre><span></span>$ android update project  --path . --target &lt;TARGET&gt;
 </pre></div>
 
 
 <p>To open a browser from the adb shell:</p>
-<div class="codehilite"><pre><span class="err">$</span> <span class="n">am</span> <span class="n">start</span> <span class="o">-</span><span class="n">a</span> <span class="n">android</span><span class="p">.</span><span class="n">intent</span><span class="p">.</span><span class="n">action</span><span class="p">.</span><span class="n">VIEW</span> <span class="o">-</span><span class="n">n</span> <span class="n">com</span><span class="p">.</span><span class="n">android</span><span class="p">.</span><span class="n">browser</span><span class="o">/</span><span class="p">.</span><span class="n">BrowserActivity</span> <span class="n">http</span><span class="o">:</span><span class="c1">//www.raf.im</span>
+<div class="codehilite"><pre><span></span>$ am start -a android.intent.action.VIEW -n com.android.browser/.BrowserActivity http://www.raf.im
 </pre></div>
 
 
@@ -150,47 +144,8 @@ Android development (Activities, AsyncTask), others not so much (Dialogs :S).</p
 <li>http://developer.android.com/</li>
 <li>http://www.droiddraw.org/</li>
 </ul>
-
-
-<div id="social">
-	<h2>Liked this? Share it.</h2>
-	<div class="links">
-	<a class="delicious" title="Share on tumblr" href="http://del.icio.us/post?url=">Delicious</a>
-	<a class="stumbleupon" href="http://www.stumbleupon.com/submit?u=">StumbleUpon</a>
-	<a class="twitter" href="http://twitter.com/home/?status=">Twitter</a>
-	<a class="reddit" href="http://www.reddit.com/submit?url=">Reddit</a>
-	<a class="tumblr" href="http://www.tumblr.com/share">Tumblr</a>
-	</div>
-</div>
-<script>
-var url = window.location.href;
-
-var anchor;
-anchor = $('#social a.delicious');
-anchor.attr('href', anchor.attr('href') + url);
-anchor = $('#social a.stumbleupon');
-anchor.attr('href', anchor.attr('href') + url);
-anchor = $('#social a.twitter');
-anchor.attr('href', anchor.attr('href') + url);
-anchor = $('#social a.reddit');
-anchor.attr('href', anchor.attr('href') + url);
-// No need for tumblr
-
-$('#social').show();
-</script>
-
-<h2>Download this</h2>
-<p>To save this as a clean single HTML file you can save, press <a href="2011-01-14-two-days-with-android.print.html">here</a>
-This is ideal for long term storage or reading on your ebook reader.</p>
-
-
 </div>
 
-
-<div class="disclaimer">
-Copyright @ Rui Abreu Ferreira 2014, the opinions expressed here are those of the authors and
-do not reflect the position of anyone else ... really ...
-</div>
 
 </body>
 </html>

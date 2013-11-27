@@ -1,48 +1,42 @@
+
 <!DOCTYPE>
 <html>
 <head>
-	<link href='http://fonts.googleapis.com/css?family=Cantata+One&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8">
 	
+	<meta name="viewport" content="width=device-width">
 
 	<title></title>
 	
 	
 	<link type="text/css" media="screen" href="style.css" rel="stylesheet">
-    	<link type="text/css" media="screen and (min-device-width: 1024px)" href="fancy.css" rel="stylesheet"/>
 	<link type="text/css" media="screen" href="code.css" rel="stylesheet"/>
 	
 
 	
 
+<link rel="Alternate" type="text/plain" href="2011-10-27-git-workflow-pushing-to-multiple-repos.md" />
 <link rel="Alternate" media="Print" href="2011-10-27-git-workflow-pushing-to-multiple-repos.print.html" />
-<script src="jquery-1.9.1.js">
-</script>
 
 
 </head>
 <body>
 
 	
-	<div id="title_box">
-	<h1 class="page_title">cat /dev/<span class="red">raf</span>/web&gt;</h1>
-	</div>
-
-	
-	
+	<h1><a href="index.html">raf</a>/git workflow: pushing to multiple repositories in sync</h1>
 	
 
 
 
 <div id="content">
-<h1>git workflow: pushing to multiple repositories in sync</h1><p class=" article_preamble">Recently I've been keeping an eye out for a solution to keep multiple git repositories in sync.
+<p class=" article_preamble">Recently I've been keeping an eye out for a solution to keep multiple git repositories in sync.
 I've already discussed mirroring repositories in a previous post.
 But in this case what I was looking for was the ability to push branches into multiple remote repositories, in one command.</p>
 <p>The reason why I was looking into this is because I keep some projects in multiple online hosting services (github, gitorious, etc) at the same time.
 After a while it becomes tiresome to push against all those remotes, so basically I'm looking for a way to save some keystrokes, and avoid stupid errors like forgetting to push into one of the remotes.</p>
 <h2>The new Origin</h2>
 <p>One way to partially achieve this is by creating a new remote that aggregates all the remotes you want to push into. For example by adding the following into .git/config.</p>
-<div class="codehilite"><pre><span class="k">[remote &quot;Origin&quot;]</span>
+<div class="codehilite"><pre><span></span><span class="k">[remote &quot;Origin&quot;]</span>
     <span class="na">url</span> <span class="o">=</span> <span class="s">git@gitorious.org:vim-qt/vim-qt.git</span>
 <span class="s">    url = git@github.com:equalsraf/vim-qt.git</span>
 <span class="s">    url = git@bitbucket.org:equalsraf/vim-qt.git</span>
@@ -52,7 +46,7 @@ After a while it becomes tiresome to push against all those remotes, so basicall
 <p>This essentially aggregates three remotes into a new one. I've named it "Origin" as a pun to the usual origin branch in git, but you can call it whatever you want.
 You can even call it <em>origin</em> (in lowercase), but I prefer a name that explicitly lets me know what I am doing.
 At this point pushing into Origin will be equivalent of pushing into all the other branches.</p>
-<div class="codehilite"><pre><span class="err">$</span> <span class="n">git</span> <span class="n">push</span> <span class="n">Origin</span> <span class="n">master</span>
+<div class="codehilite"><pre><span></span>$ git push Origin master
 </pre></div>
 
 
@@ -62,7 +56,7 @@ So running <em>git branch -a</em>  will not show any Origin/master, for example.
 This is alright, since doing it would require all those remotes to be in sync which may not be true at all, but it has some disadvantages that we will discuss later.
 You probably want to keep regular references to the individual remote branches anyway, so that you can push into them individually.
 So my .git/config file looks like this,</p>
-<div class="codehilite"><pre><span class="k">[remote &quot;gitorious&quot;]</span>
+<div class="codehilite"><pre><span></span><span class="k">[remote &quot;gitorious&quot;]</span>
     <span class="na">url</span> <span class="o">=</span> <span class="s">git@gitorious.org:vim-qt/vim-qt.git</span>
 <span class="s">    fetch = +refs/heads/*:refs/remotes/gitorious/*</span>
 <span class="k">[remote &quot;github&quot;]</span>
@@ -82,8 +76,8 @@ So my .git/config file looks like this,</p>
 <p>The downside of the previous configuration is that it only works that well for pushing into the remote. 
 If you try fetching from it nothing interesting happens, and more importantly pushing into it does not update remote references you may have to the individual remotes, because git sees those as unrelated remotes.
 This unfortunate shortcoming requires us to run a remote update (or a git fetch for example), in order to have those remotes updated, i.e.</p>
-<div class="codehilite"><pre><span class="err">$</span> <span class="n">git</span> <span class="n">push</span> <span class="n">Origin</span> <span class="n">master</span>
-<span class="err">$</span> <span class="n">git</span> <span class="n">remote</span> <span class="n">update</span>
+<div class="codehilite"><pre><span></span>$ git push Origin master
+$ git remote update
 </pre></div>
 
 
@@ -91,14 +85,14 @@ This unfortunate shortcoming requires us to run a remote update (or a git fetch 
 To make this even better we need to find a way to automatically run the <em>git remote</em>  command after the push.
 Unfortunately git-hooks are of no use here, because there is no such thing as a post-push hook.</p>
 <p>The best solution I was able to come up for this, was to create a git alias that merges those to commands, like this</p>
-<div class="codehilite"><pre><span class="k">[alias]</span>
+<div class="codehilite"><pre><span></span><span class="k">[alias]</span>
     <span class="na">multipush</span> <span class="o">=</span> <span class="s">&quot;!f() { git push $@; git remote update; }; f&quot;</span>
 </pre></div>
 
 
 <p>Basically <em>git multipush</em> is an alias for git push, that is always followed by a call to <em>git remote</em>.
 So now I would call</p>
-<div class="codehilite"><pre><span class="err">$</span> <span class="n">git</span> <span class="n">multipush</span> <span class="n">Origin</span> <span class="n">master</span>
+<div class="codehilite"><pre><span></span>$ git multipush Origin master
 </pre></div>
 
 
@@ -120,47 +114,8 @@ This would be something like using a service hook, plus the ability to place som
 <p>Does that sound like a good idea?
 And more importantly would Github/Bitbucket be willing to support a service that pushes code to other services?
 Or maybe what we really need is a new service just for this - codereplicator.org - wink, wink anyone?</p>
-
-
-<div id="social">
-	<h2>Liked this? Share it.</h2>
-	<div class="links">
-	<a class="delicious" title="Share on tumblr" href="http://del.icio.us/post?url=">Delicious</a>
-	<a class="stumbleupon" href="http://www.stumbleupon.com/submit?u=">StumbleUpon</a>
-	<a class="twitter" href="http://twitter.com/home/?status=">Twitter</a>
-	<a class="reddit" href="http://www.reddit.com/submit?url=">Reddit</a>
-	<a class="tumblr" href="http://www.tumblr.com/share">Tumblr</a>
-	</div>
-</div>
-<script>
-var url = window.location.href;
-
-var anchor;
-anchor = $('#social a.delicious');
-anchor.attr('href', anchor.attr('href') + url);
-anchor = $('#social a.stumbleupon');
-anchor.attr('href', anchor.attr('href') + url);
-anchor = $('#social a.twitter');
-anchor.attr('href', anchor.attr('href') + url);
-anchor = $('#social a.reddit');
-anchor.attr('href', anchor.attr('href') + url);
-// No need for tumblr
-
-$('#social').show();
-</script>
-
-<h2>Download this</h2>
-<p>To save this as a clean single HTML file you can save, press <a href="2011-10-27-git-workflow-pushing-to-multiple-repos.print.html">here</a>
-This is ideal for long term storage or reading on your ebook reader.</p>
-
-
 </div>
 
-
-<div class="disclaimer">
-Copyright @ Rui Abreu Ferreira 2014, the opinions expressed here are those of the authors and
-do not reflect the position of anyone else ... really ...
-</div>
 
 </body>
 </html>

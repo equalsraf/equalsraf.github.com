@@ -1,41 +1,35 @@
+
 <!DOCTYPE>
 <html>
 <head>
-	<link href='http://fonts.googleapis.com/css?family=Cantata+One&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8">
 	
+	<meta name="viewport" content="width=device-width">
 
 	<title></title>
 	
 	
 	<link type="text/css" media="screen" href="style.css" rel="stylesheet">
-    	<link type="text/css" media="screen and (min-device-width: 1024px)" href="fancy.css" rel="stylesheet"/>
 	<link type="text/css" media="screen" href="code.css" rel="stylesheet"/>
 	
 
 	
 
+<link rel="Alternate" type="text/plain" href="2011-08-28-python-flask.md" />
 <link rel="Alternate" media="Print" href="2011-08-28-python-flask.print.html" />
-<script src="jquery-1.9.1.js">
-</script>
 
 
 </head>
 <body>
 
 	
-	<div id="title_box">
-	<h1 class="page_title">cat /dev/<span class="red">raf</span>/web&gt;</h1>
-	</div>
-
-	
-	
+	<h1><a href="index.html">raf</a>/Python awesomeness in a Flask</h1>
 	
 
 
 
 <div id="content">
-<h1>Python awesomeness in a Flask</h1><p class=" article_preamble">While I was working on updating blogpit, I discovered this wonderful web microframework called Flask. 
+<p class=" article_preamble">While I was working on updating blogpit, I discovered this wonderful web microframework called Flask. 
 Naturally it is python and of course it is awesome.
 I was immediately attracted to Flask for two reasons: First it has a lot in common with Django, and second it strives to be simple.</p>
 <p>So here is a quick overview of Flask, from the eyes of a Django user.</p>
@@ -47,22 +41,22 @@ I was immediately attracted to Flask for two reasons: First it has a lot in comm
 <h3>Routing</h3>
 <p>Mapping URL paths to methods with function decorators is just brilliant, and easy too.
 Just add the decorator with the path expression on top of the view function.</p>
-<div class="codehilite"><pre><span class="n">from</span> <span class="n">flask</span> <span class="n">import</span> <span class="n">Flask</span>
+<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span>
 <span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
 
-<span class="err">@</span><span class="n">app</span><span class="p">.</span><span class="n">route</span><span class="p">(</span><span class="err">&#39;</span><span class="o">/</span><span class="n">hello</span><span class="err">&#39;</span><span class="p">)</span>
-<span class="n">def</span> <span class="n">hello</span><span class="p">()</span><span class="o">:</span>
-    <span class="k">return</span> <span class="err">&#39;</span><span class="n">Hello</span> <span class="n">world</span><span class="o">!</span><span class="err">&#39;</span>
+<span class="nd">@app.route</span><span class="p">(</span><span class="s1">&#39;/hello&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">hello</span><span class="p">():</span>
+    <span class="k">return</span> <span class="s1">&#39;Hello world!&#39;</span>
 
-<span class="n">app</span><span class="p">.</span><span class="n">run</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="err">&#39;</span><span class="mf">0.0.0.0</span><span class="err">&#39;</span><span class="p">)</span>
+<span class="n">app</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s1">&#39;0.0.0.0&#39;</span><span class="p">)</span>
 </pre></div>
 
 
 <p>The expression can also hold placeholders that are mapped into function arguments, with integers, floats or paths.
 Here is a more complex declaration for a view that takes a path as argument and accepts both POST and GET requests.</p>
-<div class="codehilite"><pre><span class="err">@</span><span class="n">app</span><span class="p">.</span><span class="n">route</span><span class="p">(</span><span class="err">&#39;</span><span class="o">/&lt;</span><span class="n">path</span><span class="o">:</span><span class="n">path</span><span class="o">&gt;</span><span class="err">&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="err">&#39;</span><span class="n">GET</span><span class="err">&#39;</span><span class="p">,</span> <span class="err">&#39;</span><span class="n">POST</span><span class="err">&#39;</span><span class="p">])</span>
-<span class="n">def</span> <span class="n">hello</span><span class="p">()</span><span class="o">:</span>
-    <span class="k">return</span> <span class="err">&#39;</span><span class="n">Hello</span> <span class="n">world</span><span class="o">!</span> <span class="err">@</span> <span class="o">%</span><span class="n">s</span><span class="err">&#39;</span> <span class="o">%</span> <span class="n">path</span>
+<div class="codehilite"><pre><span></span>@app.route(&#39;/&lt;path:path&gt;&#39;, methods=[&#39;GET&#39;, &#39;POST&#39;])
+def hello():
+    return &#39;Hello world! @ %s&#39; % path
 </pre></div>
 
 
@@ -87,13 +81,13 @@ None of these are particularly deal breaking, but some of them required some ext
 <p>Building URLs in templates is slightly painful.
 Django also took a while until it got this right.
 For example to point at static content,</p>
-<div class="codehilite"><pre><span class="nt">&lt;script</span> <span class="na">src=</span><span class="s">&quot;{{url_for(&#39;static&#39;, filename=&#39;js/fancybox/jquery.fancybox-1.3.2.js&#39;)}}&quot;</span> <span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+<div class="codehilite"><pre><span></span><span class="nt">&lt;script</span> <span class="na">src=</span><span class="s">&quot;</span><span class="cp">{{</span><span class="nv">url_for</span><span class="o">(</span><span class="s1">&#39;static&#39;</span><span class="o">,</span> <span class="nv">filename</span><span class="o">=</span><span class="s1">&#39;js/fancybox/jquery.fancybox-1.3.2.js&#39;</span><span class="o">)</span><span class="cp">}}</span><span class="s">&quot;</span> <span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
 </pre></div>
 
 
 <p>A little more convoluted example involves the initial dot(.) that points to relative views, which is great for re-usability, but I keep mistyping the dot or the apostrophes.
 In this regard I do prefer the Django syntax to pass arguments to tags.</p>
-<div class="codehilite"><pre><span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;{{ url_for(&#39;.blogpit_content&#39;, path=section) }}&quot;</span><span class="nt">&gt;</span>{{ section }}<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+<div class="codehilite"><pre><span></span><span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;</span><span class="cp">{{</span> <span class="nv">url_for</span><span class="o">(</span><span class="s1">&#39;.blogpit_content&#39;</span><span class="o">,</span> <span class="nv">path</span><span class="o">=</span><span class="nv">section</span><span class="o">)</span> <span class="cp">}}</span><span class="s">&quot;</span><span class="nt">&gt;</span><span class="cp">{{</span> <span class="nv">section</span> <span class="cp">}}</span><span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
 </pre></div>
 
 
@@ -108,28 +102,28 @@ Fortunately there are several Flask extensions that can be used for forms (Flask
 The static view is mostly equivalent to the Django's MEDIA_URL static file url.
 While I do prefer Flask's approach of defining a proper view for static content, it frustrates me that there is no trivial way to replace the content location with another URL (say media.ruiabreu.org).
 This is actually essential for easy deployment, so I ended up creating a template tag for this.</p>
-<div class="codehilite"><pre><span class="cp"># Handle static content</span>
-<span class="n">def</span> <span class="k">static</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="o">:</span>
-    <span class="n">root</span> <span class="o">=</span> <span class="n">app</span><span class="p">.</span><span class="n">config</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="err">&#39;</span><span class="n">STATIC_ROOT</span><span class="err">&#39;</span><span class="p">,</span> <span class="n">None</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">root</span> <span class="n">is</span> <span class="n">None</span><span class="o">:</span>
-        <span class="k">return</span> <span class="n">url_for</span><span class="p">(</span><span class="err">&#39;</span><span class="k">static</span><span class="err">&#39;</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="n">path</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">not</span> <span class="n">root</span><span class="p">.</span><span class="n">endswith</span><span class="p">(</span><span class="sc">&#39;/&#39;</span><span class="p">)</span><span class="o">:</span>
-        <span class="n">root</span> <span class="o">+=</span> <span class="sc">&#39;/&#39;</span>
-    <span class="k">return</span> <span class="n">urlparse</span><span class="p">.</span><span class="n">urljoin</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
+<div class="codehilite"><pre><span></span># Handle static content
+def static(path):
+    root = app.config.get(&#39;STATIC_ROOT&#39;, None)
+    if root is None:
+        return url_for(&#39;static&#39;, filename=path)
+    if not root.endswith(&#39;/&#39;):
+        root += &#39;/&#39;
+    return urlparse.urljoin(root, path)
 
-<span class="err">@</span><span class="n">app</span><span class="p">.</span><span class="n">context_processor</span>
-<span class="n">def</span> <span class="n">inject_static</span><span class="p">()</span><span class="o">:</span>
-    <span class="k">return</span> <span class="n">dict</span><span class="p">(</span><span class="k">static</span><span class="o">=</span><span class="k">static</span><span class="p">)</span>
+@app.context_processor
+def inject_static():
+    return dict(static=static)
 </pre></div>
 
 
 <p>So instead of</p>
-<div class="codehilite"><pre><span class="nt">&lt;script</span> <span class="na">src=</span><span class="s">&quot;{{url_for(&#39;static&#39;, filename=&#39;js/fancybox/jquery.fancybox-1.3.2.js&#39;)}}&quot;</span> <span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+<div class="codehilite"><pre><span></span><span class="nt">&lt;script</span> <span class="na">src=</span><span class="s">&quot;</span><span class="cp">{{</span><span class="nv">url_for</span><span class="o">(</span><span class="s1">&#39;static&#39;</span><span class="o">,</span> <span class="nv">filename</span><span class="o">=</span><span class="s1">&#39;js/fancybox/jquery.fancybox-1.3.2.js&#39;</span><span class="o">)</span><span class="cp">}}</span><span class="s">&quot;</span> <span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
 </pre></div>
 
 
 <p>I use a custom template tag called <em>static</em>, that changes the static content URL based on a setting STATIC_ROOT</p>
-<div class="codehilite"><pre> <span class="nt">&lt;script</span> <span class="na">src=</span><span class="s">&quot;{{ static(&#39;js/fancybox/jquery.fancybox-1.3.2.js&#39;)}}&quot;</span> <span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+<div class="codehilite"><pre><span></span> <span class="nt">&lt;script</span> <span class="na">src=</span><span class="s">&quot;</span><span class="cp">{{</span> <span class="nv">static</span><span class="o">(</span><span class="s1">&#39;js/fancybox/jquery.fancybox-1.3.2.js&#39;</span><span class="o">)</span><span class="cp">}}</span><span class="s">&quot;</span> <span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
 </pre></div>
 
 
@@ -156,47 +150,8 @@ The code for using flask with blogpit is now available, as Flask-blogpit, check 
 <li><a href="http://flask.pocoo.org/extensions/">Flask Extensions</a></li>
 <li><a href="https://bitbucket.org/equalsraf/flask-blogpit">Flask-blogpit</a></li>
 </ul>
-
-
-<div id="social">
-	<h2>Liked this? Share it.</h2>
-	<div class="links">
-	<a class="delicious" title="Share on tumblr" href="http://del.icio.us/post?url=">Delicious</a>
-	<a class="stumbleupon" href="http://www.stumbleupon.com/submit?u=">StumbleUpon</a>
-	<a class="twitter" href="http://twitter.com/home/?status=">Twitter</a>
-	<a class="reddit" href="http://www.reddit.com/submit?url=">Reddit</a>
-	<a class="tumblr" href="http://www.tumblr.com/share">Tumblr</a>
-	</div>
-</div>
-<script>
-var url = window.location.href;
-
-var anchor;
-anchor = $('#social a.delicious');
-anchor.attr('href', anchor.attr('href') + url);
-anchor = $('#social a.stumbleupon');
-anchor.attr('href', anchor.attr('href') + url);
-anchor = $('#social a.twitter');
-anchor.attr('href', anchor.attr('href') + url);
-anchor = $('#social a.reddit');
-anchor.attr('href', anchor.attr('href') + url);
-// No need for tumblr
-
-$('#social').show();
-</script>
-
-<h2>Download this</h2>
-<p>To save this as a clean single HTML file you can save, press <a href="2011-08-28-python-flask.print.html">here</a>
-This is ideal for long term storage or reading on your ebook reader.</p>
-
-
 </div>
 
-
-<div class="disclaimer">
-Copyright @ Rui Abreu Ferreira 2014, the opinions expressed here are those of the authors and
-do not reflect the position of anyone else ... really ...
-</div>
 
 </body>
 </html>

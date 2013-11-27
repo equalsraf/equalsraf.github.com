@@ -1,0 +1,186 @@
+
+<!DOCTYPE>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	
+	<meta name="viewport" content="width=device-width">
+
+	<title></title>
+	
+	
+        <style type="text/css" media="screen">
+        
+body {
+	font-family: monospace;
+	font-size: 12pt;
+	color: #000;
+}
+
+#content img {
+	max-width: 100%;
+	clear: both;
+}
+
+.red {
+	color: #EA4B2A;
+}
+
+.codehilite > pre {
+	border-left: 6px solid #333;
+	padding: 2px 2px 2px 5px;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	background: #eee;
+}
+
+blockquote {
+	background: #ddd;
+	color: #666;
+	margin: 0;
+	border-left: 2ex solid #bbb;
+}
+
+h2:before {
+	content: '# ';
+}
+h3:before {
+	content: '## ';
+}
+
+
+        </style>
+
+        <style type="text/css" media="screen">
+        .hll { background-color: #ffffcc }
+.c { color: #228B22 } /* Comment */
+.err { color: #a61717; background-color: #e3d2d2 } /* Error */
+.k { color: #8B008B; font-weight: bold } /* Keyword */
+.cm { color: #228B22 } /* Comment.Multiline */
+.cp { color: #1e889b } /* Comment.Preproc */
+.c1 { color: #228B22 } /* Comment.Single */
+.cs { color: #8B008B; font-weight: bold } /* Comment.Special */
+.gd { color: #aa0000 } /* Generic.Deleted */
+.ge { font-style: italic } /* Generic.Emph */
+.gr { color: #aa0000 } /* Generic.Error */
+.gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.gi { color: #00aa00 } /* Generic.Inserted */
+.go { color: #888888 } /* Generic.Output */
+.gp { color: #555555 } /* Generic.Prompt */
+.gs { font-weight: bold } /* Generic.Strong */
+.gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.gt { color: #aa0000 } /* Generic.Traceback */
+.kc { color: #8B008B; font-weight: bold } /* Keyword.Constant */
+.kd { color: #8B008B; font-weight: bold } /* Keyword.Declaration */
+.kn { color: #8B008B; font-weight: bold } /* Keyword.Namespace */
+.kp { color: #8B008B; font-weight: bold } /* Keyword.Pseudo */
+.kr { color: #8B008B; font-weight: bold } /* Keyword.Reserved */
+.kt { color: #a7a7a7; font-weight: bold } /* Keyword.Type */
+.m { color: #B452CD } /* Literal.Number */
+.s { color: #CD5555 } /* Literal.String */
+.na { color: #658b00 } /* Name.Attribute */
+.nb { color: #658b00 } /* Name.Builtin */
+.nc { color: #008b45; font-weight: bold } /* Name.Class */
+.no { color: #00688B } /* Name.Constant */
+.nd { color: #707a7c } /* Name.Decorator */
+.ne { color: #008b45; font-weight: bold } /* Name.Exception */
+.nf { color: #008b45 } /* Name.Function */
+.nn { color: #008b45; text-decoration: underline } /* Name.Namespace */
+.nt { color: #8B008B; font-weight: bold } /* Name.Tag */
+.nv { color: #00688B } /* Name.Variable */
+.ow { color: #8B008B } /* Operator.Word */
+.w { color: #bbbbbb } /* Text.Whitespace */
+.mf { color: #B452CD } /* Literal.Number.Float */
+.mh { color: #B452CD } /* Literal.Number.Hex */
+.mi { color: #B452CD } /* Literal.Number.Integer */
+.mo { color: #B452CD } /* Literal.Number.Oct */
+.sb { color: #CD5555 } /* Literal.String.Backtick */
+.sc { color: #CD5555 } /* Literal.String.Char */
+.sd { color: #CD5555 } /* Literal.String.Doc */
+.s2 { color: #CD5555 } /* Literal.String.Double */
+.se { color: #CD5555 } /* Literal.String.Escape */
+.sh { color: #1c7e71; font-style: italic } /* Literal.String.Heredoc */
+.si { color: #CD5555 } /* Literal.String.Interpol */
+.sx { color: #cb6c20 } /* Literal.String.Other */
+.sr { color: #1c7e71 } /* Literal.String.Regex */
+.s1 { color: #CD5555 } /* Literal.String.Single */
+.ss { color: #CD5555 } /* Literal.String.Symbol */
+.bp { color: #658b00 } /* Name.Builtin.Pseudo */
+.vc { color: #00688B } /* Name.Variable.Class */
+.vg { color: #00688B } /* Name.Variable.Global */
+.vi { color: #00688B } /* Name.Variable.Instance */
+.il { color: #B452CD } /* Literal.Number.Integer.Long */
+
+        </style>
+	
+
+	
+
+
+</head>
+<body>
+
+	
+	<h1><a href="index.html">raf</a>/SSH puddle jumping with skyhook</h1>
+	
+
+
+
+<div id="content">
+<p class=" article_preamble">Ever wanted to hop into a target machine using ssh going through a middle box, i.e. anything that beats having to repeatedly call ssh from one machine into the next.
+There are a couple of setups going around for using ProxyCommand+netcat, but what if you want the server to decide the next hop.</p>
+<p>Simple use case: at work we wanted to give external SSH access to a developer, but the machine was inside a private network and we had to jump through a middlebox to get there. </p>
+<p>The usual way to puddle jump over ssh is using a ProxyCommand in <em>.ssh/config</em></p>
+<div class="codehilite"><pre><span></span>Host target_over_proxy*
+    Hostname target.domain.com
+    ProxyCommand ssh -q proxybox nc -q0 %h %p
+</pre></div>
+
+
+<p>What this does is open an ssh connection to the proxy host, and runs a second ssh connection over the first one. The netcat(nc) command establishes the connection between the middlebox and the actual destination.
+The problem with this setup is that the client needs to know the target of the connection. If the destination lives inside a private network, then the user might not have this information or it might change over time, but the middlebox should know about it.</p>
+<p>Another alternative is to setup a blind proxy that forwards all TCP connections to internal machines based on arbitrary parameters, e.g. HAProxy.</p>
+<p>But I wanted neither of those solutions since I did no have any ports to use, and I wanted to enforce access control at the middle box. In a nutshell:</p>
+<ul>
+<li>SSH access with shell, scp, etc across a middlebox</li>
+<li>Minimal user access in the middleboxes</li>
+<li>Destination is transparent to the user (sort of)</li>
+</ul>
+<p>So I glued together some OpenSSH settings and bash scripts to make it possible (link at the bottom), here is a quick explanation of the setup.</p>
+<h2>Client setup</h2>
+<p>Add a proxycommand, in ~/.ssh/config</p>
+<div class="codehilite"><pre><span></span>Host target
+    User raf-devmachine
+    ProxyCommand ssh -q %r@middlebox skyhook
+</pre></div>
+
+
+<p>For this example I just assumed the username is the same (%r) for both the middle box and the target machine, but you might want to adjust it to be different.
+The command <em>skyhook</em> doesn't actually exist, it is just there so that ssh assumes a proxy is in place.</p>
+<h2>Middlebox setup</h2>
+<p>The skyhook scripts are placed inside /usr/libexec. To enable it you need to
+add the following configuration to your sshd_config</p>
+<div class="codehilite"><pre><span></span>Match Group skyhook
+    ForceCommand /usr/libexec/skyhook-shell
+</pre></div>
+
+
+<p>This enforces that all users in the <strong>skyhook</strong> group will call the skyhook-shell command. The <em>skyhook-shell</em> is a bash script that will call a user hook script to forward the connection. But the original client does not know what is the actual destination.</p>
+<p>Each user has its own hook script in <em>/usr/libexec/skyhook/username</em>. An example hook script would be to call netcat</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="ch">#!/bin/sh</span>
+nc -q0 10.10.10.10 22
+</pre></div>
+</td></tr></table>
+
+<h2>References</h2>
+<ul>
+<li><a href="https://bitbucket.org/equalsraf/skyhook">skyhook source</a></li>
+</ul>
+</div>
+
+
+</body>
+</html>
+
+

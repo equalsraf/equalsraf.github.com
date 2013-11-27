@@ -1,9 +1,10 @@
+
 <!DOCTYPE>
 <html>
 <head>
-	<link href='http://fonts.googleapis.com/css?family=Cantata+One&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8">
 	
+	<meta name="viewport" content="width=device-width">
 
 	<title></title>
 	
@@ -11,12 +12,9 @@
         <style type="text/css" media="screen">
         
 body {
-	font-family: Helvetica, DejaVu Sans, sans-serif; 
-	font-size: 10pt; 
+	font-family: monospace;
+	font-size: 12pt;
 	color: #000;
-	margin:	auto;
-	margin-top:		0;
-	line-height		: 1.25em;
 }
 
 #content img {
@@ -24,176 +22,32 @@ body {
 	clear: both;
 }
 
-h1, h2, h3 {
-	font-family: serif; 
-	font-weight: normal;
-	color: #333;
-	margin-bottom: 0.2em;
-}
-
-h1 {
-	font-size: 2.0em;
-	margin-bottom: 0.5em;
-	margin-top: 0.5em;
-	line-height: 1em;
-	line-height: 1.2em;
-}
-
-h2 {
-	font-size: 1.5em;
-	color:		#999;
-	font-weight:	bold;
-	text-transform: uppercase;
-	clear:	both;
-}
-
-h2.article_title a {
-	color: black;
-}
-
-h1.page_title {
-	margin-top: 0;
-	margin-bottom: 0;
-	font-family: 'Consolas', 'Menlo', 'Deja Vu Sans Mono','Bitstream Vera Sans Mono', monospace!important;
-	font-size: 2em;
-	
-}
-
-h3 {
-	font-weight: bold;
-	margin-bottom: 0.1em;
-}
-
-p {
-	margin: 10px 0 10px 0;
-}
-
-p, ul, ol {
-	line-height		: 1.5em;
-	font-size:		1.5em;
-}
-
-ul, ol {
-	padding-left:		2ex;
-	margin-top:		0;
-}
-
-pre {
-	font-family: 'Consolas', 'Menlo', 'Deja Vu Sans Mono','Bitstream Vera Sans Mono', monospace!important;
-}
-
-a {
-	text-decoration		: none;
-	text-transform		: uppercase;
-	color			: #226CFF;
-}
-
-#menu {
-	margin-top: 1ex;
-	clear:		both;
-	display:	block;
-}
-
-#menu a.sel {
-	text-decoration: underline;
-}
-
-#menu:after {
-	content:	'.';
-	visibility:	hidden;
-	clear:		both;
-	display:	block;
-}
-
-.internal {
-	display:	inline;
-	padding:	3px;
-	
-}
-
-.external {
-	vertical-align: top;
-	text-align:	left;
-	padding:	3px 3px 3px 0;
-}
-
 .red {
 	color: #EA4B2A;
 }
 
-.blue {
-	color			: #226CFF;
-}
-
-#menu .external a {
-	color:		#333;
-	text-transform:	none;
-	border-bottom: 2px solid #226CFF;
-}
-
-#social  {
-	padding:	3px;
-	display: none;
-}
-
-#social .links {
-	column-count: 2;
-	-moz-column-count: 2;
-	margin-left:	10px;
-}
-
-#social .title {
-	color:	#666;
-}
-
-#social a {
-	padding-right:	1ex;
-}
-
-
-#social a {
-	display: block;
-	font-size: 1.5em;
-	padding: 5px;
-	color:	#666;
-}
-
-#social a:hover {
-	color:	black;
-}
-
-#social h2 {
-	margin : 10px 0;
-}
-
-
-.disclaimer {
-	margin: 2ex 3px 3px 0;
-	color:	#ccc;
-}
-
 .codehilite > pre {
-	border-left: 4px solid #666;
+	border-left: 6px solid #333;
 	padding: 2px 2px 2px 5px;
 	white-space: pre-wrap;
 	word-wrap: break-word;
+	background: #eee;
 }
 
-#social a.twitter:hover {
-	color: #00bef6;
+blockquote {
+	background: #ddd;
+	color: #666;
+	margin: 0;
+	border-left: 2ex solid #bbb;
 }
-#social a.reddit:hover {
-	color: #D41D00;
+
+h2:before {
+	content: '# ';
 }
-#social a.tumblr:hover {
-	color: #2D4861;
+h3:before {
+	content: '## ';
 }
-#social a.stumbleupon:hover {
-	color: #EA4B2A;
-}
-#social a.delicious:hover {
-	color: #3274d1;
-}
+
 
         </style>
 
@@ -267,11 +121,13 @@ a {
 <body>
 
 	
+	<h1><a href="index.html">raf</a>/Booting Raspberry Pi Root in read-only</h1>
+	
 
 
 
 <div id="content">
-<h1>Booting Raspberry Pi Root in read-only</h1><p class=" article_preamble">So last week a lot of people around here were looking into how to boot a raspberry pi with
+<p class=" article_preamble">So last week a lot of people around here were looking into how to boot a raspberry pi with
 the SD card partition in read only mode - this came after a couple of annoying
 data losses.</p>
 <p>A lot of us are using the R-Pi as cheap automation system - 
@@ -289,7 +145,7 @@ Raspbian instead check the references at the end for a working solution.</p>
 <h3>1. Mount the root partition as read-only (ro) on boot</h3>
 <p>In raspberry pi the root partition flags can be set as kernel parameters in
 /boot/cmdline.txt. You should add an <strong>ro</strong> flag right after the <strong>root=</strong> parameter.</p>
-<div class="codehilite"><pre><span class="n">selinux</span><span class="o">=</span><span class="mi">0</span> <span class="n">plymouth</span><span class="p">.</span><span class="n">enable</span><span class="o">=</span><span class="mi">0</span> <span class="n">smsc95xx</span><span class="p">.</span><span class="n">turbo_mode</span><span class="o">=</span><span class="n">N</span> <span class="n">dwc_otg</span><span class="p">.</span><span class="n">lpm_enable</span><span class="o">=</span><span class="mi">0</span> <span class="n">console</span><span class="o">=</span><span class="n">ttyAMA0</span><span class="p">,</span><span class="mi">115200</span> <span class="n">kgdboc</span><span class="o">=</span><span class="n">ttyAMA0</span><span class="p">,</span><span class="mi">115200</span> <span class="n">console</span><span class="o">=</span><span class="n">tty1</span> <span class="n">root</span><span class="o">=/</span><span class="n">dev</span><span class="o">/</span><span class="n">mmcblk0p2</span> <span class="n">ro</span> <span class="n">rootfstype</span><span class="o">=</span><span class="n">ext4</span> <span class="n">elevator</span><span class="o">=</span><span class="n">noop</span> <span class="n">rootwait</span>
+<div class="codehilite"><pre><span></span>selinux=0 plymouth.enable=0 smsc95xx.turbo_mode=N dwc_otg.lpm_enable=0 console=ttyAMA0,115200 kgdboc=ttyAMA0,115200 console=tty1 root=/dev/mmcblk0p2 ro rootfstype=ext4 elevator=noop rootwait
 </pre></div>
 
 
@@ -298,16 +154,16 @@ Raspbian instead check the references at the end for a working solution.</p>
 uses, if it is not writable it will be empty and applications won't be able
 to resolve names.</p>
 <p>I've moved mine into /tmp/ (which is a tmpfs partition by default):</p>
-<div class="codehilite"><pre><span class="c"># rm /etc/resolv.conf</span>
-<span class="c"># ln -s /tmp/resolv.conf /etc/resolv.conf</span>
+<div class="codehilite"><pre><span></span># rm /etc/resolv.conf
+# ln -s /tmp/resolv.conf /etc/resolv.conf
 </pre></div>
 
 
 <h3>3. Mount /var/{tmp, log} as tmpfs</h3>
 <p>The /var/tmp directory is used to store temporary files, and the /var/log for system logfiles.</p>
 <p>You can mount these two as tmpfs by adding the following to /etc/fstab</p>
-<div class="codehilite"><pre><span class="n">tmpfs</span>   <span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">log</span>    <span class="n">tmpfs</span>   <span class="n">nodev</span><span class="p">,</span><span class="n">nosuid</span>    <span class="mi">0</span>   <span class="mi">0</span>
-<span class="n">tmpfs</span>   <span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">tmp</span>    <span class="n">tmpfs</span>   <span class="n">nodev</span><span class="p">,</span><span class="n">nosuid</span>    <span class="mi">0</span>   <span class="mi">0</span>
+<div class="codehilite"><pre><span></span>tmpfs   /var/log    tmpfs   nodev,nosuid    0   0
+tmpfs   /var/tmp    tmpfs   nodev,nosuid    0   0
 </pre></div>
 
 
@@ -321,9 +177,9 @@ NAMESPACE</em> to find some references.</p>
 <li>systemd-random-seed stores entropy information between reboots</li>
 </ul>
 <p>These can be disabled via systemctl</p>
-<div class="codehilite"><pre><span class="c"># systemctl disable systemd-readahead-collect</span>
-<span class="c"># ...</span>
-<span class="c"># systemctl disable systemd-random-seed</span>
+<div class="codehilite"><pre><span></span># systemctl disable systemd-readahead-collect
+# ...
+# systemctl disable systemd-random-seed
 </pre></div>
 
 
@@ -343,27 +199,27 @@ in <em>/usr/lib/dhcpcd/dhcpcd-hooks/50-ntp</em></p>
 4
 5
 6
-7</pre></div></td><td class="code"><div class="codehilite"><pre><span class="c">#!/bin/sh</span>
-<span class="k">case</span> <span class="s2">&quot;${reason}&quot;</span> in
-    BOUND|INFORM|REBIND|REBOOT|RENEW|TIMEOUT|STATIC<span class="o">)</span>
-        <span class="c"># &quot;-g&quot; allows for large time differences</span>
+7</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="ch">#!/bin/sh</span>
+<span class="k">case</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">reason</span><span class="si">}</span><span class="s2">&quot;</span> in
+    BOUND<span class="p">|</span>INFORM<span class="p">|</span>REBIND<span class="p">|</span>REBOOT<span class="p">|</span>RENEW<span class="p">|</span>TIMEOUT<span class="p">|</span>STATIC<span class="o">)</span>
+        <span class="c1"># &quot;-g&quot; allows for large time differences</span>
         ntpd -qg
-        ;;
+        <span class="p">;;</span>
 <span class="k">esac</span>
 </pre></div>
 </td></tr></table>
 
 <p>Now you can disable the ntpd daemon</p>
-<div class="codehilite"><pre><span class="c"># systemctl disable ntpd</span>
+<div class="codehilite"><pre><span></span># systemctl disable ntpd
 </pre></div>
 
 
 <h2>How to use</h2>
 <p>The system will start in read-only mode, whenever I need to write into the root
 I remount the root as read-write and then back:</p>
-<div class="codehilite"><pre><span class="c"># mount -o rw,remount /</span>
-<span class="c"># pacman &lt;...&gt;</span>
-<span class="c"># mount -o ro,remount</span>
+<div class="codehilite"><pre><span></span># mount -o rw,remount /
+# pacman &lt;...&gt;
+# mount -o ro,remount
 </pre></div>
 
 
@@ -384,16 +240,8 @@ I remount the root as read-write and then back:</p>
 <ul>
 <li><a href="http://riscpi.co.uk/nutcom-services-ltd/">Raspberry Pi gets an Industrial Perennial Environment</a></li>
 </ul>
-
-
-
 </div>
 
-
-<div class="disclaimer">
-Copyright @ Rui Abreu Ferreira 2014, the opinions expressed here are those of the authors and
-do not reflect the position of anyone else ... really ...
-</div>
 
 </body>
 </html>

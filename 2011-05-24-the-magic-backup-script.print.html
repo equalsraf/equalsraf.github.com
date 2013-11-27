@@ -1,9 +1,10 @@
+
 <!DOCTYPE>
 <html>
 <head>
-	<link href='http://fonts.googleapis.com/css?family=Cantata+One&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8">
 	
+	<meta name="viewport" content="width=device-width">
 
 	<title></title>
 	
@@ -11,12 +12,9 @@
         <style type="text/css" media="screen">
         
 body {
-	font-family: Helvetica, DejaVu Sans, sans-serif; 
-	font-size: 10pt; 
+	font-family: monospace;
+	font-size: 12pt;
 	color: #000;
-	margin:	auto;
-	margin-top:		0;
-	line-height		: 1.25em;
 }
 
 #content img {
@@ -24,176 +22,32 @@ body {
 	clear: both;
 }
 
-h1, h2, h3 {
-	font-family: serif; 
-	font-weight: normal;
-	color: #333;
-	margin-bottom: 0.2em;
-}
-
-h1 {
-	font-size: 2.0em;
-	margin-bottom: 0.5em;
-	margin-top: 0.5em;
-	line-height: 1em;
-	line-height: 1.2em;
-}
-
-h2 {
-	font-size: 1.5em;
-	color:		#999;
-	font-weight:	bold;
-	text-transform: uppercase;
-	clear:	both;
-}
-
-h2.article_title a {
-	color: black;
-}
-
-h1.page_title {
-	margin-top: 0;
-	margin-bottom: 0;
-	font-family: 'Consolas', 'Menlo', 'Deja Vu Sans Mono','Bitstream Vera Sans Mono', monospace!important;
-	font-size: 2em;
-	
-}
-
-h3 {
-	font-weight: bold;
-	margin-bottom: 0.1em;
-}
-
-p {
-	margin: 10px 0 10px 0;
-}
-
-p, ul, ol {
-	line-height		: 1.5em;
-	font-size:		1.5em;
-}
-
-ul, ol {
-	padding-left:		2ex;
-	margin-top:		0;
-}
-
-pre {
-	font-family: 'Consolas', 'Menlo', 'Deja Vu Sans Mono','Bitstream Vera Sans Mono', monospace!important;
-}
-
-a {
-	text-decoration		: none;
-	text-transform		: uppercase;
-	color			: #226CFF;
-}
-
-#menu {
-	margin-top: 1ex;
-	clear:		both;
-	display:	block;
-}
-
-#menu a.sel {
-	text-decoration: underline;
-}
-
-#menu:after {
-	content:	'.';
-	visibility:	hidden;
-	clear:		both;
-	display:	block;
-}
-
-.internal {
-	display:	inline;
-	padding:	3px;
-	
-}
-
-.external {
-	vertical-align: top;
-	text-align:	left;
-	padding:	3px 3px 3px 0;
-}
-
 .red {
 	color: #EA4B2A;
 }
 
-.blue {
-	color			: #226CFF;
-}
-
-#menu .external a {
-	color:		#333;
-	text-transform:	none;
-	border-bottom: 2px solid #226CFF;
-}
-
-#social  {
-	padding:	3px;
-	display: none;
-}
-
-#social .links {
-	column-count: 2;
-	-moz-column-count: 2;
-	margin-left:	10px;
-}
-
-#social .title {
-	color:	#666;
-}
-
-#social a {
-	padding-right:	1ex;
-}
-
-
-#social a {
-	display: block;
-	font-size: 1.5em;
-	padding: 5px;
-	color:	#666;
-}
-
-#social a:hover {
-	color:	black;
-}
-
-#social h2 {
-	margin : 10px 0;
-}
-
-
-.disclaimer {
-	margin: 2ex 3px 3px 0;
-	color:	#ccc;
-}
-
 .codehilite > pre {
-	border-left: 4px solid #666;
+	border-left: 6px solid #333;
 	padding: 2px 2px 2px 5px;
 	white-space: pre-wrap;
 	word-wrap: break-word;
+	background: #eee;
 }
 
-#social a.twitter:hover {
-	color: #00bef6;
+blockquote {
+	background: #ddd;
+	color: #666;
+	margin: 0;
+	border-left: 2ex solid #bbb;
 }
-#social a.reddit:hover {
-	color: #D41D00;
+
+h2:before {
+	content: '# ';
 }
-#social a.tumblr:hover {
-	color: #2D4861;
+h3:before {
+	content: '## ';
 }
-#social a.stumbleupon:hover {
-	color: #EA4B2A;
-}
-#social a.delicious:hover {
-	color: #3274d1;
-}
+
 
         </style>
 
@@ -267,14 +121,20 @@ a {
 <body>
 
 	
+	<h1><a href="index.html">raf</a>/The Magic backup script</h1>
+	
 
 
 
 <div id="content">
-<h1>The Magic backup script</h1><p class=" article_preamble">After looking high and low for a decent backup application I ended up 
+<p class=" article_preamble">After looking high and low for a decent backup application I ended up 
 giving up, and making my own bash script using rsync. I'm highly dependant
 on client initiated remote backups, and it seems there are not many solutions
 like that out there.</p>
+<blockquote>
+<p><strong>Update</strong>: find the latest version <a href="https://github.com/equalsraf/magick-backup-script">here</a>, it
+now supports local backups too.</p>
+</blockquote>
 <p>Eventually I got tired of looking around and decided to cook a bash script,
 based on some similar discussions I saw online. It seems a lot of people have
 reached the same conclusion and created some various kinds of scripts.</p>
@@ -305,9 +165,9 @@ reached the same conclusion and created some various kinds of scripts.</p>
 Rsync seemed like the ideal tool for the job, it can use ssh as transport and it can setup hardlinks
 to save space between backups.</p>
 <p>Backups are stored, one per folder called backup-DATE. There is also a symbolic link folder called <em>current</em> that points to the last backup.</p>
-<div class="codehilite"><pre><span class="err">$</span> <span class="n">ls</span> <span class="n">backups</span><span class="o">/</span>
-<span class="n">backup</span><span class="o">-</span><span class="mi">2011</span><span class="o">-</span><span class="mo">05</span><span class="o">-</span><span class="mi">16</span><span class="n">T10</span><span class="o">:</span><span class="mi">25</span><span class="o">:</span><span class="mi">40</span>  <span class="n">backup</span><span class="o">-</span><span class="mi">2011</span><span class="o">-</span><span class="mo">05</span><span class="o">-</span><span class="mi">16</span><span class="n">T10</span><span class="o">:</span><span class="mi">44</span><span class="o">:</span><span class="mi">57</span>  <span class="n">backup</span><span class="o">-</span><span class="mi">2011</span><span class="o">-</span><span class="mo">05</span><span class="o">-</span><span class="mi">24</span><span class="n">T16</span><span class="o">:</span><span class="mi">10</span><span class="o">:</span><span class="mo">02</span>
-<span class="n">backup</span><span class="o">-</span><span class="mi">2011</span><span class="o">-</span><span class="mo">05</span><span class="o">-</span><span class="mi">16</span><span class="n">T10</span><span class="o">:</span><span class="mi">34</span><span class="o">:</span><span class="mi">09</span>  <span class="n">backup</span><span class="o">-</span><span class="mi">2011</span><span class="o">-</span><span class="mo">05</span><span class="o">-</span><span class="mi">17</span><span class="n">T09</span><span class="o">:</span><span class="mo">02</span><span class="o">:</span><span class="mi">43</span>  <span class="n">current</span>
+<div class="codehilite"><pre><span></span>$ ls backups/
+backup-2011-05-16T10:25:40  backup-2011-05-16T10:44:57  backup-2011-05-24T16:10:02
+backup-2011-05-16T10:34:09  backup-2011-05-17T09:02:43  current
 </pre></div>
 
 
@@ -319,7 +179,7 @@ settings (check bellow). You can create as many settings scripts as you want, as
 them on the same folder as backup.sh.</p>
 <h2>backup-to-home.sh</h2>
 <p>Here is an example script to backup my home folder to homeserver.com:backups</p>
-<div class="codehilite"><pre><span class="c">#!/bin/bash</span>
+<div class="codehilite"><pre><span></span><span class="ch">#!/bin/bash</span>
 <span class="nv">SOURCE</span><span class="o">=</span><span class="nv">$HOME</span>
 <span class="nv">SSH_HOST</span><span class="o">=</span><span class="s2">&quot;raf@homeserver.com&quot;</span>
 <span class="nv">SSH_PATH</span><span class="o">=</span><span class="s2">&quot;backups/&quot;</span>
@@ -328,98 +188,94 @@ them on the same folder as backup.sh.</p>
 
 
 <h2>backup.sh</h2>
-<p>I keep a copy of this in a gitorious project, check the link at the end for the latest version.</p>
-<div class="codehilite"><pre><span class="c"># An rsync/ssh backup script</span>
-<span class="c"># based on http://blog.interlinked.org/tutorials/rsync_time_machine.html </span>
-<span class="c">#</span>
-<span class="c"># Some important variables that MUST be defined:</span>
-<span class="c"># - SOURCE  The folder to be backed up</span>
-<span class="c"># - SSH_HOST    The ssh host (i.e. user@host)</span>
-<span class="c"># - SSH_PATH    The backups root path at the server</span>
-<span class="c">#</span>
-<span class="c"># The following are not mandatory</span>
-<span class="c"># - EXCLUDEFILE A file with a list of ignore patterns($HOME/.rsync/exclude)</span>
+<div class="codehilite"><pre><span></span><span class="c1"># An rsync/ssh backup script</span>
+<span class="c1"># based on http://blog.interlinked.org/tutorials/rsync_time_machine.html </span>
+<span class="c1">#</span>
+<span class="c1"># Some important variables that MUST be defined:</span>
+<span class="c1"># - SOURCE  The folder to be backed up</span>
+<span class="c1"># - SSH_HOST    The ssh host (i.e. user@host)</span>
+<span class="c1"># - SSH_PATH    The backups root path at the server</span>
+<span class="c1">#</span>
+<span class="c1"># The following are not mandatory</span>
+<span class="c1"># - EXCLUDEFILE A file with a list of ignore patterns($HOME/.rsync/exclude)</span>
 
-<span class="k">if</span> <span class="o">[</span> -z <span class="s2">&quot;$SOURCE&quot;</span> <span class="o">]</span>; <span class="k">then</span>
-<span class="k">    </span><span class="nb">echo</span> <span class="s2">&quot;SOURCE is not defined&quot;</span>
+<span class="k">if</span> <span class="o">[</span> -z <span class="s2">&quot;</span><span class="nv">$SOURCE</span><span class="s2">&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+    <span class="nb">echo</span> <span class="s2">&quot;SOURCE is not defined&quot;</span>
     <span class="nb">exit</span>
 <span class="k">fi</span>
 
-<span class="k">if</span> <span class="o">[</span> -z <span class="s2">&quot;$SSH_HOST&quot;</span> <span class="o">]</span>; <span class="k">then</span>
-<span class="k">    </span><span class="nb">echo</span> <span class="s2">&quot;SSH_HOST is not defined&quot;</span>
+<span class="k">if</span> <span class="o">[</span> -z <span class="s2">&quot;</span><span class="nv">$SSH_HOST</span><span class="s2">&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+    <span class="nb">echo</span> <span class="s2">&quot;SSH_HOST is not defined&quot;</span>
     <span class="nb">exit</span>
 <span class="k">fi</span>
 
-<span class="k">if</span> <span class="o">[</span> -z <span class="s2">&quot;$SSH_PATH&quot;</span> <span class="o">]</span>; <span class="k">then</span>
-<span class="k">    </span><span class="nb">echo</span> <span class="s2">&quot;SSH_PATH is not defined&quot;</span>
+<span class="k">if</span> <span class="o">[</span> -z <span class="s2">&quot;</span><span class="nv">$SSH_PATH</span><span class="s2">&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+    <span class="nb">echo</span> <span class="s2">&quot;SSH_PATH is not defined&quot;</span>
     <span class="nb">exit</span>
 <span class="k">fi</span>
+
 
 <span class="nv">DATE</span><span class="o">=</span><span class="sb">`</span>date <span class="s2">&quot;+%Y-%m-%dT%H:%M:%S&quot;</span><span class="sb">`</span>
-<span class="nv">TARGET</span><span class="o">=</span><span class="s2">&quot;$SSH_HOST:$SSH_PATH/incomplete-$DATE&quot;</span>
+<span class="nv">TARGET</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$SSH_HOST</span><span class="s2">:</span><span class="nv">$SSH_PATH</span><span class="s2">/incomplete-</span><span class="nv">$DATE</span><span class="s2">&quot;</span>
 
-<span class="nv">EXCLUDEFILE</span><span class="o">=</span><span class="s2">&quot;$HOME/.rsync/exclude&quot;</span>
+<span class="nv">EXCLUDEFILE</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/.rsync/exclude&quot;</span>
 
 <span class="nv">RSYNC</span><span class="o">=</span>/usr/bin/rsync
 <span class="nv">RSYNC_ARGS</span><span class="o">=</span><span class="s2">&quot;-azP \</span>
 <span class="s2">    --delete \</span>
 <span class="s2">    --delete-excluded \</span>
-<span class="s2">    --exclude-from=$EXCLUDEFILE \</span>
+<span class="s2">    --exclude-from=</span><span class="nv">$EXCLUDEFILE</span><span class="s2"> \</span>
 <span class="s2">    --link-dest=../current \</span>
-<span class="s2">    $SOURCE $TARGET&quot;</span>
+<span class="s2">    </span><span class="nv">$SOURCE</span><span class="s2"> </span><span class="nv">$TARGET</span><span class="s2">&quot;</span>
 
-<span class="c"># Check rsync</span>
-<span class="k">if</span> <span class="o">[</span> ! -x <span class="nv">$RSYNC</span> <span class="o">]</span>; <span class="k">then</span>
-<span class="k">    </span><span class="nb">echo</span> <span class="s2">&quot;Cannot find rsync: $RSYNC&quot;</span>
+<span class="c1"># Check rsync</span>
+<span class="k">if</span> <span class="o">[</span> ! -x <span class="nv">$RSYNC</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+    <span class="nb">echo</span> <span class="s2">&quot;Cannot find rsync: </span><span class="nv">$RSYNC</span><span class="s2">&quot;</span>
     <span class="nb">exit</span>
 <span class="k">fi</span>
 
-<span class="c"># Check source dir</span>
-<span class="k">if</span> <span class="o">[</span> ! -d <span class="nv">$SOURCE</span> <span class="o">]</span>; <span class="k">then</span>
-<span class="k">    </span><span class="nb">echo</span> <span class="s2">&quot;Source must be a directory&quot;</span>
+<span class="c1"># Check source dir</span>
+<span class="k">if</span> <span class="o">[</span> ! -d <span class="nv">$SOURCE</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+    <span class="nb">echo</span> <span class="s2">&quot;Source must be a directory&quot;</span>
     <span class="nb">exit</span>
 <span class="k">fi</span>
 
-<span class="c"># Check exclude file</span>
-<span class="k">if</span> <span class="o">[</span> ! -f <span class="nv">$EXCLUDEFILE</span> <span class="o">]</span>; <span class="k">then</span>
-<span class="k">    </span><span class="nb">echo</span> <span class="s2">&quot;Exclude file not found: $EXCLUDEFILE&quot;</span>
+<span class="c1"># Check exclude file</span>
+<span class="k">if</span> <span class="o">[</span> ! -f <span class="nv">$EXCLUDEFILE</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+    <span class="nb">echo</span> <span class="s2">&quot;Exclude file not found: </span><span class="nv">$EXCLUDEFILE</span><span class="s2">&quot;</span>
     <span class="nb">exit</span>
 <span class="k">fi</span>
 
-<span class="nv">CMD</span><span class="o">=</span><span class="s2">&quot;$RSYNC $RSYNC_ARGS&quot;</span>
+<span class="nv">CMD</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$RSYNC</span><span class="s2"> </span><span class="nv">$RSYNC_ARGS</span><span class="s2">&quot;</span>
 
-<span class="c"># Wait for keypress</span>
+<span class="c1"># Wait for keypress</span>
 <span class="nb">echo</span> <span class="s2">&quot;Preparing to snapshot&quot;</span>
-<span class="nb">echo</span> <span class="s2">&quot;    Command: $CMD&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;    Command: </span><span class="nv">$CMD</span><span class="s2">&quot;</span>
 <span class="nb">echo</span> <span class="s2">&quot;&lt;Press any key to continue&gt;&quot;</span>
 <span class="nb">read</span>
 
 <span class="nv">$CMD</span> <span class="se">\</span>
 <span class="o">&amp;&amp;</span> ssh <span class="nv">$SSH_HOST</span> <span class="se">\</span>
-<span class="s2">&quot;mv $SSH_PATH/incomplete-$DATE $SSH_PATH/backup-$DATE \</span>
-<span class="s2">&amp;&amp; rm -f $SSH_PATH/current \</span>
-<span class="s2">&amp;&amp; ln -s backup-$DATE $SSH_PATH/current&quot;</span>
+<span class="s2">&quot;mv </span><span class="nv">$SSH_PATH</span><span class="s2">/incomplete-</span><span class="nv">$DATE</span><span class="s2"> </span><span class="nv">$SSH_PATH</span><span class="s2">/backup-</span><span class="nv">$DATE</span><span class="s2"> \</span>
+<span class="s2">&amp;&amp; rm -f </span><span class="nv">$SSH_PATH</span><span class="s2">/current \</span>
+<span class="s2">&amp;&amp; ln -s backup-</span><span class="nv">$DATE</span><span class="s2"> </span><span class="nv">$SSH_PATH</span><span class="s2">/current&quot;</span>
 </pre></div>
 
 
+<h2>When this does not work, and then what ...</h2>
+<p>Well a couple of days ago I saw my disk fail hard (well almost hard) and was spurred into a maniacal backup frenzy.
+So just to be sure I decided to backup my files onto an external FAT disk I had lying around.
+I quickly hacked the previous script into using local paths instead and then saw it fail miserably, why? Mostly because FAT does not like weird filenames and other things.</p>
 <h2>References</h2>
 <ul>
 <li><a href="https://wiki.ubuntu.com/TimeVault">TimeVault</a></li>
 <li><a href="http://www.amanda.org/">Amanda</a></li>
 <li><a href="http://blog.interlinked.org/tutorials/rsync_time_machine.html">Rsync time machine</a></li>
 <li><a href="http://duplicity.nongnu.org/">Duplicity</a></li>
-<li><a href="https://gitorious.org/magick-backup-script/magick-backup-script">Gitorious project</a></li>
+<li><a href="https://github.com/equalsraf/magick-backup-script">Github project</a></li>
 </ul>
-
-
-
 </div>
 
-
-<div class="disclaimer">
-Copyright @ Rui Abreu Ferreira 2014, the opinions expressed here are those of the authors and
-do not reflect the position of anyone else ... really ...
-</div>
 
 </body>
 </html>

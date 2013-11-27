@@ -1,0 +1,214 @@
+
+<!DOCTYPE>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	
+	<meta name="viewport" content="width=device-width">
+
+	<title></title>
+	
+	
+        <style type="text/css" media="screen">
+        
+body {
+	font-family: monospace;
+	font-size: 12pt;
+	color: #000;
+}
+
+#content img {
+	max-width: 100%;
+	clear: both;
+}
+
+.red {
+	color: #EA4B2A;
+}
+
+.codehilite > pre {
+	border-left: 6px solid #333;
+	padding: 2px 2px 2px 5px;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	background: #eee;
+}
+
+blockquote {
+	background: #ddd;
+	color: #666;
+	margin: 0;
+	border-left: 2ex solid #bbb;
+}
+
+h2:before {
+	content: '# ';
+}
+h3:before {
+	content: '## ';
+}
+
+
+        </style>
+
+        <style type="text/css" media="screen">
+        .hll { background-color: #ffffcc }
+.c { color: #228B22 } /* Comment */
+.err { color: #a61717; background-color: #e3d2d2 } /* Error */
+.k { color: #8B008B; font-weight: bold } /* Keyword */
+.cm { color: #228B22 } /* Comment.Multiline */
+.cp { color: #1e889b } /* Comment.Preproc */
+.c1 { color: #228B22 } /* Comment.Single */
+.cs { color: #8B008B; font-weight: bold } /* Comment.Special */
+.gd { color: #aa0000 } /* Generic.Deleted */
+.ge { font-style: italic } /* Generic.Emph */
+.gr { color: #aa0000 } /* Generic.Error */
+.gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.gi { color: #00aa00 } /* Generic.Inserted */
+.go { color: #888888 } /* Generic.Output */
+.gp { color: #555555 } /* Generic.Prompt */
+.gs { font-weight: bold } /* Generic.Strong */
+.gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.gt { color: #aa0000 } /* Generic.Traceback */
+.kc { color: #8B008B; font-weight: bold } /* Keyword.Constant */
+.kd { color: #8B008B; font-weight: bold } /* Keyword.Declaration */
+.kn { color: #8B008B; font-weight: bold } /* Keyword.Namespace */
+.kp { color: #8B008B; font-weight: bold } /* Keyword.Pseudo */
+.kr { color: #8B008B; font-weight: bold } /* Keyword.Reserved */
+.kt { color: #a7a7a7; font-weight: bold } /* Keyword.Type */
+.m { color: #B452CD } /* Literal.Number */
+.s { color: #CD5555 } /* Literal.String */
+.na { color: #658b00 } /* Name.Attribute */
+.nb { color: #658b00 } /* Name.Builtin */
+.nc { color: #008b45; font-weight: bold } /* Name.Class */
+.no { color: #00688B } /* Name.Constant */
+.nd { color: #707a7c } /* Name.Decorator */
+.ne { color: #008b45; font-weight: bold } /* Name.Exception */
+.nf { color: #008b45 } /* Name.Function */
+.nn { color: #008b45; text-decoration: underline } /* Name.Namespace */
+.nt { color: #8B008B; font-weight: bold } /* Name.Tag */
+.nv { color: #00688B } /* Name.Variable */
+.ow { color: #8B008B } /* Operator.Word */
+.w { color: #bbbbbb } /* Text.Whitespace */
+.mf { color: #B452CD } /* Literal.Number.Float */
+.mh { color: #B452CD } /* Literal.Number.Hex */
+.mi { color: #B452CD } /* Literal.Number.Integer */
+.mo { color: #B452CD } /* Literal.Number.Oct */
+.sb { color: #CD5555 } /* Literal.String.Backtick */
+.sc { color: #CD5555 } /* Literal.String.Char */
+.sd { color: #CD5555 } /* Literal.String.Doc */
+.s2 { color: #CD5555 } /* Literal.String.Double */
+.se { color: #CD5555 } /* Literal.String.Escape */
+.sh { color: #1c7e71; font-style: italic } /* Literal.String.Heredoc */
+.si { color: #CD5555 } /* Literal.String.Interpol */
+.sx { color: #cb6c20 } /* Literal.String.Other */
+.sr { color: #1c7e71 } /* Literal.String.Regex */
+.s1 { color: #CD5555 } /* Literal.String.Single */
+.ss { color: #CD5555 } /* Literal.String.Symbol */
+.bp { color: #658b00 } /* Name.Builtin.Pseudo */
+.vc { color: #00688B } /* Name.Variable.Class */
+.vg { color: #00688B } /* Name.Variable.Global */
+.vi { color: #00688B } /* Name.Variable.Instance */
+.il { color: #B452CD } /* Literal.Number.Integer.Long */
+
+        </style>
+	
+
+	
+
+
+</head>
+<body>
+
+	
+	<h1><a href="index.html">raf</a>/Ditching pulseaudio</h1>
+	
+
+
+
+<div id="content">
+<p class=" article_preamble">Some quick notes on ditching pulseaudio. There are several valid reasons to throw it away. I have sound latency issues, cropped sounds with PA. Also I do need to have sound without a user DBus session.</p>
+<h2>Disabling pulseaudio</h2>
+<p>You might not want to uninstall pulseaudio. Depending on your distribution some packages may depend on the pulseaudio package, so uninstalling is not an option.</p>
+<p>You can just disable it, by disabling its auto spawn, edit /etc/pulse/client.conf and make sure to set </p>
+<div class="codehilite"><pre><span></span>autospawn = no
+</pre></div>
+
+
+<p>That is all, just kill the pulseaudio process and you are done.</p>
+<h2>Multi user environments</h2>
+<p>In multi user environments you might get an error from applications trying to play sound but failling with "permission denied". Setting /etc/asound.conf as follows fixes it for me.</p>
+<div class="codehilite"><pre><span></span>pcm.dmixer {
+  type dmix
+  ipc_key 1024
+  ipc_key_add_uid false
+  ipc_perm 0666                       # mixing for all users
+  slave {
+    pcm &quot;hw:0,0&quot;
+    period_time 0
+    period_size 1024
+    buffer_size 8192
+    rate 44100
+  }
+  bindings {
+    0 0
+    1 1
+  }
+}
+
+pcm.dsp0 {
+  type plug
+  slave.pcm &quot;dmixer&quot;
+}
+
+pcm.!default {
+  type plug
+  slave.pcm &quot;dmixer&quot;
+}
+pcm.default {
+  type plug
+  slave.pcm &quot;dmixer&quot;
+}
+ctl.mixer0 {
+  type hw
+  card 0
+}
+</pre></div>
+
+
+<h2>Things that work</h2>
+<ul>
+<li>MPlayer</li>
+<li>VLC</li>
+<li>Firefox</li>
+<li>mpv</li>
+</ul>
+<h2>Things that need a little nudge</h2>
+<p><strong>speech-dispatcher</strong> assumes pulseaudio is available, but you can change the backend to alsa in ~/.config/speech-dispatcher/speech.conf</p>
+<div class="codehilite"><pre><span></span>AudioOutputMethod &quot;alsa&quot;
+</pre></div>
+
+
+<p>The <strong>lxtqt-panel</strong> mixer uses pulseaudio but can be configured to use ALSA instead.</p>
+<p>VM snapshots in <strong>VirtualBox</strong> need to be shutdown and configured to use ALSA.</p>
+<p>A good way to look for packages that might not work is to look for packages that depend on libpulseaudio e.g.</p>
+<div class="codehilite"><pre><span></span>xbps-query -X libpulseaudio
+</pre></div>
+
+
+<h2>Things that don't work</h2>
+<ul>
+<li>Skype</li>
+</ul>
+<p>You might want to try to use apulse for these.</p>
+<h2>References</h2>
+<ul>
+<li><a href="https://www.redhat.com/archives/rhl-list/2007-November/msg05220.html">Re: Sound permission problem - solved</a></li>
+</ul>
+</div>
+
+
+</body>
+</html>
+
+

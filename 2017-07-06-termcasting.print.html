@@ -1,0 +1,263 @@
+
+<!DOCTYPE>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	
+	<meta name="viewport" content="width=device-width">
+
+	<title></title>
+	
+	
+        <style type="text/css" media="screen">
+        
+body {
+	font-family: monospace;
+	font-size: 12pt;
+	color: #000;
+}
+
+#content img {
+	max-width: 100%;
+	clear: both;
+}
+
+.red {
+	color: #EA4B2A;
+}
+
+.codehilite > pre {
+	border-left: 6px solid #333;
+	padding: 2px 2px 2px 5px;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	background: #eee;
+}
+
+blockquote {
+	background: #ddd;
+	color: #666;
+	margin: 0;
+	border-left: 2ex solid #bbb;
+}
+
+h2:before {
+	content: '# ';
+}
+h3:before {
+	content: '## ';
+}
+
+
+        </style>
+
+        <style type="text/css" media="screen">
+        .hll { background-color: #ffffcc }
+.c { color: #228B22 } /* Comment */
+.err { color: #a61717; background-color: #e3d2d2 } /* Error */
+.k { color: #8B008B; font-weight: bold } /* Keyword */
+.cm { color: #228B22 } /* Comment.Multiline */
+.cp { color: #1e889b } /* Comment.Preproc */
+.c1 { color: #228B22 } /* Comment.Single */
+.cs { color: #8B008B; font-weight: bold } /* Comment.Special */
+.gd { color: #aa0000 } /* Generic.Deleted */
+.ge { font-style: italic } /* Generic.Emph */
+.gr { color: #aa0000 } /* Generic.Error */
+.gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.gi { color: #00aa00 } /* Generic.Inserted */
+.go { color: #888888 } /* Generic.Output */
+.gp { color: #555555 } /* Generic.Prompt */
+.gs { font-weight: bold } /* Generic.Strong */
+.gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.gt { color: #aa0000 } /* Generic.Traceback */
+.kc { color: #8B008B; font-weight: bold } /* Keyword.Constant */
+.kd { color: #8B008B; font-weight: bold } /* Keyword.Declaration */
+.kn { color: #8B008B; font-weight: bold } /* Keyword.Namespace */
+.kp { color: #8B008B; font-weight: bold } /* Keyword.Pseudo */
+.kr { color: #8B008B; font-weight: bold } /* Keyword.Reserved */
+.kt { color: #a7a7a7; font-weight: bold } /* Keyword.Type */
+.m { color: #B452CD } /* Literal.Number */
+.s { color: #CD5555 } /* Literal.String */
+.na { color: #658b00 } /* Name.Attribute */
+.nb { color: #658b00 } /* Name.Builtin */
+.nc { color: #008b45; font-weight: bold } /* Name.Class */
+.no { color: #00688B } /* Name.Constant */
+.nd { color: #707a7c } /* Name.Decorator */
+.ne { color: #008b45; font-weight: bold } /* Name.Exception */
+.nf { color: #008b45 } /* Name.Function */
+.nn { color: #008b45; text-decoration: underline } /* Name.Namespace */
+.nt { color: #8B008B; font-weight: bold } /* Name.Tag */
+.nv { color: #00688B } /* Name.Variable */
+.ow { color: #8B008B } /* Operator.Word */
+.w { color: #bbbbbb } /* Text.Whitespace */
+.mf { color: #B452CD } /* Literal.Number.Float */
+.mh { color: #B452CD } /* Literal.Number.Hex */
+.mi { color: #B452CD } /* Literal.Number.Integer */
+.mo { color: #B452CD } /* Literal.Number.Oct */
+.sb { color: #CD5555 } /* Literal.String.Backtick */
+.sc { color: #CD5555 } /* Literal.String.Char */
+.sd { color: #CD5555 } /* Literal.String.Doc */
+.s2 { color: #CD5555 } /* Literal.String.Double */
+.se { color: #CD5555 } /* Literal.String.Escape */
+.sh { color: #1c7e71; font-style: italic } /* Literal.String.Heredoc */
+.si { color: #CD5555 } /* Literal.String.Interpol */
+.sx { color: #cb6c20 } /* Literal.String.Other */
+.sr { color: #1c7e71 } /* Literal.String.Regex */
+.s1 { color: #CD5555 } /* Literal.String.Single */
+.ss { color: #CD5555 } /* Literal.String.Symbol */
+.bp { color: #658b00 } /* Name.Builtin.Pseudo */
+.vc { color: #00688B } /* Name.Variable.Class */
+.vg { color: #00688B } /* Name.Variable.Global */
+.vi { color: #00688B } /* Name.Variable.Instance */
+.il { color: #B452CD } /* Literal.Number.Integer.Long */
+
+        </style>
+	
+
+	
+
+
+</head>
+<body>
+
+	
+	<h1><a href="index.html">raf</a>/termcasting</h1>
+	
+
+
+
+<div id="content">
+<p class=" article_preamble">I cant remember where I saw it, but there was this nifty little rust app to share your tty over the network.</p>
+<p>Historically the original tool for this was <code>script</code>, but there is also <code>ttyrec</code> and <code>termrec</code></p>
+<h2>ttyrec</h2>
+<p>First lets resize your tty into a standard size</p>
+<div class="codehilite"><pre><span></span>$ stty rows <span class="m">24</span> cols 80
+</pre></div>
+
+
+<p>Now start recording your terminal.</p>
+<div class="codehilite"><pre><span></span>$ ttyrec termcastfile
+</pre></div>
+
+
+<p>This will record your session into the file termcastfile.</p>
+<p>We can serve this file with netcat on port 9999. I'm using openbsd's nc command
+here, but any other tool that forwards the output of ttyplay to the client can
+be used.</p>
+<div class="codehilite"><pre><span></span>$ ttyplay -p termcastfile <span class="p">|</span> openbsd-nc -l -p <span class="m">9999</span> -k &gt;/dev/null
+</pre></div>
+
+
+<p>In the client I find it useful to disable echo, otherwise some terminal input
+can be printed out over the output - be warned that this breaks bash output</p>
+<div class="codehilite"><pre><span></span>$ stty -echo
+</pre></div>
+
+
+<p>you can watch this stream with nc (telnet works too)</p>
+<div class="codehilite"><pre><span></span>$ nc localhost 9999
+</pre></div>
+
+
+<h2>termrec</h2>
+<p>termrec seems like an alternative to ttyrec. It is supposed to store additional information
+such as the terminal dimensions. Unfortunately I was unable to make it work for a streaming
+setup.</p>
+<p>termrec also has a command <code>termplay</code> that works a lot like mplayer but for ttyrec files.</p>
+<h2>ttyrec in web pages</h2>
+<p>TermRecord generates web pages that display script/ttyrec files using term.js. playterm.org and
+showterm.io use similar tricks to display ttyrec files in webpages.</p>
+<h2>Forward onto remote ssh host</h2>
+<p>If you are behind a firewall you can easilly forward this port onto a public ssh host</p>
+<div class="codehilite"><pre><span></span>$ ssh -NR <span class="se">\*</span>:8080:localhost:9999 vps
+</pre></div>
+
+
+<p>Check the sshd_config option <code>GatewayPorts</code>, by default ssh does not allow listening on the wildcard address.</p>
+<h2>some scripts</h2>
+<p>termcast.sh to simultaneously start recording a session and stream over a tcp port</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="ch">#!/bin/sh</span>
+<span class="c1"># Usage: termcast [tcpport]</span>
+<span class="nb">set</span> -eu
+
+<span class="nv">PORT</span><span class="o">=</span><span class="si">${</span><span class="nv">1</span><span class="k">:-</span><span class="nv">9999</span><span class="si">}</span>
+
+<span class="c1"># first we force a size of 35 rows by 120 cols, this is the larger size</span>
+<span class="c1"># accepted by playterm.org</span>
+stty rows <span class="m">35</span> cols 120
+
+<span class="c1"># the session will be saved in this file</span>
+<span class="nv">SESSION</span><span class="o">=</span><span class="k">$(</span>mktemp termcast-XXXXXX.ttyrec<span class="k">)</span>
+<span class="nb">echo</span> <span class="s2">&quot;Storing session in </span><span class="nv">$SESSION</span><span class="s2">&quot;</span>
+
+ttyplay -p <span class="nv">$SESSION</span> <span class="p">|</span> openbsd-nc -l -p <span class="nv">$PORT</span> -k &gt;/dev/null <span class="p">&amp;</span>
+<span class="nv">SERVERPID</span><span class="o">=</span><span class="nv">$!</span>
+<span class="nb">echo</span> <span class="s2">&quot;Server started on port </span><span class="nv">$PORT</span><span class="s2"> (pid: </span><span class="nv">$SERVERPID</span><span class="s2">)&quot;</span>
+
+<span class="nb">trap</span> <span class="s2">&quot;kill </span><span class="nv">$SERVERPID</span><span class="s2">&quot;</span> EXIT
+
+ttyrec <span class="nv">$SESSION</span>
+<span class="nb">echo</span> <span class="s2">&quot;Session recording finished: </span><span class="nv">$SESSION</span><span class="s2">&quot;</span>
+<span class="nb">kill</span> <span class="nv">$SERVERPID</span>
+</pre></div>
+</td></tr></table>
+
+<p>termwatch.sh to watch a stream from a remote host</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="ch">#!/bin/sh</span>
+<span class="nb">set</span> -e
+
+<span class="c1"># Disable echo while printing to the terminal</span>
+<span class="nv">stty_orig</span><span class="o">=</span><span class="sb">`</span>stty -g<span class="sb">`</span>
+stty -echo
+nc <span class="nv">$1</span> <span class="nv">$2</span>
+stty <span class="nv">$stty_orig</span>
+</pre></div>
+</td></tr></table>
+
+<h2>Conclusions</h2>
+<p>Its like twitch for your terminal :D</p>
+<h2>References</h2>
+<ul>
+<li><a href="http://0xcc.net/ttyrec/">ttyrec - a tty recorder</a></li>
+<li><a href="https://news.ycombinator.com/item?id=3784793">streaming setup with script from HN</a></li>
+<li><a href="http://www.playterm.org/">playterm hosts public tty records</a></li>
+<li><a href="http://showterm.io/">showterm is a ttyrec player</a></li>
+<li><a href="https://github.com/kilobyte/termrec">termrec</a></li>
+<li><a href="https://github.com/theonewolf/TermRecord">TermRecord</a></li>
+</ul>
+</div>
+
+
+</body>
+</html>
+
+

@@ -1,41 +1,35 @@
+
 <!DOCTYPE>
 <html>
 <head>
-	<link href='http://fonts.googleapis.com/css?family=Cantata+One&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8">
 	
+	<meta name="viewport" content="width=device-width">
 
 	<title></title>
 	
 	
 	<link type="text/css" media="screen" href="style.css" rel="stylesheet">
-    	<link type="text/css" media="screen and (min-device-width: 1024px)" href="fancy.css" rel="stylesheet"/>
 	<link type="text/css" media="screen" href="code.css" rel="stylesheet"/>
 	
 
 	
 
+<link rel="Alternate" type="text/plain" href="2010-08-29-blogpit.md" />
 <link rel="Alternate" media="Print" href="2010-08-29-blogpit.print.html" />
-<script src="jquery-1.9.1.js">
-</script>
 
 
 </head>
 <body>
 
 	
-	<div id="title_box">
-	<h1 class="page_title">cat /dev/<span class="red">raf</span>/web&gt;</h1>
-	</div>
-
-	
-	
+	<h1><a href="index.html">raf</a>/blogpit - the git powered non deterministic blog</h1>
 	
 
 
 
 <div id="content">
-<h1>blogpit - the git powered non deterministic blog</h1><p class=" article_preamble">It seems all Django developers feel the urge to code their own blog
+<p class=" article_preamble">It seems all Django developers feel the urge to code their own blog
 system based on Django. Being no exception I too decided to travel
 the all too travelled road: making a blog engine using Django. My 
 requirements for this awesome blog engine are the following:</p>
@@ -90,7 +84,7 @@ based version of gitshelve.</p>
 live within a neat bare git repository. Access to the repository is done using gitshelve, </p>
 <p>I choose markdown for the formatting because I like the overall format, and I can conceal
 metadata within the markdown file. I use the metadata to specify additional behaviour:</p>
-<div class="codehilite"><pre>title: A blog article
+<div class="codehilite"><pre><span></span>title: A blog article
 author: Rui Abreu Ferreira
 icon: http://flickr.com/funny_icon.jpg
 nocomments:
@@ -102,34 +96,34 @@ This is an article with a title, icon and disabled comments
 <h2>What about comments?</h2>
 <p>Comments are the equivalent of prepending a bunch of text into the article file,
 and making a commit, that is:</p>
-<div class="codehilite"><pre><span class="n">echo</span> <span class="s">&quot;this is a comment!&quot;</span> <span class="o">&gt;&gt;</span> <span class="n">news</span><span class="o">/</span><span class="mi">2010</span><span class="o">-</span><span class="mi">08</span><span class="o">-</span><span class="mi">29</span><span class="o">-</span><span class="n">blogpit</span>
-<span class="n">git</span> <span class="n">commit</span> <span class="o">-</span><span class="n">a</span> <span class="o">-</span><span class="n">m</span> <span class="s">&quot;A comment&quot;</span>
+<div class="codehilite"><pre><span></span>echo &quot;this is a comment!&quot; &gt;&gt; news/2010-08-29-blogpit
+git commit -a -m &quot;A comment&quot;
 </pre></div>
 
 
 <p>So there is no management of comments, by user or date, if I want to remove a comment
 I just cherry-pick out its commit ( 1 comment == 1 commit ).</p>
 <h2>30 second install guide</h2>
-<div class="codehilite"><pre><span class="err">$</span> <span class="n">git</span> <span class="n">clone</span> <span class="o">--</span><span class="n">bare</span> <span class="n">ssh</span><span class="o">:</span><span class="c1">//my-git-host.com/mynotes.git mynotes.git</span>
-<span class="err">$</span> <span class="n">easy_install</span> <span class="n">pip</span>
-<span class="err">$</span> <span class="n">pip</span> <span class="n">install</span> <span class="n">git</span><span class="o">+</span><span class="n">http</span><span class="o">:</span><span class="c1">//git.gitorious.org/django-blogpit/django-blogpit.git</span>
-<span class="err">$</span> <span class="n">django</span><span class="o">-</span><span class="n">startproject</span> <span class="n">myblog</span>
+<div class="codehilite"><pre><span></span>$ git clone --bare ssh://my-git-host.com/mynotes.git mynotes.git
+$ easy_install pip
+$ pip install git+http://git.gitorious.org/django-blogpit/django-blogpit.git
+$ django-startproject myblog
 </pre></div>
 
 
 <p>Set django_blogpit in INSTALLED_APPS and point BLOGPIT_REPO to your git repository, 
 in settings.py:</p>
-<div class="codehilite"><pre><span class="n">INSTALLED_APPS</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="err">&#39;</span><span class="n">django</span><span class="p">.</span><span class="n">contrib</span><span class="p">.</span><span class="n">markup</span><span class="err">&#39;</span><span class="p">,</span>
-        <span class="err">&#39;</span><span class="n">django_blogpit</span><span class="err">&#39;</span><span class="p">,</span>
-<span class="p">)</span>
+<div class="codehilite"><pre><span></span>INSTALLED_APPS = (
+        &#39;django.contrib.markup&#39;,
+        &#39;django_blogpit&#39;,
+)
 
-<span class="n">BLOGPIT_REPO</span><span class="o">=</span><span class="err">&#39;</span><span class="o">/</span><span class="n">srv</span><span class="o">/</span><span class="n">git</span><span class="o">/</span><span class="n">mynotes</span><span class="p">.</span><span class="n">git</span><span class="err">&#39;</span>
+BLOGPIT_REPO=&#39;/srv/git/mynotes.git&#39;
 </pre></div>
 
 
 <p>In urls.py:</p>
-<div class="codehilite"><pre><span class="p">(</span><span class="n">r</span><span class="err">&#39;&#39;</span><span class="p">,</span> <span class="n">include</span><span class="p">(</span><span class="err">&#39;</span><span class="n">django_blogpit</span><span class="p">.</span><span class="n">urls</span><span class="err">&#39;</span><span class="p">)),</span>
+<div class="codehilite"><pre><span></span>(r&#39;&#39;, include(&#39;django_blogpit.urls&#39;)),
 </pre></div>
 
 
@@ -142,47 +136,8 @@ in settings.py:</p>
 <li><a href="https://git.wiki.kernel.org/index.php/InterfacesFrontendsAndTools#Wikis.2C_blogs.2C_etc">Other Git based web pages</a></li>
 <li><a href="http://daringfireball.net/projects/markdown/syntax">Markdown Reference</a></li>
 </ul>
-
-
-<div id="social">
-	<h2>Liked this? Share it.</h2>
-	<div class="links">
-	<a class="delicious" title="Share on tumblr" href="http://del.icio.us/post?url=">Delicious</a>
-	<a class="stumbleupon" href="http://www.stumbleupon.com/submit?u=">StumbleUpon</a>
-	<a class="twitter" href="http://twitter.com/home/?status=">Twitter</a>
-	<a class="reddit" href="http://www.reddit.com/submit?url=">Reddit</a>
-	<a class="tumblr" href="http://www.tumblr.com/share">Tumblr</a>
-	</div>
-</div>
-<script>
-var url = window.location.href;
-
-var anchor;
-anchor = $('#social a.delicious');
-anchor.attr('href', anchor.attr('href') + url);
-anchor = $('#social a.stumbleupon');
-anchor.attr('href', anchor.attr('href') + url);
-anchor = $('#social a.twitter');
-anchor.attr('href', anchor.attr('href') + url);
-anchor = $('#social a.reddit');
-anchor.attr('href', anchor.attr('href') + url);
-// No need for tumblr
-
-$('#social').show();
-</script>
-
-<h2>Download this</h2>
-<p>To save this as a clean single HTML file you can save, press <a href="2010-08-29-blogpit.print.html">here</a>
-This is ideal for long term storage or reading on your ebook reader.</p>
-
-
 </div>
 
-
-<div class="disclaimer">
-Copyright @ Rui Abreu Ferreira 2014, the opinions expressed here are those of the authors and
-do not reflect the position of anyone else ... really ...
-</div>
 
 </body>
 </html>

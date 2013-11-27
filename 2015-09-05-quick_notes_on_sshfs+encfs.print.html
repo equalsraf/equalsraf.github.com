@@ -1,0 +1,191 @@
+
+<!DOCTYPE>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	
+	<meta name="viewport" content="width=device-width">
+
+	<title></title>
+	
+	
+        <style type="text/css" media="screen">
+        
+body {
+	font-family: monospace;
+	font-size: 12pt;
+	color: #000;
+}
+
+#content img {
+	max-width: 100%;
+	clear: both;
+}
+
+.red {
+	color: #EA4B2A;
+}
+
+.codehilite > pre {
+	border-left: 6px solid #333;
+	padding: 2px 2px 2px 5px;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	background: #eee;
+}
+
+blockquote {
+	background: #ddd;
+	color: #666;
+	margin: 0;
+	border-left: 2ex solid #bbb;
+}
+
+h2:before {
+	content: '# ';
+}
+h3:before {
+	content: '## ';
+}
+
+
+        </style>
+
+        <style type="text/css" media="screen">
+        .hll { background-color: #ffffcc }
+.c { color: #228B22 } /* Comment */
+.err { color: #a61717; background-color: #e3d2d2 } /* Error */
+.k { color: #8B008B; font-weight: bold } /* Keyword */
+.cm { color: #228B22 } /* Comment.Multiline */
+.cp { color: #1e889b } /* Comment.Preproc */
+.c1 { color: #228B22 } /* Comment.Single */
+.cs { color: #8B008B; font-weight: bold } /* Comment.Special */
+.gd { color: #aa0000 } /* Generic.Deleted */
+.ge { font-style: italic } /* Generic.Emph */
+.gr { color: #aa0000 } /* Generic.Error */
+.gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.gi { color: #00aa00 } /* Generic.Inserted */
+.go { color: #888888 } /* Generic.Output */
+.gp { color: #555555 } /* Generic.Prompt */
+.gs { font-weight: bold } /* Generic.Strong */
+.gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.gt { color: #aa0000 } /* Generic.Traceback */
+.kc { color: #8B008B; font-weight: bold } /* Keyword.Constant */
+.kd { color: #8B008B; font-weight: bold } /* Keyword.Declaration */
+.kn { color: #8B008B; font-weight: bold } /* Keyword.Namespace */
+.kp { color: #8B008B; font-weight: bold } /* Keyword.Pseudo */
+.kr { color: #8B008B; font-weight: bold } /* Keyword.Reserved */
+.kt { color: #a7a7a7; font-weight: bold } /* Keyword.Type */
+.m { color: #B452CD } /* Literal.Number */
+.s { color: #CD5555 } /* Literal.String */
+.na { color: #658b00 } /* Name.Attribute */
+.nb { color: #658b00 } /* Name.Builtin */
+.nc { color: #008b45; font-weight: bold } /* Name.Class */
+.no { color: #00688B } /* Name.Constant */
+.nd { color: #707a7c } /* Name.Decorator */
+.ne { color: #008b45; font-weight: bold } /* Name.Exception */
+.nf { color: #008b45 } /* Name.Function */
+.nn { color: #008b45; text-decoration: underline } /* Name.Namespace */
+.nt { color: #8B008B; font-weight: bold } /* Name.Tag */
+.nv { color: #00688B } /* Name.Variable */
+.ow { color: #8B008B } /* Operator.Word */
+.w { color: #bbbbbb } /* Text.Whitespace */
+.mf { color: #B452CD } /* Literal.Number.Float */
+.mh { color: #B452CD } /* Literal.Number.Hex */
+.mi { color: #B452CD } /* Literal.Number.Integer */
+.mo { color: #B452CD } /* Literal.Number.Oct */
+.sb { color: #CD5555 } /* Literal.String.Backtick */
+.sc { color: #CD5555 } /* Literal.String.Char */
+.sd { color: #CD5555 } /* Literal.String.Doc */
+.s2 { color: #CD5555 } /* Literal.String.Double */
+.se { color: #CD5555 } /* Literal.String.Escape */
+.sh { color: #1c7e71; font-style: italic } /* Literal.String.Heredoc */
+.si { color: #CD5555 } /* Literal.String.Interpol */
+.sx { color: #cb6c20 } /* Literal.String.Other */
+.sr { color: #1c7e71 } /* Literal.String.Regex */
+.s1 { color: #CD5555 } /* Literal.String.Single */
+.ss { color: #CD5555 } /* Literal.String.Symbol */
+.bp { color: #658b00 } /* Name.Builtin.Pseudo */
+.vc { color: #00688B } /* Name.Variable.Class */
+.vg { color: #00688B } /* Name.Variable.Global */
+.vi { color: #00688B } /* Name.Variable.Instance */
+.il { color: #B452CD } /* Literal.Number.Integer.Long */
+
+        </style>
+	
+
+	
+
+
+</head>
+<body>
+
+	
+	<h1><a href="index.html">raf</a>/Quick notes on encfs for incremental backups</h1>
+	
+
+
+
+<div id="content">
+<p class=" article_preamble">A while back I started handling my backups using a home baked script that
+calls rsync for remote or local backups and uses hard-links to save some space.</p>
+<p>Recently I wanted to do encrypted backups to a remote Linux box (as in I don't quite trust that box). Since I was already working over SSH I saw no reason to change strategy, and decided to extend my backup recipe to use ENCFS.</p>
+<p>The problem with ENCFS is that it negates the advantages of rsync by design. The remote folder is encrypted, and the local folder is decrypted, comparing files for incremental backups would be pointless. Fortunately encfs provides the <code>--reverse</code> option that mounts an encrypted view of a decrypted folder -
+this way we can run rsync over the encrypted view.</p>
+<p>The backup script is nearly identical to my previous script, except it mounts encfs on start and unmounts on finish. After mounting encfs in reverse mode, rsync is called as usual (backup.sh is the backup script).</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="ch">#!/bin/bash</span>
+
+<span class="c1"># ENCFS mount point (see below)</span>
+<span class="nv">SOURCE</span><span class="o">=</span>/tmp/<span class="nv">$USER</span>-backup-encfs-reverse/
+<span class="nv">SSH_HOST</span><span class="o">=</span><span class="s2">&quot;ruiabreu&quot;</span>
+<span class="nv">SSH_PATH</span><span class="o">=</span><span class="s2">&quot;/backups/shinypants/&quot;</span>
+<span class="nv">EXCLUDEFILE</span><span class="o">=</span><span class="s2">&quot;&quot;</span>
+
+<span class="k">if</span> <span class="o">[</span> -d <span class="s2">&quot;</span><span class="nv">$SOURCE</span><span class="s2">&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+    <span class="nb">echo</span> <span class="s2">&quot;ENCFS mountpoint already exists, aborting: </span><span class="nv">$SOURCE</span><span class="s2">&quot;</span>
+    <span class="nb">exit</span> 1
+<span class="k">fi</span>
+mkdir <span class="nv">$SOURCE</span>
+encfs --reverse <span class="nv">$HOME</span>/Documents <span class="nv">$SOURCE</span>
+
+. backup.sh
+
+fusermount -u <span class="nv">$SOURCE</span>
+rmdir <span class="nv">$SOURCE</span>
+</pre></div>
+</td></tr></table>
+
+<p>There are however two issues that I could not address</p>
+<ol>
+<li>The excludes file is useless - since the file names are encrypted, the rsync excludes rule I was using to blacklist filenames no longer works.</li>
+<li>You need to keep a local .encfs6.xml in the decrypted source folder. The file is used by encfs to mount the folder. I also keep a copy of this file in the remote server just in case. From a security standpoint this is a liability, the file holds the key (encrypted with your passphrase).</li>
+</ol>
+<h2>References</h2>
+<ul>
+<li><a href="2011-05-24-the-magic-backup-script.html">The magic backup script</a></li>
+</ul>
+</div>
+
+
+</body>
+</html>
+
+

@@ -1,28 +1,73 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
-<rss version="2.0"><channel><title>raf's random writings</title><link>http://ruiabreu.org/</link><description>Random ramblings by a computer engineer</description><lastBuildDate>Wed, 27 Nov 2013 18:41:50 GMT</lastBuildDate><generator>PyRSS2Gen-1.1.0</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Booting Raspberry Pi Root in read-only</title><link>http://ruiabreu.org/2013-06-02-booting-raspberry-pi-in-readonly.html</link><description>So last week a lot of people around here were looking into how to boot a raspberry pi with
+<?xml version="1.0" encoding="utf8"?>
+<rss version="2.0"><channel><title>raf's random writings</title><link>http://raf.zyks.org</link><description>Random ramblings by a computer engineer</description><language>en</language><lastBuildDate>Fri, 14 Jul 2017 14:27:34 -0000</lastBuildDate><item><title>termcasting</title><link>http://raf.zyks.org/2017-07-06-termcasting.html</link><description>I cant remember where I saw it, but there was this nifty little rust app to share your tty over the network.
+</description></item><item><title>Running the gitlab CI multi runner in OpenBSD</title><link>http://raf.zyks.org/2017-03-06-gitlab-ci-runner-openbsd.html</link><description>Wanted my OpenBSD machine to run gitlab-ci jobs, but building gitlab-ci-multi-runner requires
+docker, and docker does not work in OpenBSD - which is fine since I don't want to run docker,
+just the shell executor.
+</description></item><item><title>Ditching pulseaudio</title><link>http://raf.zyks.org/2016-10-14-ditching-pulseaudio.html</link><description>Some quick notes on ditching pulseaudio. There are several valid reasons to throw it away. I have sound latency issues, cropped sounds with PA. Also I do need to have sound without a user DBus session.
+</description></item><item><title>Into the Void (...so far)</title><link>http://raf.zyks.org/2015-11-21-into_the_void.html</link><description>So after years using OpenSUSE I ditched it in favour of Void Linux. These are
+the customary notes that always follow using a new system, tracking down the
+little issues that I encounter.
+</description></item><item><title>ocserv setup for your home network</title><link>http://raf.zyks.org/2015-10-17-ocserv_setup_for_your_home_network.html</link><description>EDIT: This does not work with openconnect v7.06, SNI was only
+added later.
+</description></item><item><title>Quick notes on encfs for incremental backups</title><link>http://raf.zyks.org/2015-09-05-quick_notes_on_sshfs+encfs.html</link><description>A while back I started handling my backups using a home baked script that
+calls rsync for remote or local backups and uses hard-links to save some space.
+</description></item><item><title>Build Systems</title><link>http://raf.zyks.org/2015-05-06-build-systems.html</link><description>Build systems are curious pieces of software, in that the requirements for a
+good build system are different from most other pieces of software. Over the
+years I've used the following
+</description></item><item><title>Linux Woes</title><link>http://raf.zyks.org/2015-02-13-linux-woes.html</link><description>Linux (the OS, not the kernel) is becoming a very disappointing piece of software to me! Let me elaborate, I've been a Linux user since circa 1999, but I don't think the world of Linux has frustrated me so much in the last 15 years as it does now.
+</description></item><item><title>Thoughts on Vim and Sublime Text</title><link>http://raf.zyks.org/2014-09-05-thoughts_on_vim_and_sublime.html</link><description>Spurred by a reddit post a lot of people started laying out their thoughts over Vim vs Sublime Text. With some heated arguments and rebuttals going around. So I am going to write down some of my reasoning so far on the Vim vs Sublime debate.
+</description></item><item><title>Moving to LXQt</title><link>http://raf.zyks.org/2014-08-25-migrating_to_lxqt.html</link><description>So It seems I am now an LXQt user. Not sure how long this will last, but so far I'm having fun using a minimalist Desktop Environment that packs all the features I need.
+</description></item><item><title>SSH puddle jumping with skyhook</title><link>http://raf.zyks.org/2014-03-21-skyhook.html</link><description>Ever wanted to hop into a target machine using ssh going through a middle box, i.e. anything that beats having to repeatedly call ssh from one machine into the next.
+There are a couple of setups going around for using ProxyCommand+netcat, but what if you want the server to decide the next hop.
+</description></item><item><title>On group chat, chan42 and other things</title><link>http://raf.zyks.org/2013-12-29-muc-and-chan42.html</link><description>A while ago pgf and I started this endless discussion about how the centralisation of the Internet in some key services seems to be stifling some of the giddiness of the old days (by old I mean the nineties). We don't necessarily agree on all of this, specially since there is usually beer involved in such discussions, but here is my spin over it.
+</description></item><item><title>Booting Raspberry Pi Root in read-only</title><link>http://raf.zyks.org/2013-06-02-booting-raspberry-pi-in-readonly.html</link><description>So last week a lot of people around here were looking into how to boot a raspberry pi with
 the SD card partition in read only mode - this came after a couple of annoying
-data losses.</description></item><item><title>C(99) preprocessor tricks</title><link>http://ruiabreu.org/2013-05-30-c-preprocessor-tricks.html</link><description>On account of a recent project i've been working on, I had the chance to
+data losses.
+</description></item><item><title>C(99) preprocessor tricks</title><link>http://raf.zyks.org/2013-05-30-c-preprocessor-tricks.html</link><description>On account of a recent project i've been working on, I had the chance to
 program a bit of C, something I have not done in a while. 
 This is turn led me to think about macros, and how some of the features in C99
-came together to help me a bit.</description></item><item><title>Open attachments in Mutt with your desktop apps</title><link>http://ruiabreu.org/2013-01-07-mutt-and-xdg.html</link><description>Yes I'm a proud Mutt user, say what you will about user interfaces but no mail
-client in the known universe can compare to the awesomeness of Mutt.</description></item><item><title>OBEXFTP and the elusive error code 64</title><link>http://ruiabreu.org/2012-10-23-obexftp-error-64.html</link><description>I was trying to push some files into my Nokia this morning and failed miserably at it ...</description></item><item><title>Agile diagrams with seqdiag</title><link>http://ruiabreu.org/2012-05-09-agile-digrams-with-seqdiag.html</link><description>If you happen to work on research, you'll find that diagrams drawing takes a big chunk of your time.
-And even worse after several hours carefully drawing your diagram, you come to realise two things:</description></item><item><title>Portable Vim settings</title><link>http://ruiabreu.org/2012-02-20-portable-vim.html</link><description>Several people have acquired the habit of keeping their Vim settings under version control and sharing those settings as git/mercurial repositories.
-Generally people do this for three reasons:</description></item><item><title>Development stack choices</title><link>http://ruiabreu.org/2011-11-04-development-stack.html</link><description>A while ago I was having a discussion with some colleagues about which development tools do you use, for each job.
-The end result, three diagrams that more or less resume my usual approach to choosing development tools.</description></item><item><title>git workflow: pushing to multiple repositories in sync</title><link>http://ruiabreu.org/2011-10-27-git-workflow-pushing-to-multiple-repos.html</link><description>Recently I've been keeping an eye out for a solution to keep multiple git repositories in sync.
+came together to help me a bit.
+</description></item><item><title>Some ramblings on the word just</title><link>http://raf.zyks.org/2013-05-24-we-just-have-to.html</link><description>Here are some ramblings on why some classic oversimplifications are the root of most of our
+problems dealing with wrong assumptions and expectations in the work place.
+</description></item><item><title>Open attachments in Mutt with your desktop apps</title><link>http://raf.zyks.org/2013-01-07-mutt-and-xdg.html</link><description>Yes I'm a proud Mutt user, say what you will about user interfaces but no mail
+client in the known universe can compare to the awesomeness of Mutt.
+</description></item><item><title>Como é que se programava em C mesmo?</title><link>http://raf.zyks.org/2013-01-04-como-e-que-se-programava-em-c.html</link><description>Parece que as sextas feiras são bons dias para questões existenciais :D
+Cenas que eu devia saber fazer em C, mas não sei ou não me lembro ou já não funcionam de todo:
+</description></item><item><title>OBEXFTP and the elusive error code 64</title><link>http://raf.zyks.org/2012-10-23-obexftp-error-64.html</link><description>I was trying to push some files into my Nokia this morning and failed miserably at it ...
+</description></item><item><title>Agile diagrams with seqdiag</title><link>http://raf.zyks.org/2012-05-09-agile-digrams-with-seqdiag.html</link><description>If you happen to work on research, you'll find that diagrams drawing takes a big chunk of your time.
+And even worse after several hours carefully drawing your diagram, you come to realise two things:
+</description></item><item><title>Portable Vim settings</title><link>http://raf.zyks.org/2012-02-20-portable-vim.html</link><description>Several people have acquired the habit of keeping their Vim settings under version control and sharing those settings as git/mercurial repositories.
+Generally people do this for three reasons:
+</description></item><item><title>Development stack choices</title><link>http://raf.zyks.org/2011-11-04-development-stack.html</link><description>A while ago I was having a discussion with some colleagues about which development tools do you use, for each job.
+The end result, three diagrams that more or less resume my usual approach to choosing development tools.
+</description></item><item><title>git workflow: pushing to multiple repositories in sync</title><link>http://raf.zyks.org/2011-10-27-git-workflow-pushing-to-multiple-repos.html</link><description>Recently I've been keeping an eye out for a solution to keep multiple git repositories in sync.
 I've already discussed mirroring repositories in a previous post.
-But in this case what I was looking for was the ability to push branches into multiple remote repositories, in one command.</description></item><item><title>Python awesomeness in a Flask</title><link>http://ruiabreu.org/2011-08-28-python-flask.html</link><description>While I was working on updating blogpit, I discovered this wonderful web microframework called Flask. 
+But in this case what I was looking for was the ability to push branches into multiple remote repositories, in one command.
+</description></item><item><title>Python awesomeness in a Flask</title><link>http://raf.zyks.org/2011-08-28-python-flask.html</link><description>While I was working on updating blogpit, I discovered this wonderful web microframework called Flask. 
 Naturally it is python and of course it is awesome.
-I was immediately attracted to Flask for two reasons: First it has a lot in common with Django, and second it strives to be simple.</description></item><item><title>The Magic backup script</title><link>http://ruiabreu.org/2011-05-24-the-magic-backup-script.html</link><description>After looking high and low for a decent backup application I ended up 
+I was immediately attracted to Flask for two reasons: First it has a lot in common with Django, and second it strives to be simple.
+</description></item><item><title>python-blogpit is born</title><link>http://raf.zyks.org/2011-08-12-python-blogpit-is-born.html</link><description>So I had a few vacation days and decided to put some old ideas into
+practice: starting with a nice upgrade for blogpit, using libgit2 instead
+of gitshelve and getting a nice performance upgrade in the process.
+</description></item><item><title>The Magic backup script</title><link>http://raf.zyks.org/2011-05-24-the-magic-backup-script.html</link><description>After looking high and low for a decent backup application I ended up 
 giving up, and making my own bash script using rsync. I'm highly dependant
 on client initiated remote backups, and it seems there are not many solutions
-like that out there.</description></item><item><title>Git Workflow: obsessing over data</title><link>http://ruiabreu.org/2011-02-08-git-mirror-workflow.html</link><description>Don't panic, this is not yet another Internet post on how should you use git, well
+like that out there.
+</description></item><item><title>Git Workflow: obsessing over data</title><link>http://raf.zyks.org/2011-02-08-git-mirror-workflow.html</link><description>Don't panic, this is not yet another Internet post on how should you use git, well
 it actually is, but only slightly. So on Monday I was stressing with some co-workers
 that they should commit often, in small incremental changes (etc, etc, common sense and
 puppies). But at the same time I was also annoying someone to commit and push a 
-considerable changeset, for fear of disk corruption, which happened before.</description></item><item><title>2 days with Android</title><link>http://ruiabreu.org/2011-01-14-two-days-with-android.html</link><description>After being annoyed with some show-stopping bugs at work, I decided to take two days
+considerable changeset, for fear of disk corruption, which happened before.
+</description></item><item><title>2 days with Android</title><link>http://raf.zyks.org/2011-01-14-two-days-with-android.html</link><description>After being annoyed with some show-stopping bugs at work, I decided to take two days
 out of my life and tackle a major Bluetooth related BUG() we had in our Android application. 
 Being the first time I tried to develop for android I was concerned I would have to use 
-Eclipse, and loose my Vim-powered productivity. </description></item><item><title>Slides with inkscapeslide</title><link>http://ruiabreu.org/2010-11-12-slides-with-inkscape.html</link><description>I've been growing fond of using inkscape for drawing content for my slides.
+Eclipse, and loose my Vim-powered productivity. 
+</description></item><item><title>Slides with inkscapeslide</title><link>http://raf.zyks.org/2010-11-12-slides-with-inkscape.html</link><description>I've been growing fond of using inkscape for drawing content for my slides.
 Figures, sequence diagrams and weird charts all end up going through inkscape,
 either drawn from scratch or just for some graphical fixes before they end up
-on the final slides.</description></item></channel></rss>
+on the final slides.
+</description></item><item><title>blogpit - the git powered non deterministic blog</title><link>http://raf.zyks.org/2010-08-29-blogpit.html</link><description>It seems all Django developers feel the urge to code their own blog
+system based on Django. Being no exception I too decided to travel
+the all too travelled road: making a blog engine using Django. My 
+requirements for this awesome blog engine are the following:
+</description></item></channel></rss>

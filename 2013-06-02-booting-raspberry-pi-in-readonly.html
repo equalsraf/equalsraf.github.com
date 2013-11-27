@@ -1,41 +1,35 @@
+
 <!DOCTYPE>
 <html>
 <head>
-	<link href='http://fonts.googleapis.com/css?family=Cantata+One&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8">
 	
+	<meta name="viewport" content="width=device-width">
 
 	<title></title>
 	
 	
 	<link type="text/css" media="screen" href="style.css" rel="stylesheet">
-    	<link type="text/css" media="screen and (min-device-width: 1024px)" href="fancy.css" rel="stylesheet"/>
 	<link type="text/css" media="screen" href="code.css" rel="stylesheet"/>
 	
 
 	
 
+<link rel="Alternate" type="text/plain" href="2013-06-02-booting-raspberry-pi-in-readonly.md" />
 <link rel="Alternate" media="Print" href="2013-06-02-booting-raspberry-pi-in-readonly.print.html" />
-<script src="jquery-1.9.1.js">
-</script>
 
 
 </head>
 <body>
 
 	
-	<div id="title_box">
-	<h1 class="page_title">cat /dev/<span class="red">raf</span>/web&gt;</h1>
-	</div>
-
-	
-	
+	<h1><a href="index.html">raf</a>/Booting Raspberry Pi Root in read-only</h1>
 	
 
 
 
 <div id="content">
-<h1>Booting Raspberry Pi Root in read-only</h1><p class=" article_preamble">So last week a lot of people around here were looking into how to boot a raspberry pi with
+<p class=" article_preamble">So last week a lot of people around here were looking into how to boot a raspberry pi with
 the SD card partition in read only mode - this came after a couple of annoying
 data losses.</p>
 <p>A lot of us are using the R-Pi as cheap automation system - 
@@ -53,7 +47,7 @@ Raspbian instead check the references at the end for a working solution.</p>
 <h3>1. Mount the root partition as read-only (ro) on boot</h3>
 <p>In raspberry pi the root partition flags can be set as kernel parameters in
 /boot/cmdline.txt. You should add an <strong>ro</strong> flag right after the <strong>root=</strong> parameter.</p>
-<div class="codehilite"><pre><span class="n">selinux</span><span class="o">=</span><span class="mi">0</span> <span class="n">plymouth</span><span class="p">.</span><span class="n">enable</span><span class="o">=</span><span class="mi">0</span> <span class="n">smsc95xx</span><span class="p">.</span><span class="n">turbo_mode</span><span class="o">=</span><span class="n">N</span> <span class="n">dwc_otg</span><span class="p">.</span><span class="n">lpm_enable</span><span class="o">=</span><span class="mi">0</span> <span class="n">console</span><span class="o">=</span><span class="n">ttyAMA0</span><span class="p">,</span><span class="mi">115200</span> <span class="n">kgdboc</span><span class="o">=</span><span class="n">ttyAMA0</span><span class="p">,</span><span class="mi">115200</span> <span class="n">console</span><span class="o">=</span><span class="n">tty1</span> <span class="n">root</span><span class="o">=/</span><span class="n">dev</span><span class="o">/</span><span class="n">mmcblk0p2</span> <span class="n">ro</span> <span class="n">rootfstype</span><span class="o">=</span><span class="n">ext4</span> <span class="n">elevator</span><span class="o">=</span><span class="n">noop</span> <span class="n">rootwait</span>
+<div class="codehilite"><pre><span></span>selinux=0 plymouth.enable=0 smsc95xx.turbo_mode=N dwc_otg.lpm_enable=0 console=ttyAMA0,115200 kgdboc=ttyAMA0,115200 console=tty1 root=/dev/mmcblk0p2 ro rootfstype=ext4 elevator=noop rootwait
 </pre></div>
 
 
@@ -62,16 +56,16 @@ Raspbian instead check the references at the end for a working solution.</p>
 uses, if it is not writable it will be empty and applications won't be able
 to resolve names.</p>
 <p>I've moved mine into /tmp/ (which is a tmpfs partition by default):</p>
-<div class="codehilite"><pre><span class="c"># rm /etc/resolv.conf</span>
-<span class="c"># ln -s /tmp/resolv.conf /etc/resolv.conf</span>
+<div class="codehilite"><pre><span></span># rm /etc/resolv.conf
+# ln -s /tmp/resolv.conf /etc/resolv.conf
 </pre></div>
 
 
 <h3>3. Mount /var/{tmp, log} as tmpfs</h3>
 <p>The /var/tmp directory is used to store temporary files, and the /var/log for system logfiles.</p>
 <p>You can mount these two as tmpfs by adding the following to /etc/fstab</p>
-<div class="codehilite"><pre><span class="n">tmpfs</span>   <span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">log</span>    <span class="n">tmpfs</span>   <span class="n">nodev</span><span class="p">,</span><span class="n">nosuid</span>    <span class="mi">0</span>   <span class="mi">0</span>
-<span class="n">tmpfs</span>   <span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">tmp</span>    <span class="n">tmpfs</span>   <span class="n">nodev</span><span class="p">,</span><span class="n">nosuid</span>    <span class="mi">0</span>   <span class="mi">0</span>
+<div class="codehilite"><pre><span></span>tmpfs   /var/log    tmpfs   nodev,nosuid    0   0
+tmpfs   /var/tmp    tmpfs   nodev,nosuid    0   0
 </pre></div>
 
 
@@ -85,9 +79,9 @@ NAMESPACE</em> to find some references.</p>
 <li>systemd-random-seed stores entropy information between reboots</li>
 </ul>
 <p>These can be disabled via systemctl</p>
-<div class="codehilite"><pre><span class="c"># systemctl disable systemd-readahead-collect</span>
-<span class="c"># ...</span>
-<span class="c"># systemctl disable systemd-random-seed</span>
+<div class="codehilite"><pre><span></span># systemctl disable systemd-readahead-collect
+# ...
+# systemctl disable systemd-random-seed
 </pre></div>
 
 
@@ -107,27 +101,27 @@ in <em>/usr/lib/dhcpcd/dhcpcd-hooks/50-ntp</em></p>
 4
 5
 6
-7</pre></div></td><td class="code"><div class="codehilite"><pre><span class="c">#!/bin/sh</span>
-<span class="k">case</span> <span class="s2">&quot;${reason}&quot;</span> in
-    BOUND|INFORM|REBIND|REBOOT|RENEW|TIMEOUT|STATIC<span class="o">)</span>
-        <span class="c"># &quot;-g&quot; allows for large time differences</span>
+7</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="ch">#!/bin/sh</span>
+<span class="k">case</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">reason</span><span class="si">}</span><span class="s2">&quot;</span> in
+    BOUND<span class="p">|</span>INFORM<span class="p">|</span>REBIND<span class="p">|</span>REBOOT<span class="p">|</span>RENEW<span class="p">|</span>TIMEOUT<span class="p">|</span>STATIC<span class="o">)</span>
+        <span class="c1"># &quot;-g&quot; allows for large time differences</span>
         ntpd -qg
-        ;;
+        <span class="p">;;</span>
 <span class="k">esac</span>
 </pre></div>
 </td></tr></table>
 
 <p>Now you can disable the ntpd daemon</p>
-<div class="codehilite"><pre><span class="c"># systemctl disable ntpd</span>
+<div class="codehilite"><pre><span></span># systemctl disable ntpd
 </pre></div>
 
 
 <h2>How to use</h2>
 <p>The system will start in read-only mode, whenever I need to write into the root
 I remount the root as read-write and then back:</p>
-<div class="codehilite"><pre><span class="c"># mount -o rw,remount /</span>
-<span class="c"># pacman &lt;...&gt;</span>
-<span class="c"># mount -o ro,remount</span>
+<div class="codehilite"><pre><span></span># mount -o rw,remount /
+# pacman &lt;...&gt;
+# mount -o ro,remount
 </pre></div>
 
 
@@ -148,47 +142,8 @@ I remount the root as read-write and then back:</p>
 <ul>
 <li><a href="http://riscpi.co.uk/nutcom-services-ltd/">Raspberry Pi gets an Industrial Perennial Environment</a></li>
 </ul>
-
-
-<div id="social">
-	<h2>Liked this? Share it.</h2>
-	<div class="links">
-	<a class="delicious" title="Share on tumblr" href="http://del.icio.us/post?url=">Delicious</a>
-	<a class="stumbleupon" href="http://www.stumbleupon.com/submit?u=">StumbleUpon</a>
-	<a class="twitter" href="http://twitter.com/home/?status=">Twitter</a>
-	<a class="reddit" href="http://www.reddit.com/submit?url=">Reddit</a>
-	<a class="tumblr" href="http://www.tumblr.com/share">Tumblr</a>
-	</div>
-</div>
-<script>
-var url = window.location.href;
-
-var anchor;
-anchor = $('#social a.delicious');
-anchor.attr('href', anchor.attr('href') + url);
-anchor = $('#social a.stumbleupon');
-anchor.attr('href', anchor.attr('href') + url);
-anchor = $('#social a.twitter');
-anchor.attr('href', anchor.attr('href') + url);
-anchor = $('#social a.reddit');
-anchor.attr('href', anchor.attr('href') + url);
-// No need for tumblr
-
-$('#social').show();
-</script>
-
-<h2>Download this</h2>
-<p>To save this as a clean single HTML file you can save, press <a href="2013-06-02-booting-raspberry-pi-in-readonly.print.html">here</a>
-This is ideal for long term storage or reading on your ebook reader.</p>
-
-
 </div>
 
-
-<div class="disclaimer">
-Copyright @ Rui Abreu Ferreira 2014, the opinions expressed here are those of the authors and
-do not reflect the position of anyone else ... really ...
-</div>
 
 </body>
 </html>

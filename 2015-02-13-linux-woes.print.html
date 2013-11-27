@@ -1,0 +1,174 @@
+
+<!DOCTYPE>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	
+	<meta name="viewport" content="width=device-width">
+
+	<title></title>
+	
+	
+        <style type="text/css" media="screen">
+        
+body {
+	font-family: monospace;
+	font-size: 12pt;
+	color: #000;
+}
+
+#content img {
+	max-width: 100%;
+	clear: both;
+}
+
+.red {
+	color: #EA4B2A;
+}
+
+.codehilite > pre {
+	border-left: 6px solid #333;
+	padding: 2px 2px 2px 5px;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	background: #eee;
+}
+
+blockquote {
+	background: #ddd;
+	color: #666;
+	margin: 0;
+	border-left: 2ex solid #bbb;
+}
+
+h2:before {
+	content: '# ';
+}
+h3:before {
+	content: '## ';
+}
+
+
+        </style>
+
+        <style type="text/css" media="screen">
+        .hll { background-color: #ffffcc }
+.c { color: #228B22 } /* Comment */
+.err { color: #a61717; background-color: #e3d2d2 } /* Error */
+.k { color: #8B008B; font-weight: bold } /* Keyword */
+.cm { color: #228B22 } /* Comment.Multiline */
+.cp { color: #1e889b } /* Comment.Preproc */
+.c1 { color: #228B22 } /* Comment.Single */
+.cs { color: #8B008B; font-weight: bold } /* Comment.Special */
+.gd { color: #aa0000 } /* Generic.Deleted */
+.ge { font-style: italic } /* Generic.Emph */
+.gr { color: #aa0000 } /* Generic.Error */
+.gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.gi { color: #00aa00 } /* Generic.Inserted */
+.go { color: #888888 } /* Generic.Output */
+.gp { color: #555555 } /* Generic.Prompt */
+.gs { font-weight: bold } /* Generic.Strong */
+.gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.gt { color: #aa0000 } /* Generic.Traceback */
+.kc { color: #8B008B; font-weight: bold } /* Keyword.Constant */
+.kd { color: #8B008B; font-weight: bold } /* Keyword.Declaration */
+.kn { color: #8B008B; font-weight: bold } /* Keyword.Namespace */
+.kp { color: #8B008B; font-weight: bold } /* Keyword.Pseudo */
+.kr { color: #8B008B; font-weight: bold } /* Keyword.Reserved */
+.kt { color: #a7a7a7; font-weight: bold } /* Keyword.Type */
+.m { color: #B452CD } /* Literal.Number */
+.s { color: #CD5555 } /* Literal.String */
+.na { color: #658b00 } /* Name.Attribute */
+.nb { color: #658b00 } /* Name.Builtin */
+.nc { color: #008b45; font-weight: bold } /* Name.Class */
+.no { color: #00688B } /* Name.Constant */
+.nd { color: #707a7c } /* Name.Decorator */
+.ne { color: #008b45; font-weight: bold } /* Name.Exception */
+.nf { color: #008b45 } /* Name.Function */
+.nn { color: #008b45; text-decoration: underline } /* Name.Namespace */
+.nt { color: #8B008B; font-weight: bold } /* Name.Tag */
+.nv { color: #00688B } /* Name.Variable */
+.ow { color: #8B008B } /* Operator.Word */
+.w { color: #bbbbbb } /* Text.Whitespace */
+.mf { color: #B452CD } /* Literal.Number.Float */
+.mh { color: #B452CD } /* Literal.Number.Hex */
+.mi { color: #B452CD } /* Literal.Number.Integer */
+.mo { color: #B452CD } /* Literal.Number.Oct */
+.sb { color: #CD5555 } /* Literal.String.Backtick */
+.sc { color: #CD5555 } /* Literal.String.Char */
+.sd { color: #CD5555 } /* Literal.String.Doc */
+.s2 { color: #CD5555 } /* Literal.String.Double */
+.se { color: #CD5555 } /* Literal.String.Escape */
+.sh { color: #1c7e71; font-style: italic } /* Literal.String.Heredoc */
+.si { color: #CD5555 } /* Literal.String.Interpol */
+.sx { color: #cb6c20 } /* Literal.String.Other */
+.sr { color: #1c7e71 } /* Literal.String.Regex */
+.s1 { color: #CD5555 } /* Literal.String.Single */
+.ss { color: #CD5555 } /* Literal.String.Symbol */
+.bp { color: #658b00 } /* Name.Builtin.Pseudo */
+.vc { color: #00688B } /* Name.Variable.Class */
+.vg { color: #00688B } /* Name.Variable.Global */
+.vi { color: #00688B } /* Name.Variable.Instance */
+.il { color: #B452CD } /* Literal.Number.Integer.Long */
+
+        </style>
+	
+
+	
+
+
+</head>
+<body>
+
+	
+	<h1><a href="index.html">raf</a>/Linux Woes</h1>
+	
+
+
+
+<div id="content">
+<p class=" article_preamble">Linux (the OS, not the kernel) is becoming a very disappointing piece of software to me! Let me elaborate, I've been a Linux user since circa 1999, but I don't think the world of Linux has frustrated me so much in the last <a href="linux-timeline.png">15 years</a> as it does now.</p>
+<p>The main problem as far as I am concerned lies at the userspace (no, not the kernel) - for the past 3-4 years there were massive changes at the Linux userspace, and most of them were not improvements. Here is a list in no particular order.</p>
+<p><strong>NetworkManager</strong> was introduced to unify network management and user control, it works  as a control daemon that desktop interfaces interact with. The problem here is that there are not that many <strong>well supported</strong> NetworkManager clients (outside GNOME and KDE). Smaller Desktop environments have no choice but to use <em>nm-applet</em>, since implementing their own takes too much effort. Previously this work was done by Linux distributions as part of their custom management interfaces.</p>
+<p><strong>KDE4</strong> was a rather disruptive change but even more disruptive was the migration of the main KDE components to Akonadi. KMail one the best mail apps around is now broken beyond repair, and I seriously doubt it will get back to the way it was. There is also some hate going around for plasma, while most seem unplaced my main concern here is that several KDE components are now unusable outside plasma/KDE.</p>
+<p><strong>GNOME3</strong> also suffered a backlash when doing their major version bump, with a lot of users wanting to keep the GNOME2 interface. But even more surprising was that a lot of big projects are now moving away from Gtk3. I am partial to Qt :D, but still all this contributes to destabilising the software stack as a whole</p>
+<p>Meanwhile <strong>Pulseaudio</strong> took over as the default sound system in Linux. Personally I think the benefits it brings are insubstantial when compared with the problems it created, refactoring most of the sound stack for the benefit of network sound streaming seems overkill. Granted it is pretty stable now, but some features are still missing, running in system mode (e.g. for headless setups) is not officially supported, and the documentation/options for some of the modules are downright obscure. </p>
+<p>Finally the rise of <strong>systemd</strong> threw away with init scripts for most Linux distros. When I first read the initial systemd blog post I thought it was a great idea, that would allow late service startup and more importantly (to me) services like <em>CUPS</em> could be started as part of the user session. It is now almost impossible to boot a Linux system without systemd due to dependency issues.</p>
+<p>A consequence of some of these points is that <strong>DBUS</strong> is now the <em>de facto</em> IPC mechanisms in Linux, even for system services like NetworkManager and Bluez. More importantly policy agents are now DBUS clients to system services implemented as part of the desktop environment - Power Management policy and Bluetooth pairing agents are now implemented as part of KDE/GNOME, but other desktop environments lack these components. In general I find DBUS to be a lot less stable than other IPC alternatives.</p>
+<h2>Operational Shift</h2>
+<p>The main point is this: there has been a major shift in the operational responsibilities around Linux distributions. It used to be that the job of a good <em>distro</em> was to:</p>
+<ol>
+<li>Get the base system to boot, i.e. setup the base system, including kernel version, drivers, init scripts and system services.</li>
+<li>Provide management environment/configuration tools. Usually each distro had its own (Yast for SuSE, dpkg-* for Debian, etc)</li>
+<li>Provide a set of package for users to install</li>
+</ol>
+<p><strong>systemd</strong> is quickly consuming the role of point (1.). The kernel version/drivers being the exception.</p>
+<p><strong>Desktop environments</strong> are now taking care of (2.) - each in its own way. Even package installation can involve the desktop environment (PackageKit).</p>
+<p>Point (3.) is the only remaining aspect that is still fully handled by Linux distributions. But for many distros not even this is true (Ubuntu/Debian based) meaning they mostly handle branding and targeted software selection.</p>
+<p>This prompts me to consider if we do need Linux distributions anymore. The major Linux distributions seem to be otherwise engaged in the affairs of their backers. Ubuntu is the flagship brand for Canonical, OpenSuse spends a lot of effort on the OpenBuildService tools and services, and Fedora ... (what is Fedora up to?)</p>
+<p>All this seems to divert attention from what was the role of a distribution when I started using Linux - a community dedicated to build, test and support a usable software distribution. There are of course, exceptions to this issue but none seem immune to it.</p>
+<h2>Fragmentation is a good thing</h2>
+<p>Over the years people complained that there was a lot of fragmentation around Linux, because there were "a lot of apps that did the same thing", or "which desktop is the best?", or "how do I install packages in ... and why is it different from ...". As annoying as these things could be for some people, variety and choice were a strong trait of this ecosystem, a fundamental part of its identity.</p>
+<p>I see this unification of systemd as a threat to that variety and choice. Almost as if Linux is no longer the place to innovate in the Desktop. It used to be that I could mix-match the different pieces of software in a Linux system anyway I wanted (even if it was stupid) nowadays this is just not viable.</p>
+<p>On a satirical side-note I have to wonder. If Linux distributions stopped calling themselves Linux distributions, would that help reduce the perceived fragmentation - a while back Ubuntu did a bit of word play around the Ubuntu kernel.</p>
+<h2>On a positive note</h2>
+<p>On a final attempt to be more positive before closing up, let me try to convince myself that these things are actually a piece of the great master plan to make all our lives better.</p>
+<p>Theoretically systemd could be evolving into a unified basesystem over which all Linux distros run, i.e. all distros would run over the same software stack (kernel+init+libc+service bits+seats) - which was why earlier I asked myself if there was any point in having Linux distributions anymore - for a lot of purposes this could be a good thing (e.g. application distribution).</p>
+<p>User experience could also gain from this, since the desktop now seems to be <em>in control</em> of the system. This would fit well with the notion of a fully integrated experience.</p>
+<h2>Post Scriptum Notes</h2>
+<ul>
+<li>Maybe the smaller desktop environments should team up to figure out a common stack that they could share?</li>
+<li>If we wanted to build our own distro without systemd/pulse/dbus, how much effort would it be? i.e. what wouldn't work?</li>
+<li>There seems to be a reasonable systemd resistance: Slackware, ~~Gentoo~~, Funtoo, OpenRC</li>
+<li>I forgot to mention wayland - it is not clear to me how it fits in the long run</li>
+<li>For some systemd focused distro discussion - http://www.reddit.com/r/linux/comments/1y40c1/wich_distro_are_still_commited_to_not_using/</li>
+<li>LOL http://boycottsystemd.org/</li>
+<li><a href="http://changelog.complete.org/archives/9299-has-modern-linux-lost-its-way-some-thoughts-on-jessie">Has modern Linux lost its way</a></li>
+</ul>
+</div>
+
+
+</body>
+</html>
+
+

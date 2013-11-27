@@ -1,9 +1,10 @@
+
 <!DOCTYPE>
 <html>
 <head>
-	<link href='http://fonts.googleapis.com/css?family=Cantata+One&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8">
 	
+	<meta name="viewport" content="width=device-width">
 
 	<title></title>
 	
@@ -11,12 +12,9 @@
         <style type="text/css" media="screen">
         
 body {
-	font-family: Helvetica, DejaVu Sans, sans-serif; 
-	font-size: 10pt; 
+	font-family: monospace;
+	font-size: 12pt;
 	color: #000;
-	margin:	auto;
-	margin-top:		0;
-	line-height		: 1.25em;
 }
 
 #content img {
@@ -24,176 +22,32 @@ body {
 	clear: both;
 }
 
-h1, h2, h3 {
-	font-family: serif; 
-	font-weight: normal;
-	color: #333;
-	margin-bottom: 0.2em;
-}
-
-h1 {
-	font-size: 2.0em;
-	margin-bottom: 0.5em;
-	margin-top: 0.5em;
-	line-height: 1em;
-	line-height: 1.2em;
-}
-
-h2 {
-	font-size: 1.5em;
-	color:		#999;
-	font-weight:	bold;
-	text-transform: uppercase;
-	clear:	both;
-}
-
-h2.article_title a {
-	color: black;
-}
-
-h1.page_title {
-	margin-top: 0;
-	margin-bottom: 0;
-	font-family: 'Consolas', 'Menlo', 'Deja Vu Sans Mono','Bitstream Vera Sans Mono', monospace!important;
-	font-size: 2em;
-	
-}
-
-h3 {
-	font-weight: bold;
-	margin-bottom: 0.1em;
-}
-
-p {
-	margin: 10px 0 10px 0;
-}
-
-p, ul, ol {
-	line-height		: 1.5em;
-	font-size:		1.5em;
-}
-
-ul, ol {
-	padding-left:		2ex;
-	margin-top:		0;
-}
-
-pre {
-	font-family: 'Consolas', 'Menlo', 'Deja Vu Sans Mono','Bitstream Vera Sans Mono', monospace!important;
-}
-
-a {
-	text-decoration		: none;
-	text-transform		: uppercase;
-	color			: #226CFF;
-}
-
-#menu {
-	margin-top: 1ex;
-	clear:		both;
-	display:	block;
-}
-
-#menu a.sel {
-	text-decoration: underline;
-}
-
-#menu:after {
-	content:	'.';
-	visibility:	hidden;
-	clear:		both;
-	display:	block;
-}
-
-.internal {
-	display:	inline;
-	padding:	3px;
-	
-}
-
-.external {
-	vertical-align: top;
-	text-align:	left;
-	padding:	3px 3px 3px 0;
-}
-
 .red {
 	color: #EA4B2A;
 }
 
-.blue {
-	color			: #226CFF;
-}
-
-#menu .external a {
-	color:		#333;
-	text-transform:	none;
-	border-bottom: 2px solid #226CFF;
-}
-
-#social  {
-	padding:	3px;
-	display: none;
-}
-
-#social .links {
-	column-count: 2;
-	-moz-column-count: 2;
-	margin-left:	10px;
-}
-
-#social .title {
-	color:	#666;
-}
-
-#social a {
-	padding-right:	1ex;
-}
-
-
-#social a {
-	display: block;
-	font-size: 1.5em;
-	padding: 5px;
-	color:	#666;
-}
-
-#social a:hover {
-	color:	black;
-}
-
-#social h2 {
-	margin : 10px 0;
-}
-
-
-.disclaimer {
-	margin: 2ex 3px 3px 0;
-	color:	#ccc;
-}
-
 .codehilite > pre {
-	border-left: 4px solid #666;
+	border-left: 6px solid #333;
 	padding: 2px 2px 2px 5px;
 	white-space: pre-wrap;
 	word-wrap: break-word;
+	background: #eee;
 }
 
-#social a.twitter:hover {
-	color: #00bef6;
+blockquote {
+	background: #ddd;
+	color: #666;
+	margin: 0;
+	border-left: 2ex solid #bbb;
 }
-#social a.reddit:hover {
-	color: #D41D00;
+
+h2:before {
+	content: '# ';
 }
-#social a.tumblr:hover {
-	color: #2D4861;
+h3:before {
+	content: '## ';
 }
-#social a.stumbleupon:hover {
-	color: #EA4B2A;
-}
-#social a.delicious:hover {
-	color: #3274d1;
-}
+
 
         </style>
 
@@ -267,11 +121,13 @@ a {
 <body>
 
 	
+	<h1><a href="index.html">raf</a>/Development stack choices</h1>
+	
 
 
 
 <div id="content">
-<h1>Development stack choices</h1><p class=" article_preamble">A while ago I was having a discussion with some colleagues about which development tools do you use, for each job.
+<p class=" article_preamble">A while ago I was having a discussion with some colleagues about which development tools do you use, for each job.
 The end result, three diagrams that more or less resume my usual approach to choosing development tools.</p>
 <p>I'm mostly centered on a specific set of tools (Qt, Python, Django).
 This does not mean I don't use other tools (ex: Java for mobile), but these are my choices <em>by default</em>.</p>
@@ -279,16 +135,8 @@ This does not mean I don't use other tools (ex: Java for mobile), but these are 
 <p>What about you?
 How does your development stack looks like?
 What are the factors that influence you choice of programming language.</p>
-
-
-
 </div>
 
-
-<div class="disclaimer">
-Copyright @ Rui Abreu Ferreira 2014, the opinions expressed here are those of the authors and
-do not reflect the position of anyone else ... really ...
-</div>
 
 </body>
 </html>

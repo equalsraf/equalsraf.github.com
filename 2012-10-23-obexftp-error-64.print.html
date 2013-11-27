@@ -1,9 +1,10 @@
+
 <!DOCTYPE>
 <html>
 <head>
-	<link href='http://fonts.googleapis.com/css?family=Cantata+One&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8">
 	
+	<meta name="viewport" content="width=device-width">
 
 	<title></title>
 	
@@ -11,12 +12,9 @@
         <style type="text/css" media="screen">
         
 body {
-	font-family: Helvetica, DejaVu Sans, sans-serif; 
-	font-size: 10pt; 
+	font-family: monospace;
+	font-size: 12pt;
 	color: #000;
-	margin:	auto;
-	margin-top:		0;
-	line-height		: 1.25em;
 }
 
 #content img {
@@ -24,176 +22,32 @@ body {
 	clear: both;
 }
 
-h1, h2, h3 {
-	font-family: serif; 
-	font-weight: normal;
-	color: #333;
-	margin-bottom: 0.2em;
-}
-
-h1 {
-	font-size: 2.0em;
-	margin-bottom: 0.5em;
-	margin-top: 0.5em;
-	line-height: 1em;
-	line-height: 1.2em;
-}
-
-h2 {
-	font-size: 1.5em;
-	color:		#999;
-	font-weight:	bold;
-	text-transform: uppercase;
-	clear:	both;
-}
-
-h2.article_title a {
-	color: black;
-}
-
-h1.page_title {
-	margin-top: 0;
-	margin-bottom: 0;
-	font-family: 'Consolas', 'Menlo', 'Deja Vu Sans Mono','Bitstream Vera Sans Mono', monospace!important;
-	font-size: 2em;
-	
-}
-
-h3 {
-	font-weight: bold;
-	margin-bottom: 0.1em;
-}
-
-p {
-	margin: 10px 0 10px 0;
-}
-
-p, ul, ol {
-	line-height		: 1.5em;
-	font-size:		1.5em;
-}
-
-ul, ol {
-	padding-left:		2ex;
-	margin-top:		0;
-}
-
-pre {
-	font-family: 'Consolas', 'Menlo', 'Deja Vu Sans Mono','Bitstream Vera Sans Mono', monospace!important;
-}
-
-a {
-	text-decoration		: none;
-	text-transform		: uppercase;
-	color			: #226CFF;
-}
-
-#menu {
-	margin-top: 1ex;
-	clear:		both;
-	display:	block;
-}
-
-#menu a.sel {
-	text-decoration: underline;
-}
-
-#menu:after {
-	content:	'.';
-	visibility:	hidden;
-	clear:		both;
-	display:	block;
-}
-
-.internal {
-	display:	inline;
-	padding:	3px;
-	
-}
-
-.external {
-	vertical-align: top;
-	text-align:	left;
-	padding:	3px 3px 3px 0;
-}
-
 .red {
 	color: #EA4B2A;
 }
 
-.blue {
-	color			: #226CFF;
-}
-
-#menu .external a {
-	color:		#333;
-	text-transform:	none;
-	border-bottom: 2px solid #226CFF;
-}
-
-#social  {
-	padding:	3px;
-	display: none;
-}
-
-#social .links {
-	column-count: 2;
-	-moz-column-count: 2;
-	margin-left:	10px;
-}
-
-#social .title {
-	color:	#666;
-}
-
-#social a {
-	padding-right:	1ex;
-}
-
-
-#social a {
-	display: block;
-	font-size: 1.5em;
-	padding: 5px;
-	color:	#666;
-}
-
-#social a:hover {
-	color:	black;
-}
-
-#social h2 {
-	margin : 10px 0;
-}
-
-
-.disclaimer {
-	margin: 2ex 3px 3px 0;
-	color:	#ccc;
-}
-
 .codehilite > pre {
-	border-left: 4px solid #666;
+	border-left: 6px solid #333;
 	padding: 2px 2px 2px 5px;
 	white-space: pre-wrap;
 	word-wrap: break-word;
+	background: #eee;
 }
 
-#social a.twitter:hover {
-	color: #00bef6;
+blockquote {
+	background: #ddd;
+	color: #666;
+	margin: 0;
+	border-left: 2ex solid #bbb;
 }
-#social a.reddit:hover {
-	color: #D41D00;
+
+h2:before {
+	content: '# ';
 }
-#social a.tumblr:hover {
-	color: #2D4861;
+h3:before {
+	content: '## ';
 }
-#social a.stumbleupon:hover {
-	color: #EA4B2A;
-}
-#social a.delicious:hover {
-	color: #3274d1;
-}
+
 
         </style>
 
@@ -267,64 +121,58 @@ a {
 <body>
 
 	
+	<h1><a href="index.html">raf</a>/OBEXFTP and the elusive error code 64</h1>
+	
 
 
 
 <div id="content">
-<h1>OBEXFTP and the elusive error code 64</h1><p class=" article_preamble">I was trying to push some files into my Nokia this morning and failed miserably at it ...</p>
+<p class=" article_preamble">I was trying to push some files into my Nokia this morning and failed miserably at it ...</p>
 <p>For a while now I've been getting used to see KDE's bluedeviz fail in some curious manner, specially when I use it from other desktop environments.
 One google search and one manpage later, I decided to try to send the file from the command line, using</p>
-<div class="codehilite"><pre><span class="nx">hcitool</span> <span class="nx">scan</span>
-<span class="nx">...</span>
-<span class="nx">obexftp</span> <span class="na">-b</span> <span class="o">&lt;</span><span class="nx">Bluetooth</span> <span class="nx">Addr</span><span class="o">&gt;</span> <span class="na">-p</span> <span class="o">&lt;</span><span class="nb">filename</span><span class="o">&gt;</span>
+<div class="codehilite"><pre><span></span>hcitool scan
+...
+obexftp -b &lt;Bluetooth Addr&gt; -p &lt;filename&gt;
 </pre></div>
 
 
 <p>All this seemed pretty straightforward, except for the fact that obexftp failed
 with the following message:</p>
-<div class="codehilite"><pre><span class="err">$</span> <span class="n">obexftp</span> <span class="o">-</span><span class="n">b</span> <span class="n">XX</span><span class="o">:</span><span class="n">XX</span><span class="o">:</span><span class="n">XX</span><span class="o">:</span><span class="n">XX</span><span class="o">:</span><span class="n">XX</span><span class="o">:</span><span class="n">XX</span> <span class="o">-</span><span class="n">p</span> <span class="n">file</span><span class="p">.</span><span class="n">pdf</span>
-<span class="n">Browsing</span> <span class="n">XX</span><span class="o">:</span><span class="n">XX</span><span class="o">:</span><span class="n">XX</span><span class="o">:</span><span class="n">XX</span><span class="o">:</span><span class="n">XX</span><span class="o">:</span><span class="n">XX</span> <span class="p">...</span>
-<span class="n">Connecting</span><span class="p">..</span><span class="err">\</span><span class="n">done</span>
-<span class="n">Tried</span> <span class="n">to</span> <span class="n">connect</span> <span class="k">for</span> <span class="mi">29</span><span class="n">ms</span>
-<span class="n">Sending</span> <span class="s">&quot;file.pdf&quot;</span><span class="p">...</span><span class="o">/</span><span class="n">failed</span><span class="o">:</span> <span class="n">file</span><span class="p">.</span><span class="n">pdf</span>
-<span class="n">The</span> <span class="n">operation</span> <span class="n">failed</span> <span class="n">with</span> <span class="k">return</span> <span class="n">code</span> <span class="mi">64</span>
-<span class="n">Disconnecting</span><span class="p">..</span><span class="o">-</span><span class="n">done</span>
+<div class="codehilite"><pre><span></span>$ obexftp -b XX:XX:XX:XX:XX:XX -p file.pdf
+Browsing XX:XX:XX:XX:XX:XX ...
+Connecting..<span class="se">\d</span>one
+Tried to connect <span class="k">for</span> 29ms
+Sending <span class="s2">&quot;file.pdf&quot;</span>.../failed: file.pdf
+The operation failed with <span class="k">return</span> code 64
+Disconnecting..-done
 </pre></div>
 
 
 <p>Now if that is not cryptic, I don't know what is. I have no idea what "error code 64" is supposed to be (although perror treats it a network error) and Google doesn't seem to be very helpful on this.
 For some reason I can not explain, I decided to backtrack and try to force the bluetooth channel that obexftp should use. I did a scan for services and found my phone's OBEX File Transfer service in channel 4:</p>
-<div class="codehilite"><pre><span class="err">$</span> <span class="n">sdptool</span> <span class="n">browse</span>
-<span class="p">...</span>
-<span class="n">Service</span> <span class="n">Name</span><span class="o">:</span> <span class="n">OBEX</span> <span class="n">File</span> <span class="n">Transfer</span>
-<span class="n">Service</span> <span class="n">RecHandle</span><span class="o">:</span> <span class="mh">0x10007</span>
-<span class="n">Service</span> <span class="n">Class</span> <span class="n">ID</span> <span class="n">List</span><span class="o">:</span>
-  <span class="s">&quot;OBEX File Transfer&quot;</span> <span class="p">(</span><span class="mh">0x1106</span><span class="p">)</span>
-<span class="n">Protocol</span> <span class="n">Descriptor</span> <span class="n">List</span><span class="o">:</span>
-  <span class="s">&quot;L2CAP&quot;</span> <span class="p">(</span><span class="mh">0x0100</span><span class="p">)</span>
-  <span class="s">&quot;RFCOMM&quot;</span> <span class="p">(</span><span class="mh">0x0003</span><span class="p">)</span>
-    <span class="nl">Channel:</span> <span class="mi">4</span>
-  <span class="s">&quot;OBEX&quot;</span> <span class="p">(</span><span class="mh">0x0008</span><span class="p">)</span>
-<span class="p">...</span>
+<div class="codehilite"><pre><span></span>$ sdptool browse
+...
+Service Name: OBEX File Transfer
+Service RecHandle: 0x10007
+Service Class ID List:
+  <span class="s2">&quot;OBEX File Transfer&quot;</span> <span class="o">(</span>0x1106<span class="o">)</span>
+Protocol Descriptor List:
+  <span class="s2">&quot;L2CAP&quot;</span> <span class="o">(</span>0x0100<span class="o">)</span>
+  <span class="s2">&quot;RFCOMM&quot;</span> <span class="o">(</span>0x0003<span class="o">)</span>
+    Channel: 4
+  <span class="s2">&quot;OBEX&quot;</span> <span class="o">(</span>0x0008<span class="o">)</span>
+...
 </pre></div>
 
 
 <p>And changed the obexftp command to</p>
-<div class="codehilite"><pre><span class="err">$</span> <span class="n">obexftp</span> <span class="o">-</span><span class="n">b</span> <span class="n">XX</span><span class="o">:</span><span class="n">XX</span><span class="o">:</span><span class="n">XX</span><span class="o">:</span><span class="n">XX</span><span class="o">:</span><span class="n">XX</span><span class="o">:</span><span class="n">XX</span> <span class="o">-</span><span class="n">B</span> <span class="mi">4</span> <span class="o">-</span><span class="n">p</span> <span class="n">file</span><span class="p">.</span><span class="n">pdf</span>
+<div class="codehilite"><pre><span></span>$ obexftp -b XX:XX:XX:XX:XX:XX -B <span class="m">4</span> -p file.pdf
 </pre></div>
 
 
 <p>and it succeeded :D. Hell if I have any idea why obexftp is sending files to the wrong channel.</p>
-
-
-
 </div>
 
-
-<div class="disclaimer">
-Copyright @ Rui Abreu Ferreira 2014, the opinions expressed here are those of the authors and
-do not reflect the position of anyone else ... really ...
-</div>
 
 </body>
 </html>

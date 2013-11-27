@@ -1,0 +1,220 @@
+
+<!DOCTYPE>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	
+	<meta name="viewport" content="width=device-width">
+
+	<title></title>
+	
+	
+        <style type="text/css" media="screen">
+        
+body {
+	font-family: monospace;
+	font-size: 12pt;
+	color: #000;
+}
+
+#content img {
+	max-width: 100%;
+	clear: both;
+}
+
+.red {
+	color: #EA4B2A;
+}
+
+.codehilite > pre {
+	border-left: 6px solid #333;
+	padding: 2px 2px 2px 5px;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	background: #eee;
+}
+
+blockquote {
+	background: #ddd;
+	color: #666;
+	margin: 0;
+	border-left: 2ex solid #bbb;
+}
+
+h2:before {
+	content: '# ';
+}
+h3:before {
+	content: '## ';
+}
+
+
+        </style>
+
+        <style type="text/css" media="screen">
+        .hll { background-color: #ffffcc }
+.c { color: #228B22 } /* Comment */
+.err { color: #a61717; background-color: #e3d2d2 } /* Error */
+.k { color: #8B008B; font-weight: bold } /* Keyword */
+.cm { color: #228B22 } /* Comment.Multiline */
+.cp { color: #1e889b } /* Comment.Preproc */
+.c1 { color: #228B22 } /* Comment.Single */
+.cs { color: #8B008B; font-weight: bold } /* Comment.Special */
+.gd { color: #aa0000 } /* Generic.Deleted */
+.ge { font-style: italic } /* Generic.Emph */
+.gr { color: #aa0000 } /* Generic.Error */
+.gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.gi { color: #00aa00 } /* Generic.Inserted */
+.go { color: #888888 } /* Generic.Output */
+.gp { color: #555555 } /* Generic.Prompt */
+.gs { font-weight: bold } /* Generic.Strong */
+.gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.gt { color: #aa0000 } /* Generic.Traceback */
+.kc { color: #8B008B; font-weight: bold } /* Keyword.Constant */
+.kd { color: #8B008B; font-weight: bold } /* Keyword.Declaration */
+.kn { color: #8B008B; font-weight: bold } /* Keyword.Namespace */
+.kp { color: #8B008B; font-weight: bold } /* Keyword.Pseudo */
+.kr { color: #8B008B; font-weight: bold } /* Keyword.Reserved */
+.kt { color: #a7a7a7; font-weight: bold } /* Keyword.Type */
+.m { color: #B452CD } /* Literal.Number */
+.s { color: #CD5555 } /* Literal.String */
+.na { color: #658b00 } /* Name.Attribute */
+.nb { color: #658b00 } /* Name.Builtin */
+.nc { color: #008b45; font-weight: bold } /* Name.Class */
+.no { color: #00688B } /* Name.Constant */
+.nd { color: #707a7c } /* Name.Decorator */
+.ne { color: #008b45; font-weight: bold } /* Name.Exception */
+.nf { color: #008b45 } /* Name.Function */
+.nn { color: #008b45; text-decoration: underline } /* Name.Namespace */
+.nt { color: #8B008B; font-weight: bold } /* Name.Tag */
+.nv { color: #00688B } /* Name.Variable */
+.ow { color: #8B008B } /* Operator.Word */
+.w { color: #bbbbbb } /* Text.Whitespace */
+.mf { color: #B452CD } /* Literal.Number.Float */
+.mh { color: #B452CD } /* Literal.Number.Hex */
+.mi { color: #B452CD } /* Literal.Number.Integer */
+.mo { color: #B452CD } /* Literal.Number.Oct */
+.sb { color: #CD5555 } /* Literal.String.Backtick */
+.sc { color: #CD5555 } /* Literal.String.Char */
+.sd { color: #CD5555 } /* Literal.String.Doc */
+.s2 { color: #CD5555 } /* Literal.String.Double */
+.se { color: #CD5555 } /* Literal.String.Escape */
+.sh { color: #1c7e71; font-style: italic } /* Literal.String.Heredoc */
+.si { color: #CD5555 } /* Literal.String.Interpol */
+.sx { color: #cb6c20 } /* Literal.String.Other */
+.sr { color: #1c7e71 } /* Literal.String.Regex */
+.s1 { color: #CD5555 } /* Literal.String.Single */
+.ss { color: #CD5555 } /* Literal.String.Symbol */
+.bp { color: #658b00 } /* Name.Builtin.Pseudo */
+.vc { color: #00688B } /* Name.Variable.Class */
+.vg { color: #00688B } /* Name.Variable.Global */
+.vi { color: #00688B } /* Name.Variable.Instance */
+.il { color: #B452CD } /* Literal.Number.Integer.Long */
+
+        </style>
+	
+
+	
+
+
+</head>
+<body>
+
+	
+	<h1><a href="index.html">raf</a>/Running the gitlab CI multi runner in OpenBSD</h1>
+	
+
+
+
+<div id="content">
+<p class=" article_preamble">Wanted my OpenBSD machine to run gitlab-ci jobs, but building gitlab-ci-multi-runner requires
+docker, and docker does not work in OpenBSD - which is fine since I don't want to run docker,
+just the shell executor.</p>
+<p>Turns out a quick patch to the gitlab-ci-multi-runner to remove all the uses of docker allows it to
+build. The binary is statically linked so you can just place it in the path.</p>
+<h2>Quick build instruction</h2>
+<p>Running this on ca7707b0c622c8218ffcddbdaa915cf85455d9f2 (Mar 6 2017).</p>
+<div class="codehilite"><pre><span></span>$ <span class="nb">export</span> <span class="nv">GOPATH</span><span class="o">=</span>~/Code/gopath
+$ go get gitlab.com/gitlab-org/gitlab-ci-multi-runner
+gopath/src/gitlab.com/gitlab-org/gitlab-ci-multi-runner/executors/docker/executor_docker.go:219: undefined: Asset
+$ <span class="nb">cd</span> <span class="nv">$GOPATH</span>/src/gitlab.com/gitlab-org/gitlab-ci-multi-runner
+</pre></div>
+
+
+<p>The error is normal given the circunstances. Lets start by removing the docker executor and try to build</p>
+<div class="codehilite"><pre><span></span>$ rm -rf executors/docker
+$ go build -o <span class="nv">$GOPATH</span>/bin/gitlab-ci-multi-runner ./main.go
+</pre></div>
+
+
+<p>This will fail with some package import errors. The following patch should fix those errors.</p>
+<div class="codehilite"><pre><span></span><span class="gh">diff --git a/commands/exec.go b/commands/exec.go</span>
+<span class="gh">index 5ae54915..a14dddfa 100644</span>
+<span class="gd">--- a/commands/exec.go</span>
+<span class="gi">+++ b/commands/exec.go</span>
+<span class="gu">@@ -15,7 +15,6 @@ import (</span>
+    &quot;gopkg.in/yaml.v2&quot;
+
+    // Force to load all executors, executes init() on them
+<span class="gd">-   _ &quot;gitlab.com/gitlab-org/gitlab-ci-multi-runner/executors/docker&quot;</span>
+    _ &quot;gitlab.com/gitlab-org/gitlab-ci-multi-runner/executors/parallels&quot;
+    _ &quot;gitlab.com/gitlab-org/gitlab-ci-multi-runner/executors/shell&quot;
+    _ &quot;gitlab.com/gitlab-org/gitlab-ci-multi-runner/executors/ssh&quot;
+<span class="gh">diff --git a/main.go b/main.go</span>
+<span class="gh">index c97db8fd..7863aa6b 100644</span>
+<span class="gd">--- a/main.go</span>
+<span class="gi">+++ b/main.go</span>
+<span class="gu">@@ -12,8 +12,6 @@ import (</span>
+
+    _ &quot;gitlab.com/gitlab-org/gitlab-ci-multi-runner/commands&quot;
+    _ &quot;gitlab.com/gitlab-org/gitlab-ci-multi-runner/commands/helpers&quot;
+<span class="gd">-   _ &quot;gitlab.com/gitlab-org/gitlab-ci-multi-runner/executors/docker&quot;</span>
+<span class="gd">-   _ &quot;gitlab.com/gitlab-org/gitlab-ci-multi-runner/executors/docker/machine&quot;</span>
+    _ &quot;gitlab.com/gitlab-org/gitlab-ci-multi-runner/executors/kubernetes&quot;
+    _ &quot;gitlab.com/gitlab-org/gitlab-ci-multi-runner/executors/parallels&quot;
+    _ &quot;gitlab.com/gitlab-org/gitlab-ci-multi-runner/executors/shell&quot;
+</pre></div>
+
+
+<p>Trying to build again should succeed</p>
+<div class="codehilite"><pre><span></span>$ go build -o <span class="nv">$GOPATH</span>/bin/gitlab-ci-multi-runner ./main.go
+</pre></div>
+
+
+<h2>rc.d service</h2>
+<p>Create a user (gitlab-ci) to run the service and create a rc.d service script as follows:</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="ch">#!/bin/sh</span>
+<span class="nv">daemon</span><span class="o">=</span><span class="s2">&quot;/usr/local/bin/gitlab-ci-multi-runner&quot;</span>
+<span class="nv">daemon_user</span><span class="o">=</span><span class="s2">&quot;gitlab-ci&quot;</span>
+<span class="nv">daemon_flags</span><span class="o">=</span><span class="s2">&quot;run --syslog&quot;</span>
+
+. /etc/rc.d/rc.subr
+
+<span class="nv">rc_reload</span><span class="o">=</span>NO
+<span class="nv">rc_bg</span><span class="o">=</span>YES
+
+rc_cmd <span class="nv">$1</span>
+</pre></div>
+</td></tr></table>
+
+<h2>References</h2>
+<ul>
+<li>http://frankgroeneveld.nl/2016/04/06/using-gitlab-ci-multi-runner-on-openbsd/</li>
+</ul>
+</div>
+
+
+</body>
+</html>
+
+

@@ -1,9 +1,10 @@
+
 <!DOCTYPE>
 <html>
 <head>
-	<link href='http://fonts.googleapis.com/css?family=Cantata+One&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8">
 	
+	<meta name="viewport" content="width=device-width">
 
 	<title></title>
 	
@@ -11,12 +12,9 @@
         <style type="text/css" media="screen">
         
 body {
-	font-family: Helvetica, DejaVu Sans, sans-serif; 
-	font-size: 10pt; 
+	font-family: monospace;
+	font-size: 12pt;
 	color: #000;
-	margin:	auto;
-	margin-top:		0;
-	line-height		: 1.25em;
 }
 
 #content img {
@@ -24,176 +22,32 @@ body {
 	clear: both;
 }
 
-h1, h2, h3 {
-	font-family: serif; 
-	font-weight: normal;
-	color: #333;
-	margin-bottom: 0.2em;
-}
-
-h1 {
-	font-size: 2.0em;
-	margin-bottom: 0.5em;
-	margin-top: 0.5em;
-	line-height: 1em;
-	line-height: 1.2em;
-}
-
-h2 {
-	font-size: 1.5em;
-	color:		#999;
-	font-weight:	bold;
-	text-transform: uppercase;
-	clear:	both;
-}
-
-h2.article_title a {
-	color: black;
-}
-
-h1.page_title {
-	margin-top: 0;
-	margin-bottom: 0;
-	font-family: 'Consolas', 'Menlo', 'Deja Vu Sans Mono','Bitstream Vera Sans Mono', monospace!important;
-	font-size: 2em;
-	
-}
-
-h3 {
-	font-weight: bold;
-	margin-bottom: 0.1em;
-}
-
-p {
-	margin: 10px 0 10px 0;
-}
-
-p, ul, ol {
-	line-height		: 1.5em;
-	font-size:		1.5em;
-}
-
-ul, ol {
-	padding-left:		2ex;
-	margin-top:		0;
-}
-
-pre {
-	font-family: 'Consolas', 'Menlo', 'Deja Vu Sans Mono','Bitstream Vera Sans Mono', monospace!important;
-}
-
-a {
-	text-decoration		: none;
-	text-transform		: uppercase;
-	color			: #226CFF;
-}
-
-#menu {
-	margin-top: 1ex;
-	clear:		both;
-	display:	block;
-}
-
-#menu a.sel {
-	text-decoration: underline;
-}
-
-#menu:after {
-	content:	'.';
-	visibility:	hidden;
-	clear:		both;
-	display:	block;
-}
-
-.internal {
-	display:	inline;
-	padding:	3px;
-	
-}
-
-.external {
-	vertical-align: top;
-	text-align:	left;
-	padding:	3px 3px 3px 0;
-}
-
 .red {
 	color: #EA4B2A;
 }
 
-.blue {
-	color			: #226CFF;
-}
-
-#menu .external a {
-	color:		#333;
-	text-transform:	none;
-	border-bottom: 2px solid #226CFF;
-}
-
-#social  {
-	padding:	3px;
-	display: none;
-}
-
-#social .links {
-	column-count: 2;
-	-moz-column-count: 2;
-	margin-left:	10px;
-}
-
-#social .title {
-	color:	#666;
-}
-
-#social a {
-	padding-right:	1ex;
-}
-
-
-#social a {
-	display: block;
-	font-size: 1.5em;
-	padding: 5px;
-	color:	#666;
-}
-
-#social a:hover {
-	color:	black;
-}
-
-#social h2 {
-	margin : 10px 0;
-}
-
-
-.disclaimer {
-	margin: 2ex 3px 3px 0;
-	color:	#ccc;
-}
-
 .codehilite > pre {
-	border-left: 4px solid #666;
+	border-left: 6px solid #333;
 	padding: 2px 2px 2px 5px;
 	white-space: pre-wrap;
 	word-wrap: break-word;
+	background: #eee;
 }
 
-#social a.twitter:hover {
-	color: #00bef6;
+blockquote {
+	background: #ddd;
+	color: #666;
+	margin: 0;
+	border-left: 2ex solid #bbb;
 }
-#social a.reddit:hover {
-	color: #D41D00;
+
+h2:before {
+	content: '# ';
 }
-#social a.tumblr:hover {
-	color: #2D4861;
+h3:before {
+	content: '## ';
 }
-#social a.stumbleupon:hover {
-	color: #EA4B2A;
-}
-#social a.delicious:hover {
-	color: #3274d1;
-}
+
 
         </style>
 
@@ -267,11 +121,13 @@ a {
 <body>
 
 	
+	<h1><a href="index.html">raf</a>/blogpit - the git powered non deterministic blog</h1>
+	
 
 
 
 <div id="content">
-<h1>blogpit - the git powered non deterministic blog</h1><p class=" article_preamble">It seems all Django developers feel the urge to code their own blog
+<p class=" article_preamble">It seems all Django developers feel the urge to code their own blog
 system based on Django. Being no exception I too decided to travel
 the all too travelled road: making a blog engine using Django. My 
 requirements for this awesome blog engine are the following:</p>
@@ -326,7 +182,7 @@ based version of gitshelve.</p>
 live within a neat bare git repository. Access to the repository is done using gitshelve, </p>
 <p>I choose markdown for the formatting because I like the overall format, and I can conceal
 metadata within the markdown file. I use the metadata to specify additional behaviour:</p>
-<div class="codehilite"><pre>title: A blog article
+<div class="codehilite"><pre><span></span>title: A blog article
 author: Rui Abreu Ferreira
 icon: http://flickr.com/funny_icon.jpg
 nocomments:
@@ -338,34 +194,34 @@ This is an article with a title, icon and disabled comments
 <h2>What about comments?</h2>
 <p>Comments are the equivalent of prepending a bunch of text into the article file,
 and making a commit, that is:</p>
-<div class="codehilite"><pre><span class="n">echo</span> <span class="s">&quot;this is a comment!&quot;</span> <span class="o">&gt;&gt;</span> <span class="n">news</span><span class="o">/</span><span class="mi">2010</span><span class="o">-</span><span class="mi">08</span><span class="o">-</span><span class="mi">29</span><span class="o">-</span><span class="n">blogpit</span>
-<span class="n">git</span> <span class="n">commit</span> <span class="o">-</span><span class="n">a</span> <span class="o">-</span><span class="n">m</span> <span class="s">&quot;A comment&quot;</span>
+<div class="codehilite"><pre><span></span>echo &quot;this is a comment!&quot; &gt;&gt; news/2010-08-29-blogpit
+git commit -a -m &quot;A comment&quot;
 </pre></div>
 
 
 <p>So there is no management of comments, by user or date, if I want to remove a comment
 I just cherry-pick out its commit ( 1 comment == 1 commit ).</p>
 <h2>30 second install guide</h2>
-<div class="codehilite"><pre><span class="err">$</span> <span class="n">git</span> <span class="n">clone</span> <span class="o">--</span><span class="n">bare</span> <span class="n">ssh</span><span class="o">:</span><span class="c1">//my-git-host.com/mynotes.git mynotes.git</span>
-<span class="err">$</span> <span class="n">easy_install</span> <span class="n">pip</span>
-<span class="err">$</span> <span class="n">pip</span> <span class="n">install</span> <span class="n">git</span><span class="o">+</span><span class="n">http</span><span class="o">:</span><span class="c1">//git.gitorious.org/django-blogpit/django-blogpit.git</span>
-<span class="err">$</span> <span class="n">django</span><span class="o">-</span><span class="n">startproject</span> <span class="n">myblog</span>
+<div class="codehilite"><pre><span></span>$ git clone --bare ssh://my-git-host.com/mynotes.git mynotes.git
+$ easy_install pip
+$ pip install git+http://git.gitorious.org/django-blogpit/django-blogpit.git
+$ django-startproject myblog
 </pre></div>
 
 
 <p>Set django_blogpit in INSTALLED_APPS and point BLOGPIT_REPO to your git repository, 
 in settings.py:</p>
-<div class="codehilite"><pre><span class="n">INSTALLED_APPS</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="err">&#39;</span><span class="n">django</span><span class="p">.</span><span class="n">contrib</span><span class="p">.</span><span class="n">markup</span><span class="err">&#39;</span><span class="p">,</span>
-        <span class="err">&#39;</span><span class="n">django_blogpit</span><span class="err">&#39;</span><span class="p">,</span>
-<span class="p">)</span>
+<div class="codehilite"><pre><span></span>INSTALLED_APPS = (
+        &#39;django.contrib.markup&#39;,
+        &#39;django_blogpit&#39;,
+)
 
-<span class="n">BLOGPIT_REPO</span><span class="o">=</span><span class="err">&#39;</span><span class="o">/</span><span class="n">srv</span><span class="o">/</span><span class="n">git</span><span class="o">/</span><span class="n">mynotes</span><span class="p">.</span><span class="n">git</span><span class="err">&#39;</span>
+BLOGPIT_REPO=&#39;/srv/git/mynotes.git&#39;
 </pre></div>
 
 
 <p>In urls.py:</p>
-<div class="codehilite"><pre><span class="p">(</span><span class="n">r</span><span class="err">&#39;&#39;</span><span class="p">,</span> <span class="n">include</span><span class="p">(</span><span class="err">&#39;</span><span class="n">django_blogpit</span><span class="p">.</span><span class="n">urls</span><span class="err">&#39;</span><span class="p">)),</span>
+<div class="codehilite"><pre><span></span>(r&#39;&#39;, include(&#39;django_blogpit.urls&#39;)),
 </pre></div>
 
 
@@ -378,16 +234,8 @@ in settings.py:</p>
 <li><a href="https://git.wiki.kernel.org/index.php/InterfacesFrontendsAndTools#Wikis.2C_blogs.2C_etc">Other Git based web pages</a></li>
 <li><a href="http://daringfireball.net/projects/markdown/syntax">Markdown Reference</a></li>
 </ul>
-
-
-
 </div>
 
-
-<div class="disclaimer">
-Copyright @ Rui Abreu Ferreira 2014, the opinions expressed here are those of the authors and
-do not reflect the position of anyone else ... really ...
-</div>
 
 </body>
 </html>

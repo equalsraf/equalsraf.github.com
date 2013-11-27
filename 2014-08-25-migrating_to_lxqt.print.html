@@ -1,0 +1,173 @@
+
+<!DOCTYPE>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	
+	<meta name="viewport" content="width=device-width">
+
+	<title></title>
+	
+	
+        <style type="text/css" media="screen">
+        
+body {
+	font-family: monospace;
+	font-size: 12pt;
+	color: #000;
+}
+
+#content img {
+	max-width: 100%;
+	clear: both;
+}
+
+.red {
+	color: #EA4B2A;
+}
+
+.codehilite > pre {
+	border-left: 6px solid #333;
+	padding: 2px 2px 2px 5px;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	background: #eee;
+}
+
+blockquote {
+	background: #ddd;
+	color: #666;
+	margin: 0;
+	border-left: 2ex solid #bbb;
+}
+
+h2:before {
+	content: '# ';
+}
+h3:before {
+	content: '## ';
+}
+
+
+        </style>
+
+        <style type="text/css" media="screen">
+        .hll { background-color: #ffffcc }
+.c { color: #228B22 } /* Comment */
+.err { color: #a61717; background-color: #e3d2d2 } /* Error */
+.k { color: #8B008B; font-weight: bold } /* Keyword */
+.cm { color: #228B22 } /* Comment.Multiline */
+.cp { color: #1e889b } /* Comment.Preproc */
+.c1 { color: #228B22 } /* Comment.Single */
+.cs { color: #8B008B; font-weight: bold } /* Comment.Special */
+.gd { color: #aa0000 } /* Generic.Deleted */
+.ge { font-style: italic } /* Generic.Emph */
+.gr { color: #aa0000 } /* Generic.Error */
+.gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.gi { color: #00aa00 } /* Generic.Inserted */
+.go { color: #888888 } /* Generic.Output */
+.gp { color: #555555 } /* Generic.Prompt */
+.gs { font-weight: bold } /* Generic.Strong */
+.gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.gt { color: #aa0000 } /* Generic.Traceback */
+.kc { color: #8B008B; font-weight: bold } /* Keyword.Constant */
+.kd { color: #8B008B; font-weight: bold } /* Keyword.Declaration */
+.kn { color: #8B008B; font-weight: bold } /* Keyword.Namespace */
+.kp { color: #8B008B; font-weight: bold } /* Keyword.Pseudo */
+.kr { color: #8B008B; font-weight: bold } /* Keyword.Reserved */
+.kt { color: #a7a7a7; font-weight: bold } /* Keyword.Type */
+.m { color: #B452CD } /* Literal.Number */
+.s { color: #CD5555 } /* Literal.String */
+.na { color: #658b00 } /* Name.Attribute */
+.nb { color: #658b00 } /* Name.Builtin */
+.nc { color: #008b45; font-weight: bold } /* Name.Class */
+.no { color: #00688B } /* Name.Constant */
+.nd { color: #707a7c } /* Name.Decorator */
+.ne { color: #008b45; font-weight: bold } /* Name.Exception */
+.nf { color: #008b45 } /* Name.Function */
+.nn { color: #008b45; text-decoration: underline } /* Name.Namespace */
+.nt { color: #8B008B; font-weight: bold } /* Name.Tag */
+.nv { color: #00688B } /* Name.Variable */
+.ow { color: #8B008B } /* Operator.Word */
+.w { color: #bbbbbb } /* Text.Whitespace */
+.mf { color: #B452CD } /* Literal.Number.Float */
+.mh { color: #B452CD } /* Literal.Number.Hex */
+.mi { color: #B452CD } /* Literal.Number.Integer */
+.mo { color: #B452CD } /* Literal.Number.Oct */
+.sb { color: #CD5555 } /* Literal.String.Backtick */
+.sc { color: #CD5555 } /* Literal.String.Char */
+.sd { color: #CD5555 } /* Literal.String.Doc */
+.s2 { color: #CD5555 } /* Literal.String.Double */
+.se { color: #CD5555 } /* Literal.String.Escape */
+.sh { color: #1c7e71; font-style: italic } /* Literal.String.Heredoc */
+.si { color: #CD5555 } /* Literal.String.Interpol */
+.sx { color: #cb6c20 } /* Literal.String.Other */
+.sr { color: #1c7e71 } /* Literal.String.Regex */
+.s1 { color: #CD5555 } /* Literal.String.Single */
+.ss { color: #CD5555 } /* Literal.String.Symbol */
+.bp { color: #658b00 } /* Name.Builtin.Pseudo */
+.vc { color: #00688B } /* Name.Variable.Class */
+.vg { color: #00688B } /* Name.Variable.Global */
+.vi { color: #00688B } /* Name.Variable.Instance */
+.il { color: #B452CD } /* Literal.Number.Integer.Long */
+
+        </style>
+	
+
+	
+
+
+</head>
+<body>
+
+	
+	<h1><a href="index.html">raf</a>/Moving to LXQt</h1>
+	
+
+
+
+<div id="content">
+<p class=" article_preamble">So It seems I am now an LXQt user. Not sure how long this will last, but so far I'm having fun using a minimalist Desktop Environment that packs all the features I need.</p>
+<p>My personal history with desktop managers in Linux/BSD is rather convoluted,
+every 6 months or so I end up switching (or switching back) DEs in search
+of a better one. Some invariants remain though</p>
+<ul>
+<li>I prefer KDE over GNOME - mostly because I want the power features of KDE
+  to the over-simplification of GNOME. KDE is my default go-back-to DE when I
+  get tired of whatever I am using (or I just pick up a minimalistic one e.g. i3/fluxbox).</li>
+<li>I like tilled window managers, but no need to be too radical about it - KWin can do a bit of tilling (for windows moves) but it is not enough</li>
+<li><strong>i3</strong> has one thing that no one else has - it is the best in terms of usability
+  of multiple desktops+screens (which is why it is incompatible with other WMs/pagers)</li>
+<li>KDE/Plasma has been slightly disappointing in the 4.X release, not because of the paradigm shift, but because it is a lot less stable than 3.X.</li>
+<li>GNOME/Unity are just not for me, I don't fit into their usability choices.</li>
+</ul>
+<p>I tried LXDE before and liked it, but the problem with lightweight desktop environments these days is that they need a lot of work before they become usable:</p>
+<ul>
+<li>policykit</li>
+<li>powermanagement</li>
+<li>xrandr support</li>
+<li>X11 hints and lots of freedesktop specs</li>
+<li>NetworkManager (nm-applet seems to be the only choice)</li>
+<li>Decent notification support</li>
+</ul>
+<p>LXQt caught my eye some months ago because they were porting to Qt, but more importantly they merged efforts with the guys from Razor-Qt.</p>
+<p>On a side note, I am actually able to run i3 as the window manager for LXQt (check the end for a LXQt panel bug), which ended up being great because I get the best of both worlds. A minimalistic DE with all the features I need, and I great window manager.</p>
+<h2>The not so good bits</h2>
+<p>I ran into weird a issue with the LXQt XRandr support, where one of my screens would not turn on. I can't be sure if it was a bug or a result of some conflict with KRandr.</p>
+<p>The <em>volume control</em> panel plugin came configured for pulseaudio and pavucontrol - since I don't use pulseaudio I've disabled the plugin and just use kmix instead.</p>
+<p>The desktop wallpaper (and icons) are managed by <strong>pcmanfm</strong>, for some reason it was using my Downloads folder for the desktop. I think this can be changed in the settings file, but I've disabled it completely (through the Autostart options). I wish this was more straightforward though.</p>
+<p>I ran into some crashes with i3. Pressing Alt+F1 (LXQt panel menu) crashes i3, and the i3 crash handler is unresponsive. This seems to be an i3 bug. But it looks fixed in i3 <strong>4.8</strong>.</p>
+<p><strong>xdg-su</strong> falls back to the default xterm based password popup. This seems to be a problem with either OpenSUSE, or xdg-utils.</p>
+<h2>References</h2>
+<ul>
+<li><a href="https://github.com/lxde/lxde-qt/issues/240">lxqt-panel crashes with i3 wm when switching worskspace </a></li>
+<li><a href="https://bitbucket.org/equalsraf/kabal/">kabal</a></li>
+<li><a href="https://github.com/lxde/lxqt-panel/issues/22">Crashes i3-wm when start button is clicked</a></li>
+</ul>
+</div>
+
+
+</body>
+</html>
+
+

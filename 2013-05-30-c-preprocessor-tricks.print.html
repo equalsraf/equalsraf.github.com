@@ -1,9 +1,10 @@
+
 <!DOCTYPE>
 <html>
 <head>
-	<link href='http://fonts.googleapis.com/css?family=Cantata+One&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8">
 	
+	<meta name="viewport" content="width=device-width">
 
 	<title></title>
 	
@@ -11,12 +12,9 @@
         <style type="text/css" media="screen">
         
 body {
-	font-family: Helvetica, DejaVu Sans, sans-serif; 
-	font-size: 10pt; 
+	font-family: monospace;
+	font-size: 12pt;
 	color: #000;
-	margin:	auto;
-	margin-top:		0;
-	line-height		: 1.25em;
 }
 
 #content img {
@@ -24,176 +22,32 @@ body {
 	clear: both;
 }
 
-h1, h2, h3 {
-	font-family: serif; 
-	font-weight: normal;
-	color: #333;
-	margin-bottom: 0.2em;
-}
-
-h1 {
-	font-size: 2.0em;
-	margin-bottom: 0.5em;
-	margin-top: 0.5em;
-	line-height: 1em;
-	line-height: 1.2em;
-}
-
-h2 {
-	font-size: 1.5em;
-	color:		#999;
-	font-weight:	bold;
-	text-transform: uppercase;
-	clear:	both;
-}
-
-h2.article_title a {
-	color: black;
-}
-
-h1.page_title {
-	margin-top: 0;
-	margin-bottom: 0;
-	font-family: 'Consolas', 'Menlo', 'Deja Vu Sans Mono','Bitstream Vera Sans Mono', monospace!important;
-	font-size: 2em;
-	
-}
-
-h3 {
-	font-weight: bold;
-	margin-bottom: 0.1em;
-}
-
-p {
-	margin: 10px 0 10px 0;
-}
-
-p, ul, ol {
-	line-height		: 1.5em;
-	font-size:		1.5em;
-}
-
-ul, ol {
-	padding-left:		2ex;
-	margin-top:		0;
-}
-
-pre {
-	font-family: 'Consolas', 'Menlo', 'Deja Vu Sans Mono','Bitstream Vera Sans Mono', monospace!important;
-}
-
-a {
-	text-decoration		: none;
-	text-transform		: uppercase;
-	color			: #226CFF;
-}
-
-#menu {
-	margin-top: 1ex;
-	clear:		both;
-	display:	block;
-}
-
-#menu a.sel {
-	text-decoration: underline;
-}
-
-#menu:after {
-	content:	'.';
-	visibility:	hidden;
-	clear:		both;
-	display:	block;
-}
-
-.internal {
-	display:	inline;
-	padding:	3px;
-	
-}
-
-.external {
-	vertical-align: top;
-	text-align:	left;
-	padding:	3px 3px 3px 0;
-}
-
 .red {
 	color: #EA4B2A;
 }
 
-.blue {
-	color			: #226CFF;
-}
-
-#menu .external a {
-	color:		#333;
-	text-transform:	none;
-	border-bottom: 2px solid #226CFF;
-}
-
-#social  {
-	padding:	3px;
-	display: none;
-}
-
-#social .links {
-	column-count: 2;
-	-moz-column-count: 2;
-	margin-left:	10px;
-}
-
-#social .title {
-	color:	#666;
-}
-
-#social a {
-	padding-right:	1ex;
-}
-
-
-#social a {
-	display: block;
-	font-size: 1.5em;
-	padding: 5px;
-	color:	#666;
-}
-
-#social a:hover {
-	color:	black;
-}
-
-#social h2 {
-	margin : 10px 0;
-}
-
-
-.disclaimer {
-	margin: 2ex 3px 3px 0;
-	color:	#ccc;
-}
-
 .codehilite > pre {
-	border-left: 4px solid #666;
+	border-left: 6px solid #333;
 	padding: 2px 2px 2px 5px;
 	white-space: pre-wrap;
 	word-wrap: break-word;
+	background: #eee;
 }
 
-#social a.twitter:hover {
-	color: #00bef6;
+blockquote {
+	background: #ddd;
+	color: #666;
+	margin: 0;
+	border-left: 2ex solid #bbb;
 }
-#social a.reddit:hover {
-	color: #D41D00;
+
+h2:before {
+	content: '# ';
 }
-#social a.tumblr:hover {
-	color: #2D4861;
+h3:before {
+	content: '## ';
 }
-#social a.stumbleupon:hover {
-	color: #EA4B2A;
-}
-#social a.delicious:hover {
-	color: #3274d1;
-}
+
 
         </style>
 
@@ -267,11 +121,13 @@ a {
 <body>
 
 	
+	<h1><a href="index.html">raf</a>/C(99) preprocessor tricks</h1>
+	
 
 
 
 <div id="content">
-<h1>C(99) preprocessor tricks</h1><p class=" article_preamble">On account of a recent project i've been working on, I had the chance to
+<p class=" article_preamble">On account of a recent project i've been working on, I had the chance to
 program a bit of C, something I have not done in a while. 
 This is turn led me to think about macros, and how some of the features in C99
 came together to help me a bit.</p>
@@ -281,7 +137,7 @@ This started by being a wrapper around <em>(v)snprintf()</em> but I disliked it
 on account of the easy bugs I kept introducing, trough mismatches between the
 format string and the function arguments, or protocol specific errors because I
 messed up the message format:</p>
-<div class="codehilite"><pre><span class="n">snprintf</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="n">buflen</span><span class="p">,</span> <span class="s">&quot;411 :%s</span><span class="se">\r\n</span><span class="s">&quot;</span><span class="p">);</span> <span class="c1">// This invites crashing</span>
+<div class="codehilite"><pre><span></span>snprintf(buf, buflen, &quot;411 :%s\r\n&quot;); // This invites crashing
 </pre></div>
 
 
@@ -292,42 +148,42 @@ messed up the message format:</p>
 <li>A pleasant API would be nice too</li>
 </ul>
 <p>My first attempts looked mostly like an <em>strcat()</em></p>
-<div class="codehilite"><pre><span class="c1">// Ignore the &quot;to&quot; argument - its the msg destination/buffer</span>
-<span class="n">writebuf_append</span><span class="p">(</span><span class="n">to</span><span class="p">,</span> <span class="s">&quot;411: &quot;</span><span class="p">);</span>
-<span class="n">writebuf_append</span><span class="p">(</span><span class="n">to</span><span class="p">,</span> <span class="n">some_data</span><span class="p">);</span>
-<span class="n">writebuf_append</span><span class="p">(</span><span class="n">to</span><span class="p">,</span> <span class="n">frame_terminator</span><span class="p">);</span>
+<div class="codehilite"><pre><span></span><span class="o">//</span> <span class="nt">Ignore</span> <span class="nt">the</span> <span class="s2">&quot;to&quot;</span> <span class="nt">argument</span> <span class="nt">-</span> <span class="nt">its</span> <span class="nt">the</span> <span class="nt">msg</span> <span class="nt">destination</span><span class="o">/</span><span class="nt">buffer</span>
+<span class="nt">writebuf_append</span><span class="o">(</span><span class="nt">to</span><span class="o">,</span> <span class="s2">&quot;411: &quot;</span><span class="o">);</span>
+<span class="nt">writebuf_append</span><span class="o">(</span><span class="nt">to</span><span class="o">,</span> <span class="nt">some_data</span><span class="o">);</span>
+<span class="nt">writebuf_append</span><span class="o">(</span><span class="nt">to</span><span class="o">,</span> <span class="nt">frame_terminator</span><span class="o">);</span>
 </pre></div>
 
 
 <p>Yes it looks awful, and we have not gained much other than some safety.</p>
 <p>Later on I realised I preferred a function that could do all this in a single
 step, in order to be able to check the message for correctness, e.g.</p>
-<div class="codehilite"><pre><span class="n">writebuf_append</span><span class="p">(</span><span class="n">to</span><span class="p">,</span> <span class="s">&quot;411: &quot;</span><span class="p">,</span> <span class="n">some_data</span><span class="p">,</span> <span class="n">frame_terminator</span><span class="p">);</span>
+<div class="codehilite"><pre><span></span><span class="nt">writebuf_append</span><span class="o">(</span><span class="nt">to</span><span class="o">,</span> <span class="s2">&quot;411: &quot;</span><span class="o">,</span> <span class="nt">some_data</span><span class="o">,</span> <span class="nt">frame_terminator</span><span class="o">);</span>
 </pre></div>
 
 
 <p>And so I started looking at variadic functions (stdarg.h), but discarded them
 after realising that I would need to pass the number of arguments along, i.e.</p>
-<div class="codehilite"><pre><span class="n">writebuf_append</span><span class="p">(</span><span class="n">to</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="s">&quot;411: &quot;</span><span class="p">,</span> <span class="n">some_data</span><span class="p">,</span> <span class="n">frame_terminator</span><span class="p">);</span> <span class="c1">// 3 params</span>
+<div class="codehilite"><pre><span></span><span class="nt">writebuf_append</span><span class="o">(</span><span class="nt">to</span><span class="o">,</span> <span class="nt">3</span><span class="o">,</span> <span class="s2">&quot;411: &quot;</span><span class="o">,</span> <span class="nt">some_data</span><span class="o">,</span> <span class="nt">frame_terminator</span><span class="o">);</span> <span class="o">//</span> <span class="nt">3</span> <span class="nt">params</span>
 </pre></div>
 
 
 <p>Afterwards I started looking at encapsulating all the arguments in a list of struct, (with a final element guarding the end of the list)</p>
-<div class="codehilite"><pre><span class="k">struct</span> <span class="n">params</span> <span class="p">{</span>
-    <span class="kt">char</span> <span class="o">*</span><span class="n">val</span><span class="p">;</span>
-    <span class="kt">size_t</span> <span class="n">len</span><span class="p">;</span>
-<span class="p">};</span>
-<span class="kt">void</span> <span class="nf">writebuf_append</span><span class="p">(</span><span class="n">to</span><span class="p">,</span> <span class="k">struct</span> <span class="n">param</span> <span class="o">*</span><span class="n">params</span><span class="p">);</span>
+<div class="codehilite"><pre><span></span>struct params {
+    char *val;
+    size_t len;
+};
+void writebuf_append(to, struct param *params);
 </pre></div>
 
 
 <p>C99 initialisers help a bit</p>
-<div class="codehilite"><pre><span class="k">struct</span> <span class="n">param</span> <span class="n">params</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="p">{</span><span class="s">&quot;411&quot;</span><span class="p">,</span> <span class="n">strlen</span><span class="p">(</span><span class="s">&quot;411&quot;</span><span class="p">)},</span>
-    <span class="p">{</span><span class="n">some_data</span><span class="p">,</span> <span class="n">some_data_len</span><span class="p">},</span>
-    <span class="p">{</span><span class="nb">NULL</span><span class="p">,</span> <span class="mi">0</span><span class="p">}</span>
-<span class="p">}</span>
-<span class="n">writebuf_append</span><span class="p">(</span><span class="n">to</span><span class="p">,</span> <span class="n">params</span><span class="p">);</span>
+<div class="codehilite"><pre><span></span>struct param params[] = {
+    {&quot;411&quot;, strlen(&quot;411&quot;)},
+    {some_data, some_data_len},
+    {NULL, 0}
+}
+writebuf_append(to, params);
 </pre></div>
 
 
@@ -336,15 +192,15 @@ handle add the message terminator internally.</p>
 <p>By this point personal aesthetics start to get in the way, specially if you
 think about doing this with half a dozen arguments. You can try to do this
 inline, but you will need an additional cast:</p>
-<div class="codehilite"><pre><span class="n">writebuf_append</span><span class="p">(</span><span class="n">to</span><span class="p">,</span> <span class="p">(</span><span class="k">struct</span> <span class="n">param</span> <span class="p">[]){</span> <span class="p">{</span><span class="s">&quot;411&quot;</span><span class="p">,</span> <span class="n">strlen</span><span class="p">(</span><span class="s">&quot;411&quot;</span><span class="p">)},</span> <span class="p">{</span><span class="n">some_data</span><span class="p">,</span> <span class="n">some_data_len</span><span class="p">},</span> <span class="p">{</span><span class="nb">NULL</span><span class="p">,</span> <span class="mi">0</span><span class="p">}</span> <span class="p">}</span> <span class="p">);</span>
+<div class="codehilite"><pre><span></span>writebuf_append(to, (struct param []){ {&quot;411&quot;, strlen(&quot;411&quot;)}, {some_data, some_data_len}, {NULL, 0} } );
 </pre></div>
 
 
 <p>The annoying bits here are the extra cast, the terminator element and the
 abundance of brackets. First I decided to create a macro to simplify the initialisation of each individual arguments a bit</p>
-<div class="codehilite"><pre><span class="c1">// My data is NULL terminated (adjust accordingly)</span>
-<span class="p">#</span><span class="n">define</span> <span class="no">PARAM</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="p">{</span><span class="n">p</span><span class="p">,</span> <span class="n">strlen</span><span class="p">(</span><span class="n">p</span><span class="p">)}</span> 
-<span class="n">writebuf_append</span><span class="p">(</span><span class="n">to</span><span class="p">,</span> <span class="p">(</span><span class="k">struct</span> <span class="n">param</span> <span class="p">[]){</span> <span class="no">PARAM</span><span class="p">(</span><span class="s">&quot;411&quot;</span><span class="p">),</span> <span class="no">PARAM</span><span class="p">(</span><span class="n">some_data</span><span class="p">),</span> <span class="p">{</span><span class="no">NULL</span><span class="p">,</span> <span class="mh">0</span><span class="p">}</span> <span class="p">}</span> <span class="p">);</span>
+<div class="codehilite"><pre><span></span>// My data is NULL terminated (adjust accordingly)
+#define PARAM(p) {p, strlen(p)} 
+writebuf_append(to, (struct param []){ PARAM(&quot;411&quot;), PARAM(some_data), {NULL, 0} } );
 </pre></div>
 
 
@@ -353,34 +209,34 @@ call - and so I started to look into variadic macros. It turned out they are not
 as flexible as I would like, you can't get individual arguments, and there are some comma
 related bugs. But from the macro I already had, I can define a macro to wrap
 the existing function</p>
-<div class="codehilite"><pre><span class="c">#define writebuf_append2(to, ...) writebuf_append(to, (struct param[]){ __VA_ARGS__, {NULL, 0} } )</span>
+<div class="codehilite"><pre><span></span>#define writebuf_append2(to, ...) writebuf_append(to, (struct param[]){ __VA_ARGS__, {NULL, 0} } )
 </pre></div>
 
 
 <p>And now I can call</p>
-<div class="codehilite"><pre><span class="n">writebuf_append2</span><span class="p">(</span><span class="n">to</span><span class="p">,</span> <span class="n">PARAM</span><span class="p">(</span><span class="s">&quot;411&quot;</span><span class="p">),</span> <span class="n">PARAM</span><span class="p">(</span><span class="n">some_data</span><span class="p">)</span> <span class="p">);</span>
+<div class="codehilite"><pre><span></span>writebuf_append2(to, PARAM(&quot;411&quot;), PARAM(some_data) );
 </pre></div>
 
 
 <p>which looks more like a regular function call. The PARAM macro might look annoying, but it can be useful if you have different types of arguments.</p>
-<div class="codehilite"><pre><span class="c1">// type is an enum I added to the struct</span>
-<span class="p">#</span><span class="n">define</span> <span class="no">PARAM</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="k">type</span><span class="p">)</span>    <span class="p">{</span><span class="n">arg</span><span class="p">,</span><span class="n">strlen</span><span class="p">(</span><span class="n">arg</span><span class="p">),</span><span class="k">type</span><span class="p">}</span>
-<span class="c1">// define type specific macros</span>
-<span class="p">#</span><span class="n">define</span> <span class="no">PARAM_CODE</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span> <span class="no">PARAM</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="no">CODE</span><span class="p">)</span>
-<span class="p">#</span><span class="n">define</span> <span class="no">PARAM_MSG</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span>  <span class="no">PARAM</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="no">MSG</span><span class="p">)</span>
+<div class="codehilite"><pre><span></span>// type is an enum I added to the struct
+#define PARAM(arg, type)    {arg,strlen(arg),type}
+// define type specific macros
+#define PARAM_CODE(arg) PARAM(arg, CODE)
+#define PARAM_MSG(arg)  PARAM(arg, MSG)
 
-<span class="n">writebuf_append2</span><span class="p">(</span><span class="n">to</span><span class="p">,</span> 
-            <span class="no">PARAM_CODE</span><span class="p">(</span><span class="s">&quot;411&quot;</span><span class="p">),</span> 
-            <span class="no">PARAM_MSG</span><span class="p">(</span><span class="n">some_data</span><span class="p">)</span> <span class="p">);</span>
+writebuf_append2(to, 
+            PARAM_CODE(&quot;411&quot;), 
+            PARAM_MSG(some_data) );
 </pre></div>
 
 
 <p>Internally I use the type to add correctness checks and append additional bytes
 to the message (e.g. whitespace or field separators) - the previous example
 would be the equivalent of doing:</p>
-<div class="codehilite"><pre><span class="c1">// Sigh this still *looks* a lot better :D, but the extra feats</span>
-<span class="c1">// are worth the bulky wrapping</span>
-<span class="n">snprintf</span><span class="p">(</span><span class="n">to</span><span class="p">,</span> <span class="s">&quot;411 :%s</span><span class="se">\r\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">some_data</span><span class="p">)</span>
+<div class="codehilite"><pre><span></span>// Sigh this still *looks* a lot better :D, but the extra feats
+// are worth the bulky wrapping
+snprintf(to, &quot;411 :%s\r\n&quot;, some_data)
 </pre></div>
 
 
@@ -390,16 +246,8 @@ explicitly expands the macros when reporting errors.</p>
 <ul>
 <li><a href="http://stackoverflow.com/questions/1644868/c-define-macro-for-debug-printing">C #define macro for debug printing</a></li>
 </ul>
-
-
-
 </div>
 
-
-<div class="disclaimer">
-Copyright @ Rui Abreu Ferreira 2014, the opinions expressed here are those of the authors and
-do not reflect the position of anyone else ... really ...
-</div>
 
 </body>
 </html>
