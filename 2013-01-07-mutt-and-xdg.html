@@ -28,6 +28,7 @@
 
 
 
+
 <div id="content">
 <p class=" article_preamble">Yes I'm a proud Mutt user, say what you will about user interfaces but no mail
 client in the known universe can compare to the awesomeness of Mutt.</p>
@@ -97,7 +98,7 @@ file before calling xdg-open. I first saw a script like this in a redhat bug rep
 mostly fine for me since my system will periodically clean up the /tmp folder.</p>
 <p>Finally to make Mutt use mutt-open to open mail attachments you need to add the
 following to your ~/.mailcap file.</p>
-<div class="codehilite"><pre><span></span><span class="x">application/*; mutt-open &#39;%s&#39;; test=test -n &quot;</span><span class="p">$</span><span class="nv">DISPLAY</span><span class="x">&quot;</span>
+<div class="codehilite"><pre><span></span>application/*; mutt-open &#39;%s&#39;; test=test -n &quot;$DISPLAY&quot;
 </pre></div>
 
 
@@ -108,7 +109,7 @@ is not used when X11 is not running.</p>
 <p>I've also added an optional second argument to mutt-open, to specify a suffix
 for the temporary file name suffix. This allows me to handle edge cases
 where the attachment filename has no extension - as is the case with html formatted mails.</p>
-<div class="codehilite"><pre><span></span><span class="x">text/html; mutt-open &#39;%s&#39; .html ; test=test -n &quot;</span><span class="p">$</span><span class="nv">DISPLAY</span><span class="x">&quot;</span>
+<div class="codehilite"><pre><span></span>text/html; mutt-open &#39;%s&#39; .html ; test=test -n &quot;$DISPLAY&quot;
 </pre></div>
 
 

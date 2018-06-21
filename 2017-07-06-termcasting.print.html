@@ -126,12 +126,13 @@ h3:before {
 
 
 
+
 <div id="content">
 <p class=" article_preamble">I cant remember where I saw it, but there was this nifty little rust app to share your tty over the network.</p>
 <p>Historically the original tool for this was <code>script</code>, but there is also <code>ttyrec</code> and <code>termrec</code></p>
 <h2>ttyrec</h2>
 <p>First lets resize your tty into a standard size</p>
-<div class="codehilite"><pre><span></span>$ stty rows <span class="m">24</span> cols 80
+<div class="codehilite"><pre><span></span>$ stty rows <span class="m">24</span> cols <span class="m">80</span>
 </pre></div>
 
 
@@ -155,7 +156,7 @@ can be printed out over the output - be warned that this breaks bash output</p>
 
 
 <p>you can watch this stream with nc (telnet works too)</p>
-<div class="codehilite"><pre><span></span>$ nc localhost 9999
+<div class="codehilite"><pre><span></span>$ nc localhost <span class="m">9999</span>
 </pre></div>
 
 
@@ -206,7 +207,7 @@ showterm.io use similar tricks to display ttyrec files in webpages.</p>
 
 <span class="c1"># first we force a size of 35 rows by 120 cols, this is the larger size</span>
 <span class="c1"># accepted by playterm.org</span>
-stty rows <span class="m">35</span> cols 120
+stty rows <span class="m">35</span> cols <span class="m">120</span>
 
 <span class="c1"># the session will be saved in this file</span>
 <span class="nv">SESSION</span><span class="o">=</span><span class="k">$(</span>mktemp termcast-XXXXXX.ttyrec<span class="k">)</span>

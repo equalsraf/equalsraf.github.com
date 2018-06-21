@@ -126,6 +126,7 @@ h3:before {
 
 
 
+
 <div id="content">
 <p class=" article_preamble">A while back I started handling my backups using a home baked script that
 calls rsync for remote or local backups and uses hard-links to save some space.</p>
@@ -161,7 +162,7 @@ this way we can run rsync over the encrypted view.</p>
 
 <span class="k">if</span> <span class="o">[</span> -d <span class="s2">&quot;</span><span class="nv">$SOURCE</span><span class="s2">&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
     <span class="nb">echo</span> <span class="s2">&quot;ENCFS mountpoint already exists, aborting: </span><span class="nv">$SOURCE</span><span class="s2">&quot;</span>
-    <span class="nb">exit</span> 1
+    <span class="nb">exit</span> <span class="m">1</span>
 <span class="k">fi</span>
 mkdir <span class="nv">$SOURCE</span>
 encfs --reverse <span class="nv">$HOME</span>/Documents <span class="nv">$SOURCE</span>

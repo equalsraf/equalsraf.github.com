@@ -1,5 +1,4 @@
 title: This is how I browse the Web
-hidden:
 
 I could go into the why, but that is a whole different discussion. In a nutshell I just want to read stuff from the Internet, your aesthetics are not something I'm interested in.
 
@@ -24,9 +23,9 @@ The magic settings for firefox are the following.
 
 I keep these settings in a separate profile, which I load with some shell aliases.
 
-## Consequences disable CSS
+## Disable CSS
 
-Initially I tried to disable CSS altogether, but works really bad for some web sites
+Initially I tried to disable CSS altogether, but this works really bad for some web sites
 
 - gitter becomes useless, because frame dimensions render the website nearly invisible
 - youtube/github/gitter turn into a mess, because without CSS to enforce image sizes, the icons are actually huge

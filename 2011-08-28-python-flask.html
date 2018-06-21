@@ -28,6 +28,7 @@
 
 
 
+
 <div id="content">
 <p class=" article_preamble">While I was working on updating blogpit, I discovered this wonderful web microframework called Flask. 
 Naturally it is python and of course it is awesome.
@@ -42,7 +43,7 @@ I was immediately attracted to Flask for two reasons: First it has a lot in comm
 <p>Mapping URL paths to methods with function decorators is just brilliant, and easy too.
 Just add the decorator with the path expression on top of the view function.</p>
 <div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span>
-<span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
+<span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
 <span class="nd">@app.route</span><span class="p">(</span><span class="s1">&#39;/hello&#39;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">hello</span><span class="p">():</span>

@@ -28,6 +28,7 @@
 
 
 
+
 <div id="content">
 <p class=" article_preamble">Wanted my OpenBSD machine to run gitlab-ci jobs, but building gitlab-ci-multi-runner requires
 docker, and docker does not work in OpenBSD - which is fine since I don't want to run docker,
@@ -37,14 +38,14 @@ build. The binary is statically linked so you can just place it in the path.</p>
 <h2>Quick build instruction</h2>
 <p>Running this on ca7707b0c622c8218ffcddbdaa915cf85455d9f2 (Mar 6 2017).</p>
 <div class="codehilite"><pre><span></span>$ <span class="nb">export</span> <span class="nv">GOPATH</span><span class="o">=</span>~/Code/gopath
-$ go get gitlab.com/gitlab-org/gitlab-ci-multi-runner
+$ go get gitlab.com/gitlab-org/gitlab-runner
 gopath/src/gitlab.com/gitlab-org/gitlab-ci-multi-runner/executors/docker/executor_docker.go:219: undefined: Asset
-$ <span class="nb">cd</span> <span class="nv">$GOPATH</span>/src/gitlab.com/gitlab-org/gitlab-ci-multi-runner
 </pre></div>
 
 
 <p>The error is normal given the circunstances. Lets start by removing the docker executor and try to build</p>
-<div class="codehilite"><pre><span></span>$ rm -rf executors/docker
+<div class="codehilite"><pre><span></span>$ <span class="nb">cd</span> <span class="nv">$GOPATH</span>/src/gitlab.com/gitlab-org/gitlab-runner
+$ rm -rf executors/docker
 $ go build -o <span class="nv">$GOPATH</span>/bin/gitlab-ci-multi-runner ./main.go
 </pre></div>
 

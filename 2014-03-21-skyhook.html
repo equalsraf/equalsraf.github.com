@@ -28,6 +28,7 @@
 
 
 
+
 <div id="content">
 <p class=" article_preamble">Ever wanted to hop into a target machine using ssh going through a middle box, i.e. anything that beats having to repeatedly call ssh from one machine into the next.
 There are a couple of setups going around for using ProxyCommand+netcat, but what if you want the server to decide the next hop.</p>
@@ -71,7 +72,7 @@ add the following configuration to your sshd_config</p>
 <p>Each user has its own hook script in <em>/usr/libexec/skyhook/username</em>. An example hook script would be to call netcat</p>
 <table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
 2</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="ch">#!/bin/sh</span>
-nc -q0 10.10.10.10 22
+nc -q0 <span class="m">10</span>.10.10.10 <span class="m">22</span>
 </pre></div>
 </td></tr></table>
 

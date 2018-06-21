@@ -12,12 +12,12 @@ build. The binary is statically linked so you can just place it in the path.
 Running this on ca7707b0c622c8218ffcddbdaa915cf85455d9f2 (Mar 6 2017).
 
 	$ export GOPATH=~/Code/gopath
-	$ go get gitlab.com/gitlab-org/gitlab-ci-multi-runner
+	$ go get gitlab.com/gitlab-org/gitlab-runner
 	gopath/src/gitlab.com/gitlab-org/gitlab-ci-multi-runner/executors/docker/executor_docker.go:219: undefined: Asset
-	$ cd $GOPATH/src/gitlab.com/gitlab-org/gitlab-ci-multi-runner
 
 The error is normal given the circunstances. Lets start by removing the docker executor and try to build
 
+	$ cd $GOPATH/src/gitlab.com/gitlab-org/gitlab-runner
 	$ rm -rf executors/docker
 	$ go build -o $GOPATH/bin/gitlab-ci-multi-runner ./main.go
 

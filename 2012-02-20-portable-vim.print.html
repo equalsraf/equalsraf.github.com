@@ -126,6 +126,7 @@ h3:before {
 
 
 
+
 <div id="content">
 <p class=" article_preamble">Several people have acquired the habit of keeping their Vim settings under version control and sharing those settings as git/mercurial repositories.
 Generally people do this for three reasons:</p>
@@ -160,22 +161,22 @@ There is no need to move files around after creating the initial symlinks.</p>
 <p>I got this neat idea from a stackoverflow question on how to override local settings completely.
 Vim already has a <strong>-u</strong> options to load settings from a given file instead of <em>.vimrc</em>, what is missing is a way to alter the runtime path to load plugins and.
 Below is the script I found on stackoverflow along with some changes to fix the runtimepath and load a second vimrc file from the same folder:</p>
-<div class="codehilite"><pre><span></span><span class="x">&quot; Portable VIM setup, ignore local vim settings and use settings from this folder</span>
-<span class="x">&quot; @warning this only works in a script - it can&#39;t be called from the Vim command</span>
-<span class="x">&quot;       prompt</span>
-<span class="x">&quot;</span>
+<div class="codehilite"><pre><span></span>&quot; Portable VIM setup, ignore local vim settings and use settings from this folder
+&quot; @warning this only works in a script - it can&#39;t be called from the Vim command
+&quot;       prompt
+&quot;
 
-<span class="x">&quot; set default &#39;runtimepath&#39; (without ~/.vim folders)</span>
-<span class="x">let &amp;runtimepath = printf(&#39;%s/site,%s,%s/site/after&#39;, </span><span class="p">$</span><span class="nv">VIM</span><span class="x">, </span><span class="p">$</span><span class="nv">VIMRUNTIME</span><span class="x">, </span><span class="p">$</span><span class="nv">VIM</span><span class="x">)</span>
+&quot; set default &#39;runtimepath&#39; (without ~/.vim folders)
+let &amp;runtimepath = printf(&#39;%s/site,%s,%s/site/after&#39;, $VIM, $VIMRUNTIME, $VIM)
 
-<span class="x">&quot; what is the name of the directory containing this file?</span>
-<span class="x">let s:portable = expand(&#39;&lt;sfile&gt;:p:h&#39;)</span>
+&quot; what is the name of the directory containing this file?
+let s:portable = expand(&#39;&lt;sfile&gt;:p:h&#39;)
 
-<span class="x">&quot; add the directory to &#39;runtimepath&#39;</span>
-<span class="x">let &amp;runtimepath = printf(&#39;%s/,%s,%s/after&#39;, s:portable, &amp;runtimepath, s:portable)</span>
+&quot; add the directory to &#39;runtimepath&#39;
+let &amp;runtimepath = printf(&#39;%s/,%s,%s/after&#39;, s:portable, &amp;runtimepath, s:portable)
 
-<span class="x">let s:realvimrc = printf(&#39;%s/vimrc&#39;, s:portable)</span>
-<span class="x">exec &quot;:source&quot; . s:realvimrc</span>
+let s:realvimrc = printf(&#39;%s/vimrc&#39;, s:portable)
+exec &quot;:source&quot; . s:realvimrc
 </pre></div>
 
 
